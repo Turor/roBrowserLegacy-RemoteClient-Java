@@ -1,6 +1,9 @@
 package turoran.robrowserlegacy.util;
 
+import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.Value;
+import io.micronaut.context.env.Environment;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,9 @@ import java.util.zip.Inflater;
 @Singleton
 public class StartupValidator {
     private static final Logger logger = LoggerFactory.getLogger(StartupValidator.class);
+
+    @Inject
+    private ApplicationContext applicationContext;
 
     private final List<String> errors = new ArrayList<>();
     private final List<String> warnings = new ArrayList<>();
@@ -63,7 +69,7 @@ public class StartupValidator {
             javaVersionInfo.put("java", javaVersion);
             javaVersionInfo.put("vendor", javaVendor);
             javaVersionInfo.put("valid", true);
-            validationResults.put("nodeVersion", javaVersionInfo); // keeping key name for compatibility if needed
+            validationResults.put("javaVersion", javaVersionInfo);
 
             addInfo("Java: " + javaVersion + " (" + javaVendor + ")");
 
@@ -75,10 +81,10 @@ public class StartupValidator {
             return true;
         } catch (Exception error) {
             addError("Failed to check Java version: " + error.getMessage());
-            Map<String, Object> nodeVersion = new HashMap<>();
-            nodeVersion.put("valid", false);
-            nodeVersion.put("error", error.getMessage());
-            validationResults.put("nodeVersion", nodeVersion);
+            Map<String, Object> javaVersion = new HashMap<>();
+            javaVersion.put("valid", false);
+            javaVersion.put("error", error.getMessage());
+            validationResults.put("javaVersion", javaVersion);
             return false;
         }
     }
@@ -287,9 +293,7 @@ public class StartupValidator {
 
             // REAL TEST: try to load using the library
             try {
-                // Re-opening for GRFNode as it might take ownership or close it,
-                // though GRFNode in this project seems to take RandomAccessFile.
-                // To be safe and matching JS logic (testFd = fs.openSync), we use another RAF.
+                // To be safe and matching original implementation logic, we use another RAF.
                 try (RandomAccessFile testRaf = new RandomAccessFile(grfPath, "r")) {
                     GRFNode grf = new GRFNode(testRaf);
                     grf.load();
@@ -574,8 +578,6 @@ public class StartupValidator {
     }
 
     public Map<String, Object> validateEncodingDeep(List<String> grfFiles) {
-        boolean iconvAvailable = true; // Java has built-in charsets, and we use Decoder
-
         Map<String, Object> summary = new HashMap<>();
         summary.put("totalFiles", 0);
         summary.put("badUfffd", 0);
@@ -666,7 +668,6 @@ public class StartupValidator {
         }
 
         Map<String, Object> results = new HashMap<>();
-        results.put("iconvAvailable", iconvAvailable);
         results.put("grfs", grfResults);
         results.put("summary", summary);
         results.put("filesToConvert", filesToConvert);
@@ -738,12 +739,14 @@ public class StartupValidator {
         return !hasErrors;
     }
 
+    @Value("${client.public-url:}")
+    private String clientPublicUrl;
+
     public boolean validateEnvironment() {
-        // In Java, we check System properties or Environment variables
+        // In Micronaut, we check Environment and system variables
         Map<String, String> envVars = new HashMap<>();
         envVars.put("PORT", System.getenv("PORT"));
-        envVars.put("CLIENT_PUBLIC_URL", System.getenv("CLIENT_PUBLIC_URL"));
-        envVars.put("NODE_ENV", System.getenv("NODE_ENV"));
+        envVars.put("CLIENT_PUBLIC_URL", (clientPublicUrl != null && !clientPublicUrl.isEmpty()) ? clientPublicUrl : System.getenv("CLIENT_PUBLIC_URL"));
 
         boolean hasErrors = false;
         Map<String, Object> results = new HashMap<>();
@@ -772,13 +775,11 @@ public class StartupValidator {
             }
         }
 
-        String nodeEnv = envVars.get("NODE_ENV") != null ? envVars.get("NODE_ENV") : "development";
-        results.put("NODE_ENV", Map.of("defined", envVars.get("NODE_ENV") != null, "value", nodeEnv));
-
-        if (!"development".equals(nodeEnv) && !"production".equals(nodeEnv)) {
-             addWarning("NODE_ENV not set, using: " + nodeEnv);
-        } else {
-             addInfo("NODE_ENV: " + nodeEnv);
+        if (applicationContext != null) {
+            Set<String> activeEnvs = applicationContext.getEnvironment().getActiveNames();
+            String envsStr = activeEnvs.isEmpty() ? "none" : String.join(", ", activeEnvs);
+            addInfo("Micronaut Environments: [" + envsStr + "]");
+            results.put("MICRONAUT_ENVIRONMENTS", activeEnvs);
         }
 
         // Validate WS_ALLOWED_TARGETS when the proxy is enabled
@@ -843,6 +844,11 @@ public class StartupValidator {
         validateEnvironment();
         validateGrfs();
 
+        boolean pathMappingExists = Files.exists(Paths.get("path-mapping.json")) || 
+                                   Files.exists(Paths.get(resPath, "path-mapping.json"));
+        addInfo("Path mapping file: " + (pathMappingExists ? "Found" : "Not found (optional)"));
+        validationResults.put("pathMapping", Map.of("exists", pathMappingExists));
+
         if (deepEncoding && validationResults.get("grfs") != null) {
             Map<String, Object> grfData = (Map<String, Object>) validationResults.get("grfs");
             List<Map<String, Object>> files = (List<Map<String, Object>>) grfData.get("files");
@@ -860,7 +866,7 @@ public class StartupValidator {
                     Map<String, Object> summary = (Map<String, Object>) encodingResults.get("summary");
 
                     if ((int) summary.get("mojibakeDetected") > 0) {
-                        addWarning("Mojibake detected: " + summary.get("mojibakeDetected") + " files need encoding conversion");
+                        addWarning("Legacy encoding mojibake detected: " + summary.get("mojibakeDetected") + " files need encoding conversion");
                     }
                     if ((int) summary.get("badUfffd") > 0) {
                         addWarning("U+FFFD characters: " + summary.get("badUfffd") + " files have replacement characters");

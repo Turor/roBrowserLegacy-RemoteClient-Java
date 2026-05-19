@@ -1,5 +1,7 @@
-package turoran.robrowserlegacy.controllers;
+package turoran.robrowserlegacy.service;
 
+import io.micronaut.context.annotation.Parameter;
+import io.micronaut.context.annotation.Prototype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turoran.grfloader.loader.FileResult;
@@ -11,8 +13,9 @@ import java.io.RandomAccessFile;
 import java.util.Collections;
 import java.util.List;
 
-public class GRFController {
-    private static final Logger logger = LoggerFactory.getLogger(GRFController.class);
+@Prototype
+public class GRFService {
+    private static final Logger logger = LoggerFactory.getLogger(GRFService.class);
 
     private final String filePath;
     private final String fileName;
@@ -20,7 +23,7 @@ public class GRFController {
     private boolean loaded = false;
     private RandomAccessFile fd;
 
-    public GRFController(String filePath) {
+    public GRFService(@Parameter String filePath) {
         this.filePath = filePath;
         this.fileName = new File(filePath).getName();
     }

@@ -42,7 +42,7 @@ public class LRUCacheService {
                 // Weight = number of bytes stored for that entry
                 .<String, CacheEntry>weigher((key, entry) -> entry.size())
                 // Also cap by entry count
-                .maximumSize(maxSize)
+                // .maximumSize(maxSize) // Conflicts with maximumWeight in Caffeine
                 // Keep currentMemory in sync when Caffeine evicts entries
                 .removalListener((key, entry, cause) -> {
                     if (entry != null) {
@@ -82,7 +82,7 @@ public class LRUCacheService {
 
         int size = data.length;
 
-        // Mirror JS: don't cache files > 10 % of max memory
+        // Mirror original implementation: don't cache files > 10 % of max memory
         if (size > maxMemoryBytes * 0.1) return;
 
         // If the key already exists, remove it first to keep currentMemory accurate

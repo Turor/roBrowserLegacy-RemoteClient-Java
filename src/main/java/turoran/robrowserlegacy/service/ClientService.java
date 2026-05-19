@@ -1,17 +1,16 @@
 package turoran.robrowserlegacy.service;
 
+import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Value;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import turoran.robrowserlegacy.controllers.GRFController;
 import turoran.robrowserlegacy.model.CacheEntry;
 import turoran.robrowserlegacy.model.MissingFileLogEntry;
 import turoran.robrowserlegacy.util.StartupValidator;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -30,7 +29,8 @@ public class ClientService {
 
     private final LRUCacheService fileCache;
     private final StartupValidator startupValidator;
-    
+    private final BeanContext beanContext;
+
     @Value("${client.respath:.}")
     private String resPath;
 
@@ -43,7 +43,7 @@ public class ClientService {
     @Value("${client.enablesearch:true}")
     private boolean enableSearch;
 
-    private List<GRFController> grfs = new ArrayList<>();
+    private List<GRFService> grfs = new ArrayList<>();
     private final Map<String, FileIndexEntry> fileIndex = new ConcurrentHashMap<>();
     private boolean indexBuilt = false;
     
@@ -52,19 +52,24 @@ public class ClientService {
     private long lastNotificationTime = 0;
     private static final long NOTIFICATION_COOLDOWN = 60000;
 
+    private Map<String, String> externalPathMapping = new HashMap<>();
+
     private final BlockingQueue<String> logQueue = new LinkedBlockingQueue<>();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     private record FileIndexEntry(int grfIndex, String originalPath, String mappedFrom) {}
 
-    public ClientService(LRUCacheService fileCache, StartupValidator startupValidator) {
+    public ClientService(LRUCacheService fileCache, StartupValidator startupValidator, BeanContext beanContext) {
         this.fileCache = fileCache;
         this.startupValidator = startupValidator;
+        this.beanContext = beanContext;
     }
 
     @PostConstruct
     public void init() {
         startupValidator.printReport(startupValidator.validateAll(false));
+
+        loadPathMapping();
 
         long startTime = System.currentTimeMillis();
         Path dataIniPath = Paths.get(resPath, dataIniName);
@@ -84,9 +89,16 @@ public class ClientService {
                 return;
             }
 
+            // Close existing GRFs before reloading
+            for (GRFService grf : grfs) {
+                grf.close();
+            }
+            grfs.clear();
+
             for (String grfName : grfPaths) {
                 if (grfName == null || grfName.isBlank()) continue;
-                GRFController grf = new GRFController(Paths.get(resPath, grfName).toString());
+                String fullPath = Paths.get(resPath, grfName).toString();
+                GRFService grf = beanContext.createBean(GRFService.class, fullPath);
                 grf.load();
                 if (grf.isLoaded()) {
                     grfs.add(grf);
@@ -98,7 +110,9 @@ public class ClientService {
             long elapsed = System.currentTimeMillis() - startTime;
             logger.info("Client initialized in {}ms ({} files indexed)", elapsed, fileIndex.size());
 
-            scheduler.scheduleWithFixedDelay(this::flushLogQueue, 1, 1, TimeUnit.SECONDS);
+            if (scheduler != null && !scheduler.isShutdown()) {
+                scheduler.scheduleWithFixedDelay(this::flushLogQueue, 1, 1, TimeUnit.SECONDS);
+            }
 
         } catch (IOException e) {
             logger.error("Failed to read DATA.INI", e);
@@ -107,7 +121,7 @@ public class ClientService {
 
     @PreDestroy
     public void cleanup() {
-        for (GRFController grf : grfs) {
+        for (GRFService grf : grfs) {
             grf.close();
         }
         scheduler.shutdown();
@@ -123,7 +137,7 @@ public class ClientService {
         Charset latin1 = StandardCharsets.ISO_8859_1;
 
         for (int i = 0; i < grfs.size(); i++) {
-            GRFController grf = grfs.get(i);
+            GRFService grf = grfs.get(i);
             List<String> files = grf.listFiles();
             for (String file : files) {
                 String normalized = file.toLowerCase().replace('\\', '/');
@@ -194,22 +208,40 @@ public class ClientService {
             }
         }
 
-        String normalizedPath = filePath.toLowerCase().replace('\\', '/');
-        String normalizedBackslash = filePath.toLowerCase().replace('/', '\\');
+        // Try external path mapping first
+        String mappedPath = externalPathMapping.get(filePath);
+        if (mappedPath == null) mappedPath = externalPathMapping.get(filePath.replace('/', '\\'));
+        if (mappedPath == null) mappedPath = externalPathMapping.get(filePath.replace('\\', '/'));
+        
+        // Try normalized versions if still null
+        if (mappedPath == null) {
+            String norm = filePath.replace('\\', '/').toLowerCase();
+            mappedPath = externalPathMapping.get(norm);
+            if (mappedPath == null) {
+                mappedPath = externalPathMapping.get(filePath.replace('/', '\\').toLowerCase());
+            }
+        }
+        
+        if (mappedPath == null) mappedPath = externalPathMapping.get(filePath.toLowerCase());
+
+        String lookupPath = (mappedPath != null) ? mappedPath : filePath;
+
+        String normalizedPath = lookupPath.toLowerCase().replace('\\', '/');
+        String normalizedBackslash = lookupPath.toLowerCase().replace('/', '\\');
 
         FileIndexEntry entry = fileIndex.get(normalizedPath);
         if (entry == null) entry = fileIndex.get(normalizedBackslash);
 
         if (entry == null) {
-            String decoded = decodeMojibake(filePath);
-            if (!decoded.equals(filePath)) {
+            String decoded = decodeMojibake(lookupPath);
+            if (!decoded.equals(lookupPath)) {
                 entry = fileIndex.get(decoded.toLowerCase().replace('\\', '/'));
                 if (entry == null) entry = fileIndex.get(decoded.toLowerCase().replace('/', '\\'));
             }
         }
 
         if (entry != null) {
-            GRFController grf = grfs.get(entry.grfIndex);
+            GRFService grf = grfs.get(entry.grfIndex);
             byte[] content = grf.getFile(entry.originalPath);
             if (content != null) {
                 fileCache.set(cacheKey, content);
@@ -220,8 +252,59 @@ public class ClientService {
             }
         }
 
-        logMissingFile(filePath, filePath.replace('/', '\\'), null);
+        logMissingFile(filePath, lookupPath.replace('/', '\\'), mappedPath);
         return null;
+    }
+
+    private void loadPathMapping() {
+        Path mappingPath = Paths.get("path-mapping.json");
+        if (!Files.exists(mappingPath)) {
+            mappingPath = Paths.get(resPath, "path-mapping.json");
+        }
+
+        if (Files.exists(mappingPath)) {
+            try {
+                String content = Files.readString(mappingPath);
+                // Very simple manual parsing for "paths": { ... }
+                int pathsIndex = content.indexOf("\"paths\":");
+                if (pathsIndex != -1) {
+                    int startBrace = content.indexOf('{', pathsIndex);
+                    int endBrace = findMatchingBrace(content, startBrace);
+                    if (startBrace != -1 && endBrace != -1) {
+                        String pathsJson = content.substring(startBrace + 1, endBrace);
+                        String[] entries = pathsJson.split(",\\s*\\r?\\n");
+                        for (String entry : entries) {
+                            int colonIndex = entry.indexOf("\": \"");
+                            if (colonIndex != -1) {
+                                String keyPart = entry.substring(0, colonIndex).trim();
+                                String valPart = entry.substring(colonIndex + 4).trim();
+                                
+                                String key = keyPart.replace("\"", "").replace("\\\\", "\\");
+                                String value = valPart.replace("\"", "").replace(",", "").replace("\\\\", "\\").trim();
+                                if (value.endsWith("\"")) value = value.substring(0, value.length() - 1);
+                                
+                                externalPathMapping.put(key, value);
+                            }
+                        }
+                        logger.info("Loaded {} path mappings from {}", externalPathMapping.size(), mappingPath);
+                    }
+                }
+            } catch (IOException e) {
+                logger.error("Failed to load path-mapping.json: {}", e.getMessage());
+            }
+        }
+    }
+
+    private int findMatchingBrace(String s, int start) {
+        int depth = 0;
+        for (int i = start; i < s.length(); i++) {
+            if (s.charAt(i) == '{') depth++;
+            else if (s.charAt(i) == '}') {
+                depth--;
+                if (depth == 0) return i;
+            }
+        }
+        return -1;
     }
 
     private String decodeMojibake(String str) {
@@ -373,7 +456,7 @@ public class ClientService {
 
             for (Pattern pattern : patternsToUse) {
                 if (pattern.matcher(entry.originalPath).find()) {
-                    GRFController grf = grfs.get(entry.grfIndex);
+                    GRFService grf = grfs.get(entry.grfIndex);
                     byte[] content = grf.getFile(entry.originalPath);
                     if (content != null) {
                         fileCache.set(entry.originalPath.toLowerCase(), content);

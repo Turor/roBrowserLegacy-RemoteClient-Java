@@ -1,4 +1,4 @@
-package turoran.robrowserlegacy.controllers;
+package turoran.robrowserlegacy.service;
 
 import org.junit.jupiter.api.Test;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GRFControllerTest {
+public class GRFServiceTest {
 
     private File getResourceFile(String name) {
         URL url = getClass().getClassLoader().getResource(name);
@@ -19,7 +19,7 @@ public class GRFControllerTest {
     @Test
     public void testGRFController() {
         File file = getResourceFile("with-files.grf");
-        GRFController controller = new GRFController(file.getAbsolutePath());
+        GRFService controller = new GRFService(file.getAbsolutePath());
         
         assertFalse(controller.isLoaded());
         assertEquals("with-files.grf", controller.getFileName());
@@ -47,7 +47,7 @@ public class GRFControllerTest {
 
     @Test
     public void testFileNotFound() {
-        GRFController controller = new GRFController("non_existent_file.grf");
+        GRFService controller = new GRFService("non_existent_file.grf");
         controller.load();
         assertFalse(controller.isLoaded());
         assertNull(controller.getFile("any"));

@@ -1,0 +1,14 @@
+package turoran.grfloader.loader;
+
+public enum GrfErrorCode {
+    INVALID_MAGIC,
+    UNSUPPORTED_VERSION,
+    NOT_LOADED,
+    FILE_NOT_FOUND,
+    AMBIGUOUS_PATH,
+    DECOMPRESS_FAIL,
+    CORRUPT_TABLE,
+    LIMIT_EXCEEDED,
+    INVALID_OFFSET,
+    DECRYPT_REQUIRED,
+}

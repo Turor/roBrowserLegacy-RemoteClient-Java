@@ -2,17 +2,14 @@ package turoran.robrowserlegacy.util;
 
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.Value;
-import io.micronaut.context.env.Environment;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import turoran.grfloader.loader.FilenameEncoding;
 import turoran.grfloader.loader.GRFNode;
 import turoran.grfloader.loader.GrfStats;
 import turoran.grfloader.loader.Decoder;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -736,14 +733,14 @@ public class StartupValidator {
         return !hasErrors;
     }
 
-    @Value("${client.public-url:}")
+    @Value("${client.public-url:${CLIENT_PUBLIC_URL:}}")
     private String clientPublicUrl;
 
     public boolean validateEnvironment() {
         // In Micronaut, we check Environment and system variables
         Map<String, String> envVars = new HashMap<>();
         envVars.put("PORT", System.getenv("PORT"));
-        envVars.put("CLIENT_PUBLIC_URL", (clientPublicUrl != null && !clientPublicUrl.isEmpty()) ? clientPublicUrl : System.getenv("CLIENT_PUBLIC_URL"));
+        envVars.put("CLIENT_PUBLIC_URL", clientPublicUrl);
 
         boolean hasErrors = false;
         Map<String, Object> results = new HashMap<>();
@@ -756,8 +753,8 @@ public class StartupValidator {
             results.put("PORT", Map.of("defined", true, "value", envVars.get("PORT")));
         }
 
-        if (envVars.get("CLIENT_PUBLIC_URL") == null) {
-            addError("CLIENT_PUBLIC_URL not set! Configure it in the environment");
+        if (envVars.get("CLIENT_PUBLIC_URL") == null || envVars.get("CLIENT_PUBLIC_URL").isEmpty()) {
+            addError("CLIENT_PUBLIC_URL not set! Configure it in the environment or application.yml");
             hasErrors = true;
             results.put("CLIENT_PUBLIC_URL", Map.of("defined", false, "error", "Variable not set"));
         } else {
@@ -889,19 +886,18 @@ public class StartupValidator {
         return res;
     }
 
-    private String formatMultiline(String prefix, List<String> messages) {
+    private String formatMultiline(List<String> messages) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < messages.size(); i++) {
-            String msg = messages.get(i);
+        for (String msg : messages) {
             for (String line : msg.split("\\n")) {
-                if (sb.length() > 0) sb.append("\n");
-                sb.append(prefix).append(line);
+                if (!sb.isEmpty()) sb.append("\n");
+                sb.append("  ").append(line);
             }
         }
         return sb.toString();
     }
 
-    public boolean printReport(Map<String, Object> results) {
+    public void printReport(Map<String, Object> results) {
         if (results == null) results = getResults();
         StringBuilder sb = new StringBuilder();
 
@@ -909,17 +905,17 @@ public class StartupValidator {
 
         List<String> infoList = (List<String>) results.get("info");
         if (!infoList.isEmpty()) {
-            sb.append("\n✓ INFO:\n").append(formatMultiline("  ", infoList));
+            sb.append("\n✓ INFO:\n").append(formatMultiline(infoList));
         }
 
         List<String> warningList = (List<String>) results.get("warnings");
         if (!warningList.isEmpty()) {
-            sb.append("\n⚠️  WARNINGS:\n").append(formatMultiline("  ", warningList));
+            sb.append("\n⚠️  WARNINGS:\n").append(formatMultiline(warningList));
         }
 
         List<String> errorList = (List<String>) results.get("errors");
         if (!errorList.isEmpty()) {
-            sb.append("\n❌ ERRORS:\n").append(formatMultiline("  ", errorList));
+            sb.append("\n❌ ERRORS:\n").append(formatMultiline(errorList));
         }
 
         boolean success = (boolean) results.get("success");
@@ -932,7 +928,6 @@ public class StartupValidator {
         }
 
         logger.info(sb.toString());
-        return success;
     }
 
     public Map<String, Object> getStatusJSON() {

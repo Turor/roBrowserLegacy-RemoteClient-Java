@@ -3,6 +3,7 @@ package turoran.robrowserlegacy.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import io.micronaut.context.annotation.Value;
 import jakarta.inject.Singleton;
 import turoran.robrowserlegacy.model.CacheEntry;
 import turoran.robrowserlegacy.model.CacheStats;
@@ -14,11 +15,14 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Singleton
 public class LRUCacheService {
-    private static final int    DEFAULT_MAX_SIZE   = 5_000;
-    private static final int    DEFAULT_MAX_MEMORY_MB = 1_024;
 
-    private final int  maxSize;
-    private final long maxMemoryBytes;
+    @Value("${client.cache.max-files:5000}")
+    private int maxSize;
+
+    @Value("${client.cache.max-memory-mb:1024}")
+    private int maxMemoryMB;
+
+    private long maxMemoryBytes;
 
     /** Running total of bytes currently held in the cache. */
     private final AtomicLong currentMemory = new AtomicLong(0);
@@ -27,14 +31,13 @@ public class LRUCacheService {
     private final AtomicLong misses = new AtomicLong(0);
 
     /** Caffeine cache – eviction is weight-based (bytes) + size-based. */
-    private final Cache<String, CacheEntry> cache;
+    private Cache<String, CacheEntry> cache;
 
     public LRUCacheService() {
-        this(DEFAULT_MAX_SIZE, DEFAULT_MAX_MEMORY_MB);
     }
 
-    public LRUCacheService(int maxSize, int maxMemoryMB) {
-        this.maxSize = maxSize;
+    @jakarta.annotation.PostConstruct
+    public void init() {
         this.maxMemoryBytes = (long) maxMemoryMB * 1024 * 1024;
         this.cache = Caffeine.newBuilder()
                 // LRU eviction: each access refreshes the entry's position

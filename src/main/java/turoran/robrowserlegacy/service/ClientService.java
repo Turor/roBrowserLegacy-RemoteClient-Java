@@ -46,6 +46,12 @@ public class ClientService {
     @Value("${client.logpath:logs}")
     private String logPath;
 
+    @Value("${client.cache.warmup.enabled:true}")
+    private boolean warmUpEnabled;
+
+    @Value("${client.cache.warmup.limit:500}")
+    private int warmUpLimit;
+
     private List<GRFService> grfs = new ArrayList<>();
     private final Map<String, FileIndexEntry> fileIndex = new ConcurrentHashMap<>();
     private boolean indexBuilt = false;
@@ -110,6 +116,10 @@ public class ClientService {
             }
 
             buildFileIndex();
+
+            if (warmUpEnabled) {
+                warmCache(null, warmUpLimit);
+            }
 
             long elapsed = System.currentTimeMillis() - startTime;
             logger.info("Client initialized in {}ms ({} files indexed)", elapsed, fileIndex.size());

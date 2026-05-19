@@ -1,6 +1,6 @@
 ## Client Directory Layout
 
-The client files should be organized in a single root directory (configured via `client.rootpath`).
+The client files should be organized in a single root data directory (configured via `client.rootpath`).
 
 ```text
 client-root/
@@ -29,6 +29,10 @@ The application can be configured in `src/main/resources/application.properties`
 - `client.dataini`: Name of the DATA.INI file (default: `DATA.INI`).
 - `client.autoextract`: Automatically extract missing files from GRFs (default: `true`).
 - `client.enablesearch`: Enable file search functionality (default: `true`).
+- `client.cache.max-files`: Maximum number of files to keep in cache (default: `5000`).
+- `client.cache.max-memory-mb`: Maximum memory in MB to use for cache (default: `1024`).
+- `client.cache.warmup.enabled`: Enable cache warm-up on startup (default: `true`).
+- `client.cache.warmup.limit`: Maximum number of files to pre-load during warm-up (default: `500`).
 
 ## License
 

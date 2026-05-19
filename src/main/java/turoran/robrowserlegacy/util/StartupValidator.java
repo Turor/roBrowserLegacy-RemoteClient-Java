@@ -903,33 +903,35 @@ public class StartupValidator {
 
     public boolean printReport(Map<String, Object> results) {
         if (results == null) results = getResults();
+        StringBuilder sb = new StringBuilder();
 
-        logger.info("📋 VALIDATION REPORT");
+        sb.append("📋 VALIDATION REPORT");
 
         List<String> infoList = (List<String>) results.get("info");
         if (!infoList.isEmpty()) {
-            logger.info("\n✓ INFO:\n{}", formatMultiline("  ", infoList));
+            sb.append("\n✓ INFO:\n").append(formatMultiline("  ", infoList));
         }
 
         List<String> warningList = (List<String>) results.get("warnings");
         if (!warningList.isEmpty()) {
-            logger.warn("\n⚠️  WARNINGS:\n{}", formatMultiline("  ", warningList));
+            sb.append("\n⚠️  WARNINGS:\n").append(formatMultiline("  ", warningList));
         }
 
         List<String> errorList = (List<String>) results.get("errors");
         if (!errorList.isEmpty()) {
-            logger.error("\n❌ ERRORS:\n{}", formatMultiline("  ", errorList));
+            sb.append("\n❌ ERRORS:\n").append(formatMultiline("  ", errorList));
         }
 
         boolean success = (boolean) results.get("success");
         if (success) {
-            logger.info("\n✅ Validation completed successfully!");
-            if (!warningList.isEmpty()) logger.info("⚠️  " + warningList.size() + " warning(s) found");
+            sb.append("\n✅ Validation completed successfully!");
+            if (!warningList.isEmpty()) sb.append("⚠️  ").append(warningList.size()).append(" warning(s) found");
         } else {
-            logger.error("\n❌ Validation failed!"+ errorList.size() + " error(s) found");
-            logger.info("\n💡 Tip: Check logs for detailed diagnosis");
+            sb.append("\n❌ Validation failed!").append(errorList.size()).append(" error(s) found");
+            sb.append("\n💡 Tip: Check logs for detailed diagnosis");
         }
 
+        logger.info(sb.toString());
         return success;
     }
 

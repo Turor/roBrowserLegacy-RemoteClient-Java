@@ -144,13 +144,6 @@ public class StartupValidator {
 
             for (String grfFile : grfFiles) {
                 Path grfPath = dataPath.resolve(grfFile);
-                if (!Files.exists(grfPath)) {
-                    addError("GRF file not found: " + grfPath.toAbsolutePath());
-                } else {
-                    addInfo("Found GRF: " + grfFile);
-                }
-            }
-                Path grfPath = Paths.get(dataPath, grfFile);
 
                 if (!Files.exists(grfPath)) {
                     addError("GRF not found: " + grfFile);
@@ -597,8 +590,9 @@ public class StartupValidator {
         List<Map<String, Object>> grfResults = new ArrayList<>();
         List<Map<String, Object>> filesToConvert = new ArrayList<>();
 
+        Path dataPath = Paths.get(rootPath, "Data");
         for (String grfFile : grfFiles) {
-            Path grfPath = Paths.get(resPath, grfFile);
+            Path grfPath = dataPath.resolve(grfFile);
             if (!Files.exists(grfPath)) continue;
 
             Map<String, Object> grfResult = new HashMap<>();

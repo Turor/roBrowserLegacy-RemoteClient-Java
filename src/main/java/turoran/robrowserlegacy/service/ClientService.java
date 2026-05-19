@@ -199,7 +199,7 @@ public class ClientService {
         }
 
         Path localPath;
-        String lowerPath = filePath.toLowerCase();
+        String lowerPath = filePath.toLowerCase().replace('\\', '/');
 
         if (lowerPath.startsWith("bgm/")) {
             String bgmFile = filePath.substring(4);

@@ -1,3 +1,24 @@
+## Client Directory Layout
+
+The client files should be organized in a single root directory (configured via `client.rootpath`).
+
+```text
+client-root/
+├── AI/            # Lua/Lub files for Homunculus and Mercenary AI
+├── BGM/           # Background music (MP3/WAV)
+├── Data/          # DATA.INI and all .grf files
+├── System/        # Client-side System files (.lub, .txt, .xml)
+├── cache/         # Generated cache files and logs
+│   └── logs/      # missing-files.log
+└── resources/     # Custom resources and path-mapping.json
+```
+
+- **AI**: Accessed via `AI/...`
+- **BGM**: Accessed via `BGM/...`
+- **Data**: GRFs and DATA.INI must be in this folder.
+- **System**: Accessed via `System/...`
+- **resources**: Fallback for any other file request.
+
 ## License
 
 This project is licensed under the [GNU General Public License v3.0](LICENSE.md).

@@ -21,9 +21,7 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest
-@Property(name = "client.respath", value = "build/resources/test")
-@Property(name = "client.datapath", value = "build/resources/test")
-@Property(name = "client.bgmpath", value = "build/resources/test/BGM")
+@Property(name = "client.rootpath", value = "build/resources/test")
 @Property(name = "client.dataini", value = "DATA.INI")
 @Property(name = "client.public-url", value = "http://localhost:3338")
 public class ClientServiceTest {
@@ -36,15 +34,16 @@ public class ClientServiceTest {
 
     @BeforeEach
     void setup() throws IOException {
-        Path resPath = Path.of("build/resources/test");
-        Files.createDirectories(resPath);
+        Path rootPath = Path.of("build/resources/test");
+        Path dataPath = rootPath.resolve("Data");
+        Files.createDirectories(dataPath);
         
-        Path testGrf = resPath.resolve("test.grf");
+        Path testGrf = dataPath.resolve("test.grf");
         if (!Files.exists(testGrf)) {
             Files.copy(Path.of("src/test/resources/with-files.grf"), testGrf);
         }
 
-        Path dataIni = resPath.resolve("DATA.INI");
+        Path dataIni = dataPath.resolve("DATA.INI");
         String iniContent = "[Data]\n0=test.grf\n";
         Files.writeString(dataIni, iniContent, Charset.forName("CP949"));
 
@@ -99,8 +98,9 @@ public class ClientServiceTest {
 
     @Test
     void testFileRetrievalFromLocal() throws IOException {
-        Path resPath = Path.of("build/resources/test");
-        Path localFile = resPath.resolve("local.txt");
+        Path rootPath = Path.of("build/resources/test");
+        Path localFile = rootPath.resolve("resources").resolve("local.txt");
+        Files.createDirectories(localFile.getParent());
         Files.writeString(localFile, "local content");
 
         byte[] data = clientService.getFile("local.txt");
@@ -113,8 +113,9 @@ public class ClientServiceTest {
 
     @Test
     void testPathMapping() throws IOException {
-        Path resPath = Path.of("build/resources/test");
-        Path mappingFile = resPath.resolve("path-mapping.json");
+        Path rootPath = Path.of("build/resources/test");
+        Path mappingFile = rootPath.resolve("resources").resolve("path-mapping.json");
+        Files.createDirectories(mappingFile.getParent());
         String mappingJson = "{\"paths\": {\"mapped/path.txt\": \"raw\"}}";
         Files.writeString(mappingFile, mappingJson);
         
@@ -136,7 +137,8 @@ public class ClientServiceTest {
 
     @Test
     void testBgmRetrieval() throws IOException {
-        Path bgmPath = Path.of("build/resources/test/BGM");
+        Path rootPath = Path.of("build/resources/test");
+        Path bgmPath = rootPath.resolve("BGM");
         Files.createDirectories(bgmPath);
         Files.writeString(bgmPath.resolve("test.mp3"), "fake mp3 content");
         

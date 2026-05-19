@@ -31,8 +31,8 @@ public class ClientService {
     private final StartupValidator startupValidator;
     private final BeanContext beanContext;
 
-    @Value("${client.respath:.}")
-    private String resPath;
+    @Value("${client.rootpath:.}")
+    private String rootPath;
 
     @Value("${client.dataini:DATA.INI}")
     private String dataIniName;
@@ -72,7 +72,8 @@ public class ClientService {
         loadPathMapping();
 
         long startTime = System.currentTimeMillis();
-        Path dataIniPath = Paths.get(resPath, dataIniName);
+        Path dataPath = Paths.get(rootPath, "Data");
+        Path dataIniPath = dataPath.resolve(dataIniName);
 
         if (!Files.exists(dataIniPath)) {
             logger.error("DATA.INI file not found: {}", dataIniPath.toAbsolutePath());
@@ -97,7 +98,7 @@ public class ClientService {
 
             for (String grfName : grfPaths) {
                 if (grfName == null || grfName.isBlank()) continue;
-                String fullPath = Paths.get(resPath, grfName).toString();
+                String fullPath = dataPath.resolve(grfName).toString();
                 GRFService grf = beanContext.createBean(GRFService.class, fullPath);
                 grf.load();
                 if (grf.isLoaded()) {
@@ -197,7 +198,22 @@ public class ClientService {
             return cached.data();
         }
 
-        Path localPath = Paths.get(resPath, filePath);
+        Path localPath;
+        String lowerPath = filePath.toLowerCase();
+
+        if (lowerPath.startsWith("bgm/")) {
+            String bgmFile = filePath.substring(4);
+            localPath = Paths.get(rootPath, "BGM", bgmFile);
+        } else if (lowerPath.startsWith("data/")) {
+            localPath = Paths.get(rootPath, "Data", filePath.substring(5));
+        } else if (lowerPath.startsWith("ai/")) {
+            localPath = Paths.get(rootPath, "AI", filePath.substring(3));
+        } else if (lowerPath.startsWith("system/")) {
+            localPath = Paths.get(rootPath, "System", filePath.substring(7));
+        } else {
+            localPath = Paths.get(rootPath, "resources", filePath);
+        }
+
         if (Files.exists(localPath)) {
             try {
                 byte[] content = Files.readAllBytes(localPath);
@@ -257,10 +273,7 @@ public class ClientService {
     }
 
     private void loadPathMapping() {
-        Path mappingPath = Paths.get("path-mapping.json");
-        if (!Files.exists(mappingPath)) {
-            mappingPath = Paths.get(resPath, "path-mapping.json");
-        }
+        Path mappingPath = Paths.get(rootPath, "resources", "path-mapping.json");
 
         if (Files.exists(mappingPath)) {
             try {
@@ -346,7 +359,7 @@ public class ClientService {
         if (entries.isEmpty()) return;
 
         try {
-            Path logDir = Paths.get("logs");
+            Path logDir = Paths.get(rootPath, "cache", "logs");
             Files.createDirectories(logDir);
             Files.write(logDir.resolve("missing-files.log"), entries, StandardCharsets.UTF_8, 
                 java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);

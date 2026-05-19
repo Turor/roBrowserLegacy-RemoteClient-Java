@@ -42,8 +42,8 @@ public class StartupValidator {
     private final List<String> info = new ArrayList<>();
     private final Map<String, Object> validationResults = new LinkedHashMap<>();
 
-    @Value("${client.respath:.}")
-    private String resPath;
+    @Value("${client.rootpath:.}")
+    private String rootPath;
 
     @Value("${client.dataini:DATA.INI}")
     private String dataIniName;
@@ -119,10 +119,11 @@ public class StartupValidator {
     }
 
     public boolean validateGrfs() {
-        Path dataIniPath = Paths.get(resPath, dataIniName);
+        Path dataPath = Paths.get(rootPath, "Data");
+        Path dataIniPath = dataPath.resolve(dataIniName);
 
         if (!Files.exists(dataIniPath)) {
-            addError("resources/" + dataIniName + " not found!");
+            addError("Data directory " + dataIniName + " not found at " + dataIniPath.toAbsolutePath());
             validationResults.put("grfs", Map.of("valid", false, "reason", "DATA.INI missing"));
             return false;
         }
@@ -142,7 +143,14 @@ public class StartupValidator {
             boolean hasInvalidGrf = false;
 
             for (String grfFile : grfFiles) {
-                Path grfPath = Paths.get(resPath, grfFile);
+                Path grfPath = dataPath.resolve(grfFile);
+                if (!Files.exists(grfPath)) {
+                    addError("GRF file not found: " + grfPath.toAbsolutePath());
+                } else {
+                    addInfo("Found GRF: " + grfFile);
+                }
+            }
+                Path grfPath = Paths.get(dataPath, grfFile);
 
                 if (!Files.exists(grfPath)) {
                     addError("GRF not found: " + grfFile);
@@ -678,11 +686,13 @@ public class StartupValidator {
 
     public boolean validateRequiredFiles() {
         List<Map<String, Object>> checks = List.of(
-                Map.of("path", "resources", "type", "dir", "required", true, "name", "resources/ folder"),
-                Map.of("path", "resources/" + dataIniName, "type", "file", "required", true, "name", dataIniName + " file"),
-                Map.of("path", "BGM", "type", "dir", "required", false, "name", "BGM/ folder"),
-                Map.of("path", "data", "type", "dir", "required", false, "name", "data/ folder"),
-                Map.of("path", "System", "type", "dir", "required", false, "name", "System/ folder")
+                Map.of("path", rootPath, "type", "dir", "required", true, "name", "Root folder"),
+                Map.of("path", Paths.get(rootPath, "Data", dataIniName).toString(), "type", "file", "required", true, "name", dataIniName + " file"),
+                Map.of("path", Paths.get(rootPath, "BGM").toString(), "type", "dir", "required", false, "name", "BGM folder"),
+                Map.of("path", Paths.get(rootPath, "Data").toString(), "type", "dir", "required", true, "name", "Data folder"),
+                Map.of("path", Paths.get(rootPath, "System").toString(), "type", "dir", "required", false, "name", "System folder"),
+                Map.of("path", Paths.get(rootPath, "AI").toString(), "type", "dir", "required", false, "name", "AI folder"),
+                Map.of("path", Paths.get(rootPath, "resources").toString(), "type", "dir", "required", false, "name", "Resources folder")
         );
 
         boolean hasErrors = false;
@@ -690,14 +700,7 @@ public class StartupValidator {
 
         for (Map<String, Object> check : checks) {
             String checkPath = (String) check.get("path");
-            Path fullPath;
-            if (checkPath.equals("resources")) {
-                fullPath = Paths.get(resPath);
-            } else if (checkPath.startsWith("resources/")) {
-                fullPath = Paths.get(resPath, checkPath.substring("resources/".length()));
-            } else {
-                fullPath = Paths.get(resPath).getParent().resolve(checkPath);
-            }
+            Path fullPath = Paths.get(checkPath);
 
             boolean exists = Files.exists(fullPath);
             Map<String, Object> res = new HashMap<>(check);
@@ -844,8 +847,7 @@ public class StartupValidator {
         validateEnvironment();
         validateGrfs();
 
-        boolean pathMappingExists = Files.exists(Paths.get("path-mapping.json")) || 
-                                   Files.exists(Paths.get(resPath, "path-mapping.json"));
+        boolean pathMappingExists = Files.exists(Paths.get(rootPath, "resources", "path-mapping.json"));
         addInfo("Path mapping file: " + (pathMappingExists ? "Found" : "Not found (optional)"));
         validationResults.put("pathMapping", Map.of("exists", pathMappingExists));
 

@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest
 @Property(name = "client.respath", value = "build/resources/test")
+@Property(name = "client.datapath", value = "build/resources/test")
+@Property(name = "client.bgmpath", value = "build/resources/test/BGM")
 @Property(name = "client.dataini", value = "DATA.INI")
 @Property(name = "client.public-url", value = "http://localhost:3338")
 public class ClientServiceTest {
@@ -130,6 +132,21 @@ public class ClientServiceTest {
         int warmed = clientService.warmCache(List.of(Pattern.compile("raw")), 10);
         assertTrue(warmed >= 1, "Should have warmed at least one file");
         assertTrue(fileCache.has("raw"), "Cache should contain 'raw'");
+    }
+
+    @Test
+    void testBgmRetrieval() throws IOException {
+        Path bgmPath = Path.of("build/resources/test/BGM");
+        Files.createDirectories(bgmPath);
+        Files.writeString(bgmPath.resolve("test.mp3"), "fake mp3 content");
+        
+        byte[] data = clientService.getFile("BGM/test.mp3");
+        assertNotNull(data);
+        assertEquals("fake mp3 content", new String(data));
+
+        data = clientService.getFile("BGM\\test.mp3");
+        assertNotNull(data);
+        assertEquals("fake mp3 content", new String(data));
     }
 
     @Test

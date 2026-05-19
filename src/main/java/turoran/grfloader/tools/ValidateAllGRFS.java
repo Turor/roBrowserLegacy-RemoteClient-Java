@@ -50,9 +50,7 @@ public class ValidateAllGRFS {
             System.exit(1);
         }
 
-        System.out.println("================================================================================");
         System.out.println("GRF Validation Tool (Java)");
-        System.out.println("================================================================================");
         System.out.println("Folder:   " + folder.getAbsolutePath());
         System.out.println("Encoding: " + encodingRequested);
         System.out.println("ReadTests per GRF: " + maxReadTests);
@@ -110,9 +108,7 @@ public class ValidateAllGRFS {
 
         report.meta.finishedAt = new Date().toString();
         
-        System.out.println("================================================================================");
         System.out.println("SUMMARY");
-        System.out.println("================================================================================");
         System.out.printf("GRFs loaded:              %d/%d\n", report.summary.successfulLoads, report.summary.totalGrfs = report.meta.grfCount);
         System.out.printf("Total files:              %,d\n", report.summary.totalFiles);
         System.out.printf("Bad U+FFFD:               %,d\n", report.summary.totalBadUfffd);

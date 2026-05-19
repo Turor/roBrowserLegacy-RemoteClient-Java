@@ -831,7 +831,7 @@ public class StartupValidator {
         info.clear();
         validationResults.clear();
 
-        logger.info("\n🔍 Validating startup configuration...\n");
+        logger.info("🔍 Validating startup configuration...");
 
         validateJavaVersion();
 
@@ -857,7 +857,7 @@ public class StartupValidator {
                 }
 
                 if (!validGrfFiles.isEmpty()) {
-                    logger.info("🔍 Running deep encoding validation...\n");
+                    logger.info("🔍 Running deep encoding validation...");
                     Map<String, Object> encodingResults = validateEncodingDeep(validGrfFiles);
                     Map<String, Object> summary = (Map<String, Object>) encodingResults.get("summary");
 
@@ -889,51 +889,46 @@ public class StartupValidator {
         return res;
     }
 
-    private void printMultiline(String prefix, String text) {
-        for (String line : text.split("\\n")) {
-            System.out.println(prefix + line);
+    private String formatMultiline(String prefix, List<String> messages) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < messages.size(); i++) {
+            String msg = messages.get(i);
+            for (String line : msg.split("\\n")) {
+                if (sb.length() > 0) sb.append("\n");
+                sb.append(prefix).append(line);
+            }
         }
+        return sb.toString();
     }
 
     public boolean printReport(Map<String, Object> results) {
         if (results == null) results = getResults();
 
-        System.out.println("\n" + "=".repeat(80));
-        System.out.println("📋 VALIDATION REPORT");
-        System.out.println("=".repeat(80) + "\n");
+        logger.info("📋 VALIDATION REPORT");
 
         List<String> infoList = (List<String>) results.get("info");
         if (!infoList.isEmpty()) {
-            System.out.println("✓ INFO:");
-            for (String msg : infoList) printMultiline("  ", msg);
-            System.out.println("");
+            logger.info("\n✓ INFO:\n{}", formatMultiline("  ", infoList));
         }
 
         List<String> warningList = (List<String>) results.get("warnings");
         if (!warningList.isEmpty()) {
-            System.out.println("⚠️  WARNINGS:");
-            for (String msg : warningList) printMultiline("  ", msg);
-            System.out.println("");
+            logger.warn("\n⚠️  WARNINGS:\n{}", formatMultiline("  ", warningList));
         }
 
         List<String> errorList = (List<String>) results.get("errors");
         if (!errorList.isEmpty()) {
-            System.out.println("❌ ERRORS:");
-            for (String msg : errorList) printMultiline("  ", msg);
-            System.out.println("");
+            logger.error("\n❌ ERRORS:\n{}", formatMultiline("  ", errorList));
         }
 
-        System.out.println("=".repeat(80));
         boolean success = (boolean) results.get("success");
         if (success) {
-            System.out.println("✅ Validation completed successfully!");
-            if (!warningList.isEmpty()) System.out.println("⚠️  " + warningList.size() + " warning(s) found");
+            logger.info("\n✅ Validation completed successfully!");
+            if (!warningList.isEmpty()) logger.info("⚠️  " + warningList.size() + " warning(s) found");
         } else {
-            System.out.println("❌ Validation failed!");
-            System.out.println("   " + errorList.size() + " error(s) found");
-            System.out.println("\n💡 Tip: Check logs for detailed diagnosis");
+            logger.error("\n❌ Validation failed!"+ errorList.size() + " error(s) found");
+            logger.info("\n💡 Tip: Check logs for detailed diagnosis");
         }
-        System.out.println("=".repeat(80) + "\n");
 
         return success;
     }

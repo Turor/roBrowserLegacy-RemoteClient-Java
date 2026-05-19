@@ -47,18 +47,16 @@ public class PerformanceBenchmark {
     }
 
     public void printResults() {
-        System.out.println("\n╔═══════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                    GRF LOADER - PERFORMANCE BENCHMARK                     ║");
-        System.out.println("╚═══════════════════════════════════════════════════════════════════════════╝\n");
+        System.out.println("GRF LOADER - PERFORMANCE BENCHMARK");
 
         for (BenchmarkResult result : results) {
-            System.out.printf("📊 %s\n", result.name);
-            System.out.printf("   ├─ Total time: %.2fms\n", result.durationMs);
-            System.out.printf("   ├─ Iterations: %d\n", result.iterations);
-            System.out.printf("   ├─ Average: %.2fms/op\n", result.avgTimeMs);
-            System.out.printf("   ├─ Throughput: %.2f ops/sec\n", result.opsPerSec);
+            System.out.printf("- %s\n", result.name);
+            System.out.printf("  Total time: %.2fms\n", result.durationMs);
+            System.out.printf("  Iterations: %d\n", result.iterations);
+            System.out.printf("  Average: %.2fms/op\n", result.avgTimeMs);
+            System.out.printf("  Throughput: %.2f ops/sec\n", result.opsPerSec);
             if (result.memoryUsedBytes != null) {
-                System.out.printf("   └─ Memory: %.2f MB\n\n", result.memoryUsedBytes / 1024.0 / 1024.0);
+                System.out.printf("  Memory: %.2f MB\n", result.memoryUsedBytes / 1024.0 / 1024.0);
             }
         }
     }

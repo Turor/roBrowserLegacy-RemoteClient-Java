@@ -43,6 +43,9 @@ public class ClientService {
     @Value("${client.enablesearch:true}")
     private boolean enableSearch;
 
+    @Value("${client.logpath:logs}")
+    private String logPath;
+
     private List<GRFService> grfs = new ArrayList<>();
     private final Map<String, FileIndexEntry> fileIndex = new ConcurrentHashMap<>();
     private boolean indexBuilt = false;
@@ -359,7 +362,7 @@ public class ClientService {
         if (entries.isEmpty()) return;
 
         try {
-            Path logDir = Paths.get(rootPath, "cache", "logs");
+            Path logDir = Paths.get(logPath);
             Files.createDirectories(logDir);
             Files.write(logDir.resolve("missing-files.log"), entries, StandardCharsets.UTF_8, 
                 java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);

@@ -17,19 +17,22 @@
 package turoran.robrowserlegacy;
 
 import io.micronaut.runtime.Micronaut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import turoran.grfloader.tools.PathMappingTool;
 
 import java.util.Arrays;
 
 public class Application {
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
         if (Arrays.asList(args).contains("--generate-mapping")) {
             try {
                 PathMappingTool.main(args);
-                System.out.println("Path mapping generation completed.");
+                logger.info("Path mapping generation completed.");
             } catch (Exception e) {
-                System.err.println("Failed to generate path mapping: " + e.getMessage());
+                logger.error("Failed to generate path mapping: {}", e.getMessage(), e);
             }
             if (!Arrays.asList(args).contains("--run-server")) {
                 return;

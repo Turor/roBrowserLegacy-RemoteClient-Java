@@ -22,9 +22,7 @@ public class VerifyGRF {
         String encodingStr = args.length > 1 ? args[1] : "auto";
         int testCount = args.length > 2 ? Integer.parseInt(args[2]) : 100;
 
-        System.out.println("=".repeat(70));
         System.out.println("GRF Read Test (Java)");
-        System.out.println("=".repeat(70));
         System.out.println("File: " + Paths.get(grfPath).toAbsolutePath());
         System.out.println("Encoding: " + encodingStr);
         System.out.println("Test count: " + testCount);
@@ -123,9 +121,7 @@ public class VerifyGRF {
             }
 
             System.out.println("\n");
-            System.out.println("=".repeat(70));
             System.out.println("RESULTS");
-            System.out.println("=".repeat(70));
             System.out.println("Passed: " + passed);
             System.out.println("Failed: " + failed);
             System.out.println(String.format("Success rate: %.2f%%", (double) passed / (passed + failed) * 100));

@@ -8,8 +8,8 @@ client-root/
 ├── BGM/           # Background music (MP3/WAV)
 ├── Data/          # DATA.INI and all .grf files
 ├── System/        # Client-side System files (.lub, .txt, .xml)
-├── cache/         # Generated cache files and logs
-│   └── logs/      # missing-files.log
+├── cache/         # Generated cache files
+├── logs/          # Application logs and missing-files.log
 └── resources/     # Custom resources and path-mapping.json
 ```
 
@@ -17,7 +17,18 @@ client-root/
 - **BGM**: Accessed via `BGM/...`
 - **Data**: GRFs and DATA.INI must be in this folder.
 - **System**: Accessed via `System/...`
+- **logs**: Application logs and error reports. Configurable via `client.logpath`.
 - **resources**: Fallback for any other file request.
+
+## Configuration
+
+The application can be configured in `src/main/resources/application.properties`:
+
+- `client.rootpath`: Root directory for client files.
+- `client.logpath`: Directory where logs will be stored (default: `${client.rootpath}/logs`).
+- `client.dataini`: Name of the DATA.INI file (default: `DATA.INI`).
+- `client.autoextract`: Automatically extract missing files from GRFs (default: `true`).
+- `client.enablesearch`: Enable file search functionality (default: `true`).
 
 ## License
 

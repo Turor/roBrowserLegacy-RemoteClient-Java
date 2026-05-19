@@ -33,9 +33,7 @@ public class PathMappingTool {
             }
         }
 
-        System.out.println("=".repeat(80));
         System.out.println("GRF Encoding Converter (Java)");
-        System.out.println("=".repeat(80));
         System.out.println("");
         System.out.println("Output: " + outputPath);
         System.out.println("");
@@ -190,9 +188,7 @@ public class PathMappingTool {
 
         Files.writeString(Paths.get(outputPath), json.toString());
 
-        System.out.println("=".repeat(80));
         System.out.println("SUMMARY");
-        System.out.println("=".repeat(80));
         System.out.println("Total files:      " + String.format("%,d", summary.get("totalFiles")));
         System.out.println("Total mapped:     " + String.format("%,d", summary.get("totalMapped")));
         System.out.println("Mojibake fixed:   " + String.format("%,d", summary.get("mojibakeFixed")));

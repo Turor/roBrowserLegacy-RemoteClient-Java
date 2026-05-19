@@ -1,3 +1,7 @@
+## License
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE.md).
+
 ## Micronaut 4.10.14 Documentation
 
 - [User Guide](https://docs.micronaut.io/4.10.14/guide/index.html)

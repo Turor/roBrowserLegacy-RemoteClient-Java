@@ -125,6 +125,22 @@ tasks.register("ValidateAllGRFS", JavaExec) {
     args = [grfFolder, encoding, "--read=${readTests}", "--examples=${examples}"]
 }
 
+tasks.register("PathMappingTool", JavaExec) {
+    group = "verification"
+    description = "Generates a path mapping JSON file from GRF files listed in DATA.INI"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "turoran.grfloader.tools.PathMappingTool"
+
+    // Optional: output file path (default: path-mapping.json). Override via -PmappingOutput=my-mapping.json
+    def mappingOutput = project.findProperty("mappingOutput") ?: "path-mapping.json"
+    // Optional: path to the resources folder containing DATA.INI and GRF files (default: resources).
+    // Override via -PresourcesPath=/path/to/resources
+    def resourcesPath = project.findProperty("resourcesPath") ?: "resources"
+
+    jvmArgs = ["-Dresources.path=${resourcesPath}"]
+    args = ["--output=${mappingOutput}"]
+}
+
 
 
 

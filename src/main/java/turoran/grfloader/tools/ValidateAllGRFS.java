@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * - Does encoding round-trip (RAW and after heuristic repairs)
  * - Tests actual file reading (better sampling)
  * - Generates detailed report
+ * <a href="https://github.com/FranciscoWallison/grf-loader/blob/main/tools/validate-all-grfs.mjs">Validate all GRFs</a>
  */
 public class ValidateAllGRFS {
 
@@ -193,7 +194,7 @@ public class ValidateAllGRFS {
                 String name = allFiles.get(i);
 
                 boolean hasUfffd = name.contains("\uFFFD");
-                boolean hasC1 = MojibakeTools.hasC1Controls(name);
+                boolean hasC1 = Decoder.countC1ControlChars(name) > 0;
 
                 if (hasUfffd) {
                     result.validation.badUfffd++;
@@ -217,7 +218,7 @@ public class ValidateAllGRFS {
                     }
                 }
 
-                String repaired = MojibakeTools.repairFilename(name, validationCharset);
+                String repaired = Decoder.repairFilename(name, validationCharset);
                 boolean repairedOk = roundTripOk(repaired, validationCharset);
 
                 if (!rawOk && repairedOk) {

@@ -75,6 +75,58 @@ tasks.named("dockerfileNative") {
     jdkVersion = "21"
 }
 
+tasks.register("VerifyGRF", JavaExec) {
+    group = "verification"
+    description = "Runs VerifyGRF to verify a GRF file's readability"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "turoran.grfloader.tools.VerifyGRF"
+
+    // Required: path to the GRF file. Override via -PgrfPath=/path/to/file.grf
+    def grfPath = project.findProperty("grfPath") ?: ""
+    // Optional: encoding (default: auto). Override via -Pencoding=euc-kr
+    def encoding = project.findProperty("encoding") ?: "auto"
+    // Optional: number of files to test (default: 100). Override via -PtestCount=50
+    def testCount = project.findProperty("testCount") ?: "100"
+
+    doFirst {
+        if (!grfPath) {
+            throw new GradleException(
+                    "grfPath is required. Run with: ./gradlew VerifyGRF -PgrfPath=/path/to/file.grf"
+            )
+        }
+    }
+
+    args = [grfPath, encoding, testCount]
+}
+
+tasks.register("ValidateAllGRFS", JavaExec) {
+    group = "verification"
+    description = "Validates all GRF files in a folder"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "turoran.grfloader.tools.ValidateAllGRFS"
+
+    // Required: path to the folder containing GRF files. Override via -PgrfFolder=/path/to/grfs
+    def grfFolder = project.findProperty("grfFolder") ?: ""
+    // Optional: encoding (default: auto). Override via -Pencoding=euc-kr
+    def encoding = project.findProperty("encoding") ?: "auto"
+    // Optional: max read tests per GRF (default: 100). Override via -PreadTests=200
+    def readTests = project.findProperty("readTests") ?: "100"
+    // Optional: max examples per bucket (default: 20). Override via -Pexamples=10
+    def examples = project.findProperty("examples") ?: "20"
+
+    doFirst {
+        if (!grfFolder) {
+            throw new GradleException(
+                    "grfFolder is required. Run with: ./gradlew ValidateAllGRFS -PgrfFolder=/path/to/grfs"
+            )
+        }
+    }
+
+    args = [grfFolder, encoding, "--read=${readTests}", "--examples=${examples}"]
+}
+
+
+
 
 
 

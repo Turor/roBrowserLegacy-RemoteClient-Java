@@ -12,8 +12,9 @@ import java.util.regex.Pattern;
 public class Decoder {
 
     public static final Charset CP949 = Charset.forName("x-windows-949");
-    public static final Charset EUC_KR = Charset.forName("EUC-KR");
+    public static final Charset EUC_KR = Charset.forName("windows-949");
     public static final Charset MS1252 = Charset.forName("windows-1252");
+    public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
 
     /**
      * Count C1 control characters (U+0080-U+009F) in a string.
@@ -46,6 +47,19 @@ public class Decoder {
      */
     public static int countBadChars(String str) {
         return countReplacementChars(str) + countC1ControlChars(str);
+    }
+
+    /**
+     * Count Hangul characters (U+AC00-U+D7A3) in a string
+     */
+    public static int countHangul(String s) {
+        if (s == null) return 0;
+        int n = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c >= 0xAC00 && c <= 0xD7A3) n++;
+        }
+        return n;
     }
 
     /**
@@ -169,18 +183,30 @@ public class Decoder {
      * Fix mojibake by re-encoding as Windows-1252 and decoding as CP949.
      */
     public static String fixMojibake(String garbled) {
+        return fixMojibake(garbled, CP949);
+    }
+
+    /**
+     * Fix mojibake by re-encoding as Windows-1252 and decoding as the specified charset.
+     */
+    public static String fixMojibake(String garbled, Charset charset) {
+        if (garbled == null || garbled.isEmpty()) return garbled;
         try {
             // Encode the garbled string back to Windows-1252 bytes
             byte[] bytes = garbled.getBytes(MS1252);
-            // Decode those bytes as CP949 to get the original Korean
-            String fixed = new String(bytes, CP949);
+            // Decode those bytes as specified charset (usually CP949) to get the original Korean
+            String fixed = new String(bytes, charset);
 
             // Verify the fix worked
             boolean hasKorean = KOREAN_PATTERN.matcher(fixed).find();
             int fixedBadChars = countBadChars(fixed);
             int garbledBadChars = countBadChars(garbled);
 
-            if (hasKorean && fixedBadChars <= garbledBadChars) {
+            // Additional check from MojibakeTools: check if Hangul count improved significantly
+            int beforeHangul = countHangul(garbled);
+            int afterHangul = countHangul(fixed);
+
+            if ((hasKorean || afterHangul > beforeHangul) && fixedBadChars <= garbledBadChars) {
                 return fixed;
             }
 
@@ -188,6 +214,59 @@ public class Decoder {
         } catch (Exception e) {
             return garbled;
         }
+    }
+
+    public static String maybeFixLatin1Mojibake(String s, Charset charset) {
+        if (s == null) return null;
+        boolean hasHigh = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c >= 0x00A0 && c <= 0x00FF) {
+                hasHigh = true;
+                break;
+            }
+        }
+        if (!hasHigh) return s;
+
+        int beforeHangul = countHangul(s);
+        int beforeC1 = countC1ControlChars(s);
+        int beforeRep = countReplacementChars(s);
+
+        byte[] bytes = s.getBytes(ISO_8859_1);
+        String fixed = new String(bytes, charset);
+
+        int afterHangul = countHangul(fixed);
+        int afterC1 = countC1ControlChars(fixed);
+        int afterRep = countReplacementChars(fixed);
+
+        boolean improved = afterRep <= beforeRep &&
+                afterC1 <= beforeC1 &&
+                afterHangul >= (beforeHangul + 2);
+
+        return improved ? fixed : s;
+    }
+
+    public static String fixC1PrefixInSegment(String seg, Charset charset) {
+        int c1Count = countC1ControlChars(seg);
+        if (c1Count == 0) return seg;
+
+        int i = 0;
+        for (; i < seg.length(); i++) {
+            if (seg.charAt(i) > 0xFF) break;
+        }
+        if (i == 0) return seg;
+
+        byte[] bytes = seg.substring(0, i).getBytes(ISO_8859_1);
+        String decodedPrefix = new String(bytes, charset);
+        String merged = decodedPrefix + seg.substring(i);
+
+        int beforeC1 = countC1ControlChars(seg);
+        int afterC1 = countC1ControlChars(merged);
+        int beforeRep = countReplacementChars(seg);
+        int afterRep = countReplacementChars(merged);
+
+        if (afterC1 < beforeC1 && afterRep <= beforeRep) return merged;
+        return seg;
     }
 
     /**
@@ -206,22 +285,46 @@ public class Decoder {
      * Normalize a filename by detecting and fixing encoding issues.
      */
     public static String normalizeFilename(String filename) {
+        return normalizeFilename(filename, CP949);
+    }
+
+    public static String normalizeFilename(String filename, Charset charset) {
         if (isMojibake(filename)) {
-            return fixMojibake(filename);
+            return fixMojibake(filename, charset);
         }
         return filename;
+    }
+
+    public static String repairFilename(String filename, Charset charset) {
+        if (filename == null) return null;
+        String s = maybeFixLatin1Mojibake(filename, charset);
+
+        String[] parts = s.split("(?<=[\\\\/])|(?=[\\\\/])");
+        StringBuilder sb = new StringBuilder();
+        for (String p : parts) {
+            if (p.equals("\\") || p.equals("/")) {
+                sb.append(p);
+            } else {
+                sb.append(fixC1PrefixInSegment(p, charset));
+            }
+        }
+        return sb.toString();
     }
 
     /**
      * Normalize a path by fixing mojibake in each segment.
      */
     public static String normalizePath(String filepath) {
+        return normalizePath(filepath, CP949);
+    }
+
+    public static String normalizePath(String filepath, Charset charset) {
         String separator = filepath.contains("\\") ? "\\\\" : "/";
         String[] segments = filepath.split(separator);
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < segments.length; i++) {
-            result.append(normalizeFilename(segments[i]));
+            result.append(normalizeFilename(segments[i], charset));
             if (i < segments.length - 1) {
                 result.append(filepath.contains("\\") ? "\\" : "/");
             }

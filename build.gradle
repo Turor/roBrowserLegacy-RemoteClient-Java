@@ -85,6 +85,12 @@ tasks.register("runAll") {
     dependsOn("runClient", "runProxy")
 }
 
+tasks.register("shadowJar") {
+    group = "build"
+    description = "Builds shadow jars for all subprojects"
+    dependsOn(":client:shadowJar", ":wsproxy:shadowJar")
+}
+
 // Ensure all subprojects are built when the root build task is called
 tasks.named("build") {
     subprojects.each { subproject ->

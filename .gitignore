@@ -19,3 +19,5 @@ wsproxy/build/
 client/build/
 grfloader/build/
 /grfloader/src/test/java/grfloader/benchmark/benchmark-results.json
+/.output.txt
+/logs/

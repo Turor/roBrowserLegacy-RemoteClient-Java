@@ -27,3 +27,7 @@ subprojects {
         }
     }
 }
+
+tasks.named("test") {
+    dependsOn(subprojects.collect { it.tasks.withType(Test) })
+}

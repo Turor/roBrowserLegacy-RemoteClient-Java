@@ -26,3 +26,4 @@ grfloader/build/
 /client/logs/client.log
 /client/logs/missing-files.log
 /wsproxy/logs/wsproxy.log
+/build.log

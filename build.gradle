@@ -44,7 +44,9 @@ subprojects {
 }
 
 tasks.named("test") {
-    dependsOn(subprojects.collect { it.tasks.withType(Test) })
+    subprojects.each { subproject ->
+        dependsOn(subproject.tasks.withType(Test))
+    }
 }
 
 tasks.register("VerifyGRF") {
@@ -81,4 +83,11 @@ tasks.register("runAll") {
     group = "application"
     description = "Runs both the client and the proxy"
     dependsOn("runClient", "runProxy")
+}
+
+// Ensure all subprojects are built when the root build task is called
+tasks.named("build") {
+    subprojects.each { subproject ->
+        dependsOn(subproject.tasks.matching { it.name == "build" })
+    }
 }

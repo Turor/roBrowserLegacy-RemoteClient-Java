@@ -1,0 +1,419 @@
+2026-05-21 15:08:59.846 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:00.497 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:00.613 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:00.617 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:00.620 [Test worker] ERROR t.r.client.service.ClientService - DATA.INI file not found: D:\GameDevelopment\remoteclient\client\build\resources\test\Data\DATA.INI
+2026-05-21 15:09:00.690 [Test worker] ERROR t.r.client.service.GRFService - GRF file not found: non_existent_file.grf
+2026-05-21 15:09:00.691 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:00.693 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:28.988 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:29.482 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.487 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.488 [Test worker] ERROR t.r.client.service.ClientService - DATA.INI file not found: D:\GameDevelopment\remoteclient\client\build\resources\test\Data\DATA.INI
+2026-05-21 15:09:29.507 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.507 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.513 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 1ms
+2026-05-21 15:09:29.513 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 5ms (6 files indexed)
+2026-05-21 15:09:29.515 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.515 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.516 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.517 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.517 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:29.531 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.531 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.532 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.532 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.534 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-21 15:09:29.536 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.537 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.537 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.539 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.539 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:29.541 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.541 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.542 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.543 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.543 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:29.544 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 1 files in 1ms
+2026-05-21 15:09:29.547 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.548 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.548 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.549 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.550 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:29.552 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.553 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.554 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.555 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.555 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:29.558 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.559 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.560 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.560 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.561 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:29.564 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.564 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.565 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.566 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.567 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-21 15:09:29.571 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.572 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.572 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.573 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.574 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-21 15:09:29.577 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:29.577 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:29.577 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:29.578 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:29.578 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-21 15:09:29.601 [Test worker] ERROR t.r.client.service.GRFService - GRF file not found: non_existent_file.grf
+2026-05-21 15:09:29.601 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:29.601 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:29.606 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:39.653 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:40.177 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:40.278 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.281 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.281 [Test worker] ERROR t.r.client.service.ClientService - DATA.INI file not found: D:\GameDevelopment\remoteclient\client\build\resources\test\Data\DATA.INI
+2026-05-21 15:09:40.293 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.293 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.298 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.299 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 5ms (6 files indexed)
+2026-05-21 15:09:40.300 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.300 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.301 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.301 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.301 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-21 15:09:40.308 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.309 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.309 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.310 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.310 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.313 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.313 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.314 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.315 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.315 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.316 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.317 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.317 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.322 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.322 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 5ms (6 files indexed)
+2026-05-21 15:09:40.323 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 1 files in 1ms
+2026-05-21 15:09:40.324 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.325 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.325 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.326 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.326 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.328 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.329 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.329 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.330 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.330 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.332 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.332 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.333 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.333 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.334 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.336 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.336 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.337 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.337 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.337 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-21 15:09:40.340 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.341 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.341 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.341 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.342 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.344 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:40.344 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:40.344 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:40.345 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:40.345 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:40.357 [Test worker] ERROR t.r.client.service.GRFService - GRF file not found: non_existent_file.grf
+2026-05-21 15:09:40.357 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:40.358 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:49.792 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:50.289 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-21 15:09:50.402 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.406 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.406 [Test worker] ERROR t.r.client.service.ClientService - DATA.INI file not found: D:\GameDevelopment\remoteclient\client\build\resources\test\Data\DATA.INI
+2026-05-21 15:09:50.421 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.422 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.428 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.428 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 6ms (6 files indexed)
+2026-05-21 15:09:50.429 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.430 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.430 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.431 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.431 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.439 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.439 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.440 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.441 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 1ms
+2026-05-21 15:09:50.441 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.443 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.444 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.444 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.445 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.445 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.447 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.447 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.448 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.448 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.449 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.449 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 1 files in 0ms
+2026-05-21 15:09:50.450 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.451 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.451 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.452 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.452 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.454 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.455 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.455 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.456 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.456 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.458 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.458 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.459 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.459 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.459 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-21 15:09:50.461 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.461 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.462 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.462 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.462 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-21 15:09:50.465 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.465 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.466 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.466 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.466 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-21 15:09:50.468 [Test worker] INFO  t.r.client.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-21 15:09:50.469 [Test worker] INFO  t.r.client.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+❌ ERRORS:
+  Missing essential dependencies: turoran.grfloader.loader.GRFNode
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-21 15:09:50.469 [Test worker] INFO  t.r.client.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-21 15:09:50.470 [Test worker] INFO  t.r.client.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-21 15:09:50.470 [Test worker] INFO  t.r.client.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-21 15:09:50.484 [Test worker] ERROR t.r.client.service.GRFService - GRF file not found: non_existent_file.grf
+2026-05-21 15:09:50.484 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized
+2026-05-21 15:09:50.484 [Test worker] ERROR t.r.client.service.GRFService - GRF not loaded or not initialized

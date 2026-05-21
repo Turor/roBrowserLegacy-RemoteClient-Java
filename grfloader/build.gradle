@@ -1,0 +1,86 @@
+plugins {
+    id("java-library")
+}
+
+version = "0.1"
+group = "turoran.robrowser"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
+    
+    testImplementation(platform("org.junit:junit-bom:5.10.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+tasks.register("VerifyGRF", JavaExec) {
+    group = "verification"
+    description = "Runs VerifyGRF to verify a GRF file's readability"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "turoran.robrowser.grfloader.tools.VerifyGRF"
+
+    def grfPath = project.findProperty("grfPath") ?: ""
+    def encoding = project.findProperty("encoding") ?: "auto"
+    def testCount = project.findProperty("testCount") ?: "100"
+
+    doFirst {
+        if (!grfPath) {
+            throw new GradleException(
+                    "grfPath is required. Run with: ./gradlew :grfloader:VerifyGRF -PgrfPath=/path/to/file.grf"
+            )
+        }
+    }
+
+    args = [grfPath, encoding, testCount]
+}
+
+tasks.register("ValidateAllGRFS", JavaExec) {
+    group = "verification"
+    description = "Validates all GRF files in a folder"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "turoran.robrowser.grfloader.tools.ValidateAllGRFS"
+
+    def grfFolder = project.findProperty("grfFolder") ?: ""
+    def encoding = project.findProperty("encoding") ?: "auto"
+    def readTests = project.findProperty("readTests") ?: "100"
+    def examples = project.findProperty("examples") ?: "20"
+
+    doFirst {
+        if (!grfFolder) {
+            throw new GradleException(
+                    "grfFolder is required. Run with: ./gradlew :grfloader:ValidateAllGRFS -PgrfFolder=/path/to/grfs"
+            )
+        }
+    }
+
+    args = [grfFolder, encoding, "--read=${readTests}", "--examples=${examples}"]
+}
+
+tasks.register("PathMappingTool", JavaExec) {
+    group = "verification"
+    description = "Generates a path mapping JSON file from GRF files listed in DATA.INI"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "turoran.robrowser.grfloader.tools.PathMappingTool"
+
+    def mappingOutput = project.findProperty("mappingOutput") ?: "path-mapping.json"
+    def resourcesPath = project.findProperty("resourcesPath") ?: "resources"
+
+    jvmArgs = ["-Dresources.path=${resourcesPath}"]
+    args = ["--output=${mappingOutput}"]
+}

@@ -1,2 +1,5 @@
 rootProject.name = "remoteclient"
+include("client")
+include("grfloader")
+include("wsproxy")
 

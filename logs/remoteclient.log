@@ -1,0 +1,1461 @@
+2026-05-19 02:09:16.825 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-19 02:09:17.297 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.313 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.313 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.313 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.314 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.323 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.324 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.324 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.325 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.325 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.325 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.325 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.325 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.325 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.326 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.326 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.326 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.326 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.326 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.327 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.328 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.330 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:09:17.335 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.337 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.337 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.337 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.337 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.337 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.337 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.338 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.339 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.339 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.339 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.340 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.340 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.340 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.341 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.341 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.342 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.342 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.342 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.342 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.342 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.343 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.344 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.344 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.344 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.344 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.345 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.346 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:17.349 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.351 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.351 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.351 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.351 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.352 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.352 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.352 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.352 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.352 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.352 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.353 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.353 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.353 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.354 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.354 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.354 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.354 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.355 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.355 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.355 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.355 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.355 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.355 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.356 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.356 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.356 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.357 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:17.377 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.379 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.380 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.380 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.381 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.381 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.381 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.381 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.381 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.381 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.381 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.381 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.382 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.383 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:17.387 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.390 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.390 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.390 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.390 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.390 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.390 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.391 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.392 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.392 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.392 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.392 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.392 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.392 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.392 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.392 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.392 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.393 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.393 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.393 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.394 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:17.396 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.397 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.397 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.398 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.398 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.398 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.398 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.399 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.399 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.399 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.399 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.399 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.399 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.399 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.400 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:17.401 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 1 files in 1ms
+2026-05-19 02:09:17.403 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.405 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.406 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.406 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.406 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.406 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.406 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.406 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.406 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.406 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.406 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.407 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.407 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.407 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:17.411 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.412 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.413 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.414 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.414 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.414 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.414 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.415 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.415 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.415 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.415 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.415 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.415 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.415 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.415 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.415 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.415 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.415 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.416 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.416 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.417 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:17.419 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.421 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.422 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.422 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.422 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.422 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.422 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.422 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.423 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.424 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:17.426 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.428 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.428 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.428 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.428 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.428 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.430 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.431 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.431 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.431 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.431 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.431 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.431 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.431 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.431 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.431 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.431 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.431 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.432 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.432 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:17.436 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.437 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.437 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.437 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.438 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.438 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.438 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.438 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.438 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.438 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.438 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.438 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.439 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:17.441 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:17.442 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.443 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:17.443 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.443 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:17.443 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:17.443 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:17.443 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:17.444 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:41.836 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-19 02:09:42.297 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.314 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.314 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.314 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.314 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.314 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.315 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.316 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.316 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.316 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.316 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.316 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.316 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.317 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.317 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.317 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.317 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.317 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.318 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.318 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.319 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.321 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:09:42.328 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.330 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.330 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.331 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.331 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.331 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.331 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.331 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.331 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.332 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.333 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.333 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.333 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.334 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.334 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.334 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.334 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.334 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.334 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.334 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.335 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.336 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:42.337 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.339 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.339 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.339 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.339 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.339 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.340 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.340 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.340 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.341 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.341 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.341 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.341 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.341 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.341 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.342 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.342 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.342 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.342 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.342 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.342 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.342 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.342 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.343 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.343 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.343 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.344 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.345 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:42.359 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.360 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.360 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.360 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.361 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.361 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.362 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.362 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.362 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.362 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.362 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.362 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.362 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.362 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.363 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.364 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:42.369 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.371 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.371 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.372 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.373 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.373 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.374 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.374 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.374 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.374 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.374 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.374 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.374 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.375 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.376 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.376 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:42.380 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.381 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.381 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.381 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.381 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.382 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.383 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.383 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.383 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.383 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.383 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.384 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.384 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.384 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.384 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.384 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.384 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.384 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.385 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:42.386 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 1 files in 0ms
+2026-05-19 02:09:42.389 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.392 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.393 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.394 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.394 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.394 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.394 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.394 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.394 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.394 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.395 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.395 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.395 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.396 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:42.399 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.400 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.400 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.400 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.400 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.401 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.402 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.402 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.402 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.402 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.402 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.402 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.402 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.402 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.402 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.402 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.402 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.403 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.403 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.403 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.404 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:42.407 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.408 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.409 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.409 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.409 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.409 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.409 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.409 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.409 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.409 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.409 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.409 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.409 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.410 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.410 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.410 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.410 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.411 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:09:42.413 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.414 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.414 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.414 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.414 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.414 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.414 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.415 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.415 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.415 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.415 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:09:42.418 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.419 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.420 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.420 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.420 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.420 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.420 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.420 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.422 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:09:42.425 [Test worker] INFO  t.r.util.StartupValidator - 
+🔍 Validating startup configuration...
+
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator - 
+================================================================================
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Java: 21.0.4 (Eclipse Adoptium)
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Dependencies verified correctly
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Root folder OK
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   DATA.INI file OK
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   BGM folder OK
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Data folder OK
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Resources folder OK
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   CLIENT_PUBLIC_URL: http://localhost:3338
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Micronaut Environments: [test]
+2026-05-19 02:09:42.426 [Test worker] INFO  t.r.util.StartupValidator -   Valid GRF: test.grf (version 0x200)
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.util.StartupValidator -   Path mapping file: Found
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.427 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:09:42.427 [Test worker] WARN  t.r.util.StartupValidator -   System folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.427 [Test worker] WARN  t.r.util.StartupValidator -   AI folder is empty - may cause issues depending on the client
+2026-05-19 02:09:42.427 [Test worker] WARN  t.r.util.StartupValidator -   PORT not set, using default: 3338
+2026-05-19 02:09:42.427 [Test worker] WARN  t.r.util.StartupValidator - 
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.util.StartupValidator - ✅ Validation completed successfully!
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.util.StartupValidator - ================================================================================
+
+2026-05-19 02:09:42.427 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:09:42.428 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:13:09.241 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:13:09.244 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:13:09.245 [Test worker] INFO  t.r.util.StartupValidator -   Info line 1
+2026-05-19 02:13:09.245 [Test worker] INFO  t.r.util.StartupValidator -   Info line 2
+2026-05-19 02:13:09.245 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:13:09.246 [Test worker] WARN  t.r.util.StartupValidator -   Warning line 1
+2026-05-19 02:13:09.246 [Test worker] ERROR t.r.util.StartupValidator - ❌ ERRORS:
+2026-05-19 02:13:09.247 [Test worker] ERROR t.r.util.StartupValidator -   Error line 1
+2026-05-19 02:13:09.247 [Test worker] ERROR t.r.util.StartupValidator -   Error line 2
+2026-05-19 02:13:09.247 [Test worker] ERROR t.r.util.StartupValidator - ❌ Validation failed!
+2026-05-19 02:13:09.247 [Test worker] ERROR t.r.util.StartupValidator -    1 error(s) found
+2026-05-19 02:13:09.248 [Test worker] INFO  t.r.util.StartupValidator - 💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:13:17.455 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:13:17.456 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+2026-05-19 02:13:17.458 [Test worker] INFO  t.r.util.StartupValidator -   Info line 1
+2026-05-19 02:13:17.458 [Test worker] INFO  t.r.util.StartupValidator -   Info line 2
+2026-05-19 02:13:17.458 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+2026-05-19 02:13:17.459 [Test worker] WARN  t.r.util.StartupValidator -   Warning line 1
+2026-05-19 02:13:17.459 [Test worker] ERROR t.r.util.StartupValidator - ❌ ERRORS:
+2026-05-19 02:13:17.459 [Test worker] ERROR t.r.util.StartupValidator -   Error line 1
+2026-05-19 02:13:17.459 [Test worker] ERROR t.r.util.StartupValidator -   Error line 2
+2026-05-19 02:13:17.460 [Test worker] ERROR t.r.util.StartupValidator - ❌ Validation failed!
+2026-05-19 02:13:17.460 [Test worker] ERROR t.r.util.StartupValidator -    1 error(s) found
+2026-05-19 02:13:17.460 [Test worker] INFO  t.r.util.StartupValidator - 💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:13:31.963 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:13:31.964 [Test worker] INFO  t.r.util.StartupValidator - ✓ INFO:
+  Info line 1
+  Info line 2
+2026-05-19 02:13:31.967 [Test worker] WARN  t.r.util.StartupValidator - ⚠️  WARNINGS:
+  Warning line 1
+2026-05-19 02:13:31.967 [Test worker] ERROR t.r.util.StartupValidator - ❌ ERRORS:
+  Error line 1
+  Error line 2
+2026-05-19 02:13:31.968 [Test worker] ERROR t.r.util.StartupValidator - ❌ Validation failed!
+2026-05-19 02:13:31.968 [Test worker] ERROR t.r.util.StartupValidator -    1 error(s) found
+2026-05-19 02:13:31.968 [Test worker] INFO  t.r.util.StartupValidator - 💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:17:45.074 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-19 02:17:54.668 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-19 02:17:55.131 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.149 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.150 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.150 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.151 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.151 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.152 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.154 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.154 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:17:55.161 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.162 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.163 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.163 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.163 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.164 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.164 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.165 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.165 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.167 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.168 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.169 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.169 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.170 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.170 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.171 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.173 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.174 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:17:55.190 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.192 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.192 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.193 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.193 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.193 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.193 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.194 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.194 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.199 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.201 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.201 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.201 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.202 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.202 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.203 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.203 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.203 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:17:55.206 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.207 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.207 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.208 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.208 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.208 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.209 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.210 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.210 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.212 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 1 files in 1ms
+2026-05-19 02:17:55.214 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.216 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.216 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.216 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.217 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.217 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.217 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.218 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.218 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.221 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.223 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.223 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.223 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.223 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.223 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.224 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.224 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.224 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:17:55.228 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.229 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.229 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.230 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.230 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.230 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.231 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.232 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.232 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.235 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.237 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.237 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.237 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.237 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.237 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.238 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.239 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.239 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.242 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.243 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.244 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.244 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.244 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.244 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.244 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.245 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.245 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:17:55.247 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:17:55.248 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+2026-05-19 02:17:55.248 [Test worker] INFO  t.r.util.StartupValidator - 
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  CLIENT_PUBLIC_URL: http://localhost:3338
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+2026-05-19 02:17:55.248 [Test worker] WARN  t.r.util.StartupValidator - 
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+2026-05-19 02:17:55.249 [Test worker] INFO  t.r.util.StartupValidator - 
+✅ Validation completed successfully!
+2026-05-19 02:17:55.249 [Test worker] INFO  t.r.util.StartupValidator - ⚠️  3 warning(s) found
+2026-05-19 02:17:55.249 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:17:55.250 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:17:55.250 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:22:20.646 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 478ms. Server Running: http://localhost:8080
+2026-05-19 02:22:26.095 [default-eventLoopGroup-2-1] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:22:26.097 [default-eventLoopGroup-2-1] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 25 (Oracle Corporation)
+  Dependencies verified correctly
+  Micronaut Environments: [none]
+  Path mapping file: Not found (optional)
+⚠️  WARNINGS:
+  BGM folder is empty - may cause issues depending on the client
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  Resources folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Root folder not found!
+  DATA.INI file not found!
+  Data folder not found!
+  CLIENT_PUBLIC_URL not set! Configure it in the environment
+  Data directory DATA.INI not found at D:\GameDevelopment\remoteclient\client\Data\DATA.INI
+❌ Validation failed!5 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:22:26.097 [default-eventLoopGroup-2-1] ERROR t.r.service.ClientService - DATA.INI file not found: D:\GameDevelopment\remoteclient\client\Data\DATA.INI
+2026-05-19 02:24:09.325 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-19 02:24:32.539 [Test worker] INFO  i.m.c.DefaultApplicationContext$RuntimeConfiguredEnvironment - Established active environments: [test]
+2026-05-19 02:24:33.025 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.040 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.042 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.046 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.046 [Test worker] INFO  t.r.service.ClientService - Client initialized in 3ms (6 files indexed)
+2026-05-19 02:24:33.052 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.054 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.055 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.056 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.056 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:24:33.058 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.061 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.062 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.064 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.065 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:24:33.078 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.081 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.082 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.084 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.084 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:24:33.088 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.091 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.092 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.093 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.093 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:24:33.096 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.098 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.099 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.100 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.100 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:24:33.101 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 1 files in 1ms
+2026-05-19 02:24:33.104 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.106 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.106 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.107 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.107 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:24:33.110 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.112 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.113 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.113 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.114 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:24:33.116 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.119 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.119 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.120 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.121 [Test worker] INFO  t.r.service.ClientService - Client initialized in 2ms (6 files indexed)
+2026-05-19 02:24:33.124 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.126 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.126 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.127 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.127 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)
+2026-05-19 02:24:33.131 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.133 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.133 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.134 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.134 [Test worker] INFO  t.r.service.ClientService - Client initialized in 0ms (6 files indexed)
+2026-05-19 02:24:33.138 [Test worker] INFO  t.r.util.StartupValidator - 🔍 Validating startup configuration...
+2026-05-19 02:24:33.140 [Test worker] INFO  t.r.util.StartupValidator - 📋 VALIDATION REPORT
+✓ INFO:
+  Java: 21.0.4 (Eclipse Adoptium)
+  Dependencies verified correctly
+  Root folder OK
+  DATA.INI file OK
+  BGM folder OK
+  Data folder OK
+  Resources folder OK
+  Micronaut Environments: [test]
+  Valid GRF: test.grf (version 0x200)
+  Path mapping file: Found
+⚠️  WARNINGS:
+  System folder is empty - may cause issues depending on the client
+  AI folder is empty - may cause issues depending on the client
+  PORT not set, using default: 3338
+❌ ERRORS:
+  Invalid CLIENT_PUBLIC_URL: http://localhost:3338}
+❌ Validation failed!1 error(s) found
+💡 Tip: Check logs for detailed diagnosis
+2026-05-19 02:24:33.140 [Test worker] INFO  t.r.service.ClientService - Loaded 1 path mappings from build\resources\test\resources\path-mapping.json
+2026-05-19 02:24:33.141 [Test worker] INFO  t.r.service.ClientService - Cache warmed with 0 files in 0ms
+2026-05-19 02:24:33.141 [Test worker] INFO  t.r.service.ClientService - Client initialized in 1ms (6 files indexed)

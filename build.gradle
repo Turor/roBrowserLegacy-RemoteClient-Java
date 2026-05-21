@@ -1,151 +1,29 @@
 plugins {
-    id("io.micronaut.application") version "4.6.2"
-    id("com.gradleup.shadow") version "8.3.9"
-    id("io.micronaut.aot") version "4.6.2"
+    id("io.micronaut.application") version "4.6.2" apply false
+    id("com.gradleup.shadow") version "8.3.9" apply false
+    id("io.micronaut.aot") version "4.6.2" apply false
 }
 
-version = "0.1"
-group = "turoran.robrowserlegacy"
-
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    annotationProcessor("io.micronaut:micronaut-http-validation")
-    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
-    annotationProcessor("io.micronaut:micronaut-inject-java")
-    annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
-    // Source: https://mvnrepository.com/artifact/jakarta.inject/jakarta.inject-api
-    implementation("jakarta.inject:jakarta.inject-api:2.0.1")
-    implementation("io.micronaut:micronaut-management")
-    implementation("io.micronaut.cache:micronaut-cache-caffeine")
-    implementation("io.micronaut.serde:micronaut-serde-jackson")
-    implementation("io.micronaut:micronaut-inject")
-    implementation("jakarta.validation:jakarta.validation-api")
-    implementation("io.micronaut.serde:micronaut-serde-jackson")
-    compileOnly("org.projectlombok:lombok:1.18.32")
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
-    compileOnly("io.micronaut:micronaut-http-client")
-    runtimeOnly("ch.qos.logback:logback-classic")
-    testImplementation("io.micronaut:micronaut-http-client")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-
-application {
-    mainClass = "turoran.robrowserlegacy.Application"
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("21")
-    targetCompatibility = JavaVersion.toVersion("21")
-}
-
-
-graalvmNative.toolchainDetection = false
-
-
-micronaut {
-    runtime("netty")
-    testRuntime("junit5")
-    processing {
-        incremental(true)
-        annotations("turoran.robrowserlegacy.*")
-    }
-    aot {
-        // Please review carefully the optimizations enabled below
-        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
-        optimizeServiceLoading = false
-        convertYamlToJava = false
-        precomputeOperations = true
-        cacheEnvironment = true
-        optimizeClassLoading = true
-        deduceEnvironment = true
-        optimizeNetty = true
-        replaceLogbackXml = true
-    }
-
-}
-
-
-tasks.named("dockerfileNative") {
-    jdkVersion = "21"
-}
-
-tasks.register("VerifyGRF", JavaExec) {
-    group = "verification"
-    description = "Runs VerifyGRF to verify a GRF file's readability"
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = "turoran.grfloader.tools.VerifyGRF"
-
-    // Required: path to the GRF file. Override via -PgrfPath=/path/to/file.grf
-    def grfPath = project.findProperty("grfPath") ?: ""
-    // Optional: encoding (default: auto). Override via -Pencoding=euc-kr
-    def encoding = project.findProperty("encoding") ?: "auto"
-    // Optional: number of files to test (default: 100). Override via -PtestCount=50
-    def testCount = project.findProperty("testCount") ?: "100"
-
-    doFirst {
-        if (!grfPath) {
-            throw new GradleException(
-                    "grfPath is required. Run with: ./gradlew VerifyGRF -PgrfPath=/path/to/file.grf"
-            )
+allprojects {
+    apply plugin: 'java'
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
         }
     }
-
-    args = [grfPath, encoding, testCount]
 }
 
-tasks.register("ValidateAllGRFS", JavaExec) {
-    group = "verification"
-    description = "Validates all GRF files in a folder"
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = "turoran.grfloader.tools.ValidateAllGRFS"
+subprojects {
+    group = "turoran.robrowser"
+    version = "0.1"
 
-    // Required: path to the folder containing GRF files. Override via -PgrfFolder=/path/to/grfs
-    def grfFolder = project.findProperty("grfFolder") ?: ""
-    // Optional: encoding (default: auto). Override via -Pencoding=euc-kr
-    def encoding = project.findProperty("encoding") ?: "auto"
-    // Optional: max read tests per GRF (default: 100). Override via -PreadTests=200
-    def readTests = project.findProperty("readTests") ?: "100"
-    // Optional: max examples per bucket (default: 20). Override via -Pexamples=10
-    def examples = project.findProperty("examples") ?: "20"
-
-    doFirst {
-        if (!grfFolder) {
-            throw new GradleException(
-                    "grfFolder is required. Run with: ./gradlew ValidateAllGRFS -PgrfFolder=/path/to/grfs"
-            )
-        }
+    repositories {
+        mavenCentral()
     }
 
-    args = [grfFolder, encoding, "--read=${readTests}", "--examples=${examples}"]
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
 }
-
-tasks.register("PathMappingTool", JavaExec) {
-    group = "verification"
-    description = "Generates a path mapping JSON file from GRF files listed in DATA.INI"
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = "turoran.grfloader.tools.PathMappingTool"
-
-    // Optional: output file path (default: path-mapping.json). Override via -PmappingOutput=my-mapping.json
-    def mappingOutput = project.findProperty("mappingOutput") ?: "path-mapping.json"
-    // Optional: path to the resources folder containing DATA.INI and GRF files (default: resources).
-    // Override via -PresourcesPath=/path/to/resources
-    def resourcesPath = project.findProperty("resourcesPath") ?: "resources"
-
-    jvmArgs = ["-Dresources.path=${resourcesPath}"]
-    args = ["--output=${mappingOutput}"]
-}
-
-
-
-
-
-
-
-
-

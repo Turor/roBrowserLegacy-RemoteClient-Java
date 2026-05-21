@@ -3,7 +3,7 @@ plugins {
 }
 
 version = "0.1"
-group = "turoran.robrowser"
+group = "turoran.grfloader"
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ tasks.register("VerifyGRF", JavaExec) {
     group = "verification"
     description = "Runs VerifyGRF to verify a GRF file's readability"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = "turoran.robrowser.grfloader.tools.VerifyGRF"
+    mainClass = "turoran.grfloader.tools.VerifyGRF"
 
     def grfPath = project.findProperty("grfPath") ?: ""
     def encoding = project.findProperty("encoding") ?: "auto"
@@ -54,7 +54,7 @@ tasks.register("ValidateAllGRFS", JavaExec) {
     group = "verification"
     description = "Validates all GRF files in a folder"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = "turoran.robrowser.grfloader.tools.ValidateAllGRFS"
+    mainClass = "turoran.grfloader.tools.ValidateAllGRFS"
 
     def grfFolder = project.findProperty("grfFolder") ?: ""
     def encoding = project.findProperty("encoding") ?: "auto"
@@ -76,7 +76,7 @@ tasks.register("PathMappingTool", JavaExec) {
     group = "verification"
     description = "Generates a path mapping JSON file from GRF files listed in DATA.INI"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = "turoran.robrowser.grfloader.tools.PathMappingTool"
+    mainClass = "turoran.grfloader.tools.PathMappingTool"
 
     def mappingOutput = project.findProperty("mappingOutput") ?: "path-mapping.json"
     def resourcesPath = project.findProperty("resourcesPath") ?: "resources"

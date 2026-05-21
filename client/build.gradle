@@ -5,7 +5,7 @@ plugins {
 }
 
 version = "0.1"
-group = "turoran.robrowser"
+group = "turoran.robrowserclient"
 
 repositories {
     mavenCentral()
@@ -29,6 +29,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.32")
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
+    testImplementation(project(":grfloader").sourceSets.test.output)
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
     testImplementation("io.micronaut:micronaut-http-client")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
@@ -37,7 +38,7 @@ dependencies {
 
 
 application {
-    mainClass = "turoran.robrowser.client.Application"
+    mainClass = "turoran.robrowserclient.Application"
 }
 
 java {
@@ -54,7 +55,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("turoran.robrowser.*")
+        annotations("turoran.robrowserclient.*")
     }
     aot {
         optimizeServiceLoading = false

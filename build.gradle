@@ -14,7 +14,7 @@ allprojects {
 }
 
 subprojects {
-    group = "turoran.robrowser"
+    group = "turoran"
     version = "0.1"
 
     repositories {
@@ -25,6 +25,14 @@ subprojects {
         toolchain {
             languageVersion = JavaLanguageVersion.of(21)
         }
+    }
+
+    tasks.withType(JavaExec).configureEach {
+        systemProperty "micronaut.config.files", rootProject.file("application.properties").absolutePath
+    }
+
+    tasks.withType(Test).configureEach {
+        systemProperty "micronaut.config.files", rootProject.file("application.properties").absolutePath
     }
 }
 
@@ -48,4 +56,22 @@ tasks.register("PathMappingTool") {
     group = "verification"
     description = "Alias for :grfloader:PathMappingTool"
     dependsOn(":grfloader:PathMappingTool")
+}
+
+tasks.register("runClient") {
+    group = "application"
+    description = "Runs the robrowserclient application"
+    dependsOn(":client:run")
+}
+
+tasks.register("runProxy") {
+    group = "application"
+    description = "Runs the wsproxy application"
+    dependsOn(":wsproxy:run")
+}
+
+tasks.register("runAll") {
+    group = "application"
+    description = "Runs both the client and the proxy"
+    dependsOn("runClient", "runProxy")
 }

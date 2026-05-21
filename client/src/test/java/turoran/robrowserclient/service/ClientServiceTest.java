@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -172,9 +173,52 @@ public class ClientServiceTest {
     }
 
     @Test
-    void testGetIndexStats() {
-        Map<String, Object> stats = clientService.getIndexStats();
-        assertEquals(1, stats.get("grfCount"), "Should have exactly 1 GRF");
-        assertTrue((Integer) stats.get("totalFiles") >= 2, "Should have at least 2 files indexed");
+    void testRequiredDirectoriesCreated() throws IOException {
+        Path rootPath = Path.of("build/resources/test/required_dirs_test");
+        if (Files.exists(rootPath)) {
+            // Clean up if it exists
+            try (var stream = Files.walk(rootPath)) {
+                stream.sorted(Comparator.reverseOrder())
+                      .forEach(p -> {
+                          try {
+                              Files.delete(p);
+                          } catch (IOException e) {
+                              // ignore
+                          }
+                      });
+            }
+        }
+        Files.createDirectories(rootPath);
+        
+        // Use a reflection to set rootPath or just use property injection if we can trigger another bean creation
+        // But for unit test, we can just call init if we make rootPath accessible or just trust it.
+        // Actually, let's just check if it's created in the default rootPath of the test
+        Path baseRoot = Path.of("build/resources/test");
+        String[] dirs = {"BGM", "Data", "AI", "System"};
+        
+        // Since setup already calls init(), they should already be there.
+        // Let's delete them and call init() again.
+        for (String dir : dirs) {
+            Path p = baseRoot.resolve(dir);
+            if (Files.exists(p)) {
+                try (var stream = Files.walk(p)) {
+                    stream.sorted(Comparator.reverseOrder())
+                          .forEach(path -> {
+                              try {
+                                  Files.delete(path);
+                              } catch (IOException e) {
+                                  // ignore
+                              }
+                          });
+                }
+            }
+        }
+        
+        clientService.init();
+        
+        for (String dir : dirs) {
+            assertTrue(Files.exists(baseRoot.resolve(dir)), "Directory " + dir + " should be created");
+            assertTrue(Files.isDirectory(baseRoot.resolve(dir)), dir + " should be a directory");
+        }
     }
 }

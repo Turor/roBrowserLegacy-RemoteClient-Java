@@ -36,7 +36,7 @@ public class ClientService {
     private final BeanContext beanContext;
     private static final String RESOURCES_PATH = "resources";
     private static final String BGM_PATH = "BGM";
-    private static final String DATA_PATH = "data";
+    private static final String DATA_PATH = "Data";
     private static final String AI_PATH = "AI";
     private static final String SYSTEM_PATH = "System";
 
@@ -89,6 +89,21 @@ public class ClientService {
 
     @PostConstruct
     public void init() {
+        // Create required directories if they don't exist
+        try {
+            Path root = Paths.get(rootPath);
+            String[] requiredDirs = {BGM_PATH, DATA_PATH, AI_PATH, SYSTEM_PATH};
+            for (String dir : requiredDirs) {
+                Path p = root.resolve(dir);
+                if (!Files.exists(p)) {
+                    Files.createDirectories(p);
+                    logger.info("Created directory: {}", p.toAbsolutePath());
+                }
+            }
+        } catch (IOException e) {
+            logger.error("Failed to create required directories", e);
+        }
+
         startupValidator.printReport(startupValidator.validateAll(false));
 
         loadPathMapping();

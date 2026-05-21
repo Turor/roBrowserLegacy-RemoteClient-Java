@@ -229,15 +229,15 @@ public class ClientService {
 
         if (lowerPath.startsWith("bgm/")) {
             String bgmFile = filePath.substring(4);
-            localPath = Paths.get(rootPath, "BGM", bgmFile);
+            localPath = Paths.get(rootPath, BGM_PATH, bgmFile);
         } else if (lowerPath.startsWith("data/")) {
-            localPath = Paths.get(rootPath, "data", filePath.substring(5));
+            localPath = Paths.get(rootPath, DATA_PATH, filePath.substring(5));
         } else if (lowerPath.startsWith("ai/")) {
-            localPath = Paths.get(rootPath, "AI", filePath.substring(3));
+            localPath = Paths.get(rootPath, AI_PATH, filePath.substring(3));
         } else if (lowerPath.startsWith("system/")) {
-            localPath = Paths.get(rootPath, "System", filePath.substring(7));
+            localPath = Paths.get(rootPath, SYSTEM_PATH, filePath.substring(7));
         } else {
-            localPath = Paths.get(rootPath, "resources", filePath);
+            localPath = Paths.get(rootPath, RESOURCES_PATH, filePath);
         }
 
         if (Files.exists(localPath)) {

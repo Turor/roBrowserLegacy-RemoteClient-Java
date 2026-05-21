@@ -59,6 +59,10 @@ public class PathMappingTool {
         }
 
         String dataIniContent = Files.readString(dataIniPath);
+        generateMapping(dataIniContent, resourcesPath, Paths.get(outputPath));
+    }
+
+    public static void generateMapping(String dataIniContent, Path resourcesPath, Path outputPath) throws IOException {
         List<String> grfFiles = parseDataINI(dataIniContent);
 
         if (grfFiles.isEmpty()) {
@@ -182,7 +186,7 @@ public class PathMappingTool {
         json.append("  }\n");
         json.append("}\n");
 
-        Files.writeString(Paths.get(outputPath), json.toString());
+        Files.writeString(outputPath, json.toString());
 
         log.info("SUMMARY");
         log.info("Total files:      {}", String.format("%,d", summary.get("totalFiles")));
@@ -190,7 +194,7 @@ public class PathMappingTool {
         log.info("Mojibake fixed:   {}", String.format("%,d", summary.get("mojibakeFixed")));
         log.info("C1 fixed:         {}", String.format("%,d", summary.get("c1Fixed")));
         log.info("");
-        log.info("Mapping saved to: {}", new File(outputPath).getAbsolutePath());
+        log.info("Mapping saved to: {}", outputPath.toAbsolutePath());
         log.info("");
     }
 

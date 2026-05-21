@@ -42,7 +42,7 @@ java {
     targetCompatibility = JavaVersion.toVersion("21")
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }
 

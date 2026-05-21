@@ -7,6 +7,7 @@ import jakarta.annotation.PreDestroy;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import turoran.grfloader.tools.PathMappingTool;
 import turoran.robrowserclient.model.CacheEntry;
 import turoran.robrowserclient.model.MissingFileLogEntry;
 import turoran.robrowserclient.util.StartupValidator;
@@ -43,6 +44,9 @@ public class ClientService {
     @Value("${client.enablesearch:true}")
     private boolean enableSearch;
 
+    @Value("${client.usepathmappings:false}")
+    private boolean usePathMappings;
+
     @Value("${client.logpath:logs}")
     private String logPath;
 
@@ -52,7 +56,7 @@ public class ClientService {
     @Value("${client.cache.warmup.limit:500}")
     private int warmUpLimit;
 
-    private List<GRFService> grfs = new ArrayList<>();
+    private final List<GRFService> grfs = new ArrayList<>();
     private final Map<String, FileIndexEntry> fileIndex = new ConcurrentHashMap<>();
     private boolean indexBuilt = false;
     
@@ -124,7 +128,7 @@ public class ClientService {
             long elapsed = System.currentTimeMillis() - startTime;
             logger.info("Client initialized in {}ms ({} files indexed)", elapsed, fileIndex.size());
 
-            if (scheduler != null && !scheduler.isShutdown()) {
+            if (!scheduler.isShutdown()) {
                 scheduler.scheduleWithFixedDelay(this::flushLogQueue, 1, 1, TimeUnit.SECONDS);
             }
 
@@ -287,6 +291,23 @@ public class ClientService {
 
     private void loadPathMapping() {
         Path mappingPath = Paths.get(rootPath, "resources", "path-mapping.json");
+
+        if (!Files.exists(mappingPath) && usePathMappings) {
+            logger.info("Path mapping file missing, attempting to generate it...");
+            try {
+                Path dataPath = Paths.get(rootPath, "Data");
+                Path dataIniPath = dataPath.resolve(dataIniName);
+                if (Files.exists(dataIniPath)) {
+                    Files.createDirectories(mappingPath.getParent());
+                    String dataIniContent = Files.readString(dataIniPath, Charset.forName("CP949"));
+                    PathMappingTool.generateMapping(dataIniContent, dataPath, mappingPath);
+                } else {
+                    logger.warn("Cannot generate path mapping: DATA.INI not found at {}", dataIniPath);
+                }
+            } catch (Exception e) {
+                logger.error("Failed to auto-generate path mapping: {}", e.getMessage());
+            }
+        }
 
         if (Files.exists(mappingPath)) {
             try {

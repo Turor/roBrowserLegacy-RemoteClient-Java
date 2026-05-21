@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Property(name = "client.rootpath", value = "build/resources/test")
 @Property(name = "client.dataini", value = "DATA.INI")
 @Property(name = "client.public-url", value = "http://localhost:3338")
+@Property(name = "client.usepathmappings", value = "true")
 public class ClientServiceTest {
 
     @Inject
@@ -131,6 +132,27 @@ public class ClientServiceTest {
         int warmed = clientService.warmCache(List.of(Pattern.compile("raw")), 10);
         assertTrue(warmed >= 1, "Should have warmed at least one file");
         assertTrue(fileCache.has("raw"), "Cache should contain 'raw'");
+    }
+
+    @Test
+    void testAutoGeneratePathMapping() throws IOException {
+        Path rootPath = Path.of("build/resources/test");
+        Path mappingFile = rootPath.resolve("resources").resolve("path-mapping.json");
+        
+        // Ensure it doesn't exist
+        Files.deleteIfExists(mappingFile);
+        
+        // Set property to enable auto-generation (it's already set in @Property if I added it, but let's be sure)
+        // Since we can't easily change @Property at runtime for Micronaut tests without more ceremony,
+        // we hope the default or the one we added works.
+        // Actually, the current test uses @MicronautTest and we can't easily change properties.
+        // But we can check if it WAS generated.
+        
+        clientService.init();
+        
+        assertTrue(Files.exists(mappingFile), "path-mapping.json should have been auto-generated");
+        String content = Files.readString(mappingFile);
+        assertTrue(content.contains("\"paths\":"), "Generated file should contain 'paths'");
     }
 
     @Test

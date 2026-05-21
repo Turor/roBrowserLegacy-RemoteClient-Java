@@ -57,7 +57,7 @@ public class StartupValidator {
         info.add(message);
     }
 
-    public boolean validateJavaVersion() {
+    public void validateJavaVersion() {
         try {
             String javaVersion = System.getProperty("java.version");
             String javaVendor = System.getProperty("java.vendor");
@@ -74,15 +74,12 @@ public class StartupValidator {
             if (majorVersion < 17) {
                 addWarning("Java version " + javaVersion + " may be too old. Recommended: v17 or newer");
             }
-
-            return true;
         } catch (Exception error) {
             addError("Failed to check Java version: " + error.getMessage());
             Map<String, Object> javaVersion = new HashMap<>();
             javaVersion.put("valid", false);
             javaVersion.put("error", error.getMessage());
             validationResults.put("javaVersion", javaVersion);
-            return false;
         }
     }
 

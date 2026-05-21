@@ -31,3 +31,21 @@ subprojects {
 tasks.named("test") {
     dependsOn(subprojects.collect { it.tasks.withType(Test) })
 }
+
+tasks.register("VerifyGRF") {
+    group = "verification"
+    description = "Alias for :grfloader:VerifyGRF"
+    dependsOn(":grfloader:VerifyGRF")
+}
+
+tasks.register("ValidateAllGRFS") {
+    group = "verification"
+    description = "Alias for :grfloader:ValidateAllGRFS"
+    dependsOn(":grfloader:ValidateAllGRFS")
+}
+
+tasks.register("PathMappingTool") {
+    group = "verification"
+    description = "Alias for :grfloader:PathMappingTool"
+    dependsOn(":grfloader:PathMappingTool")
+}

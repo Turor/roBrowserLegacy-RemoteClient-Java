@@ -15,6 +15,7 @@ out/
 .factorypath
 /src/test/java/turoran/grfloader/benchmark/benchmark-results.json
 /logs/missing-files.log
+/logs/remoteclient.log
 wsproxy/build/
 client/build/
 grfloader/build/

@@ -18,10 +18,11 @@ import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@MicronautTest
+@MicronautTest(environments = "test")
+@Property(name = "micronaut.server.port", value = "-1")
 @Property(name = "client.rootpath", value = "build/resources/test")
 @Property(name = "client.dataini", value = "DATA.INI")
-@Property(name = "client.public-url", value = "http://localhost:3338")
+@Property(name = "client.public-url", value = "http://localhost:0")
 @Property(name = "client.usepathmappings", value = "true")
 public class ClientServiceTest {
 

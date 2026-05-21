@@ -9,7 +9,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@MicronautTest
+@MicronautTest(environments = "test")
+@Property(name = "micronaut.server.port", value = "-1")
 @Property(name = "wsproxy.enabled", value = "true")
 @Property(name = "wsproxy.allowed-targets", value = "127.0.0.1:6900,127.0.0.1:6121")
 public class ProxyConfigTest {

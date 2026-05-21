@@ -1,5 +1,6 @@
 package turoran.grfloader.tools;
 
+import lombok.extern.slf4j.Slf4j;
 import turoran.grfloader.loader.*;
 
 import java.io.File;
@@ -10,7 +11,6 @@ import java.util.*;
 
 /**
  * ValidateAllGRFS
- *
  * Validates ALL GRF files in a folder:
  * - Detects names with U+FFFD and C1 controls (U+0080-U+009F)
  * - Does encoding round-trip (RAW and after heuristic repairs)
@@ -18,14 +18,15 @@ import java.util.*;
  * - Generates detailed report
  * <a href="https://github.com/FranciscoWallison/grf-loader/blob/main/tools/validate-all-grfs.mjs">Validate all GRFs</a>
  */
+@Slf4j
 public class ValidateAllGRFS {
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("Usage: java turoran.grfloader.tools.ValidateAllGRFS <folder> [encoding=auto] [--read=100] [--examples=20]");
-            System.err.println("Ex:");
-            System.err.println("  java turoran.grfloader.tools.ValidateAllGRFS D:\\GRFs auto");
-            System.err.println("  java turoran.grfloader.tools.ValidateAllGRFS ./resources cp949 --read=300");
+            log.error("Usage: java turoran.grfloader.tools.ValidateAllGRFS <folder> [encoding=auto] [--read=100] [--examples=20]");
+            log.error("Ex:");
+            log.error("  java turoran.grfloader.tools.ValidateAllGRFS D:\\GRFs auto");
+            log.error("  java turoran.grfloader.tools.ValidateAllGRFS ./resources cp949 --read=300");
             System.exit(1);
         }
 
@@ -44,24 +45,23 @@ public class ValidateAllGRFS {
 
         File folder = new File(folderPath);
         if (!folder.exists() || !folder.isDirectory()) {
-            System.err.println("Invalid folder: " + folderPath);
+            log.error("Invalid folder: {}", folderPath);
             System.exit(1);
         }
 
-        System.out.println("GRF Validation Tool (Java)");
-        System.out.println("Folder:   " + folder.getAbsolutePath());
-        System.out.println("Encoding: " + encodingRequested);
-        System.out.println("ReadTests per GRF: " + maxReadTests);
-        System.out.println("Examples per bucket: " + maxExamples);
-        System.out.println("");
+        log.info("GRF Validation Tool (Java)");
+        log.info("Folder:   {}", folder.getAbsolutePath());
+        log.info("Encoding: {}", encodingRequested);
+        log.info("ReadTests per GRF: {}", maxReadTests);
+        log.info("Examples per bucket: {}", maxExamples);
 
         List<File> grfFiles = findGrfFiles(folder);
         if (grfFiles.isEmpty()) {
-            System.err.println("No GRF files found!");
+            log.error("No GRF files found!");
             System.exit(1);
         }
-        System.out.println("[1] Scanning for GRF files...");
-        System.out.println("    Found " + grfFiles.size() + " GRF file(s)\n");
+        log.info("[1] Scanning for GRF files...");
+        log.info("    Found {} GRF file(s)", grfFiles.size());
 
         Report report = new Report();
         report.meta.folder = folder.getAbsolutePath();
@@ -69,11 +69,11 @@ public class ValidateAllGRFS {
         report.meta.startedAt = new Date().toString();
         report.meta.grfCount = grfFiles.size();
 
-        System.out.println("[2] Validating GRF files...\n");
+        log.info("[2] Validating GRF files...");
 
         for (int i = 0; i < grfFiles.size(); i++) {
             File grfFile = grfFiles.get(i);
-            System.out.println("[" + (i + 1) + "/" + grfFiles.size() + "] " + grfFile.getName());
+            log.info("[{}/{}] {}", (i + 1), grfFiles.size(), grfFile.getName());
 
             GrfResult result = validateGrf(grfFile, encodingRequested, maxReadTests, maxExamples);
             report.grfs.add(result);
@@ -89,51 +89,49 @@ public class ValidateAllGRFS {
                 report.summary.totalReadTestsPassed += result.validation.readTestsPassed;
                 report.summary.totalReadTestsFailed += result.validation.readTestsFailed;
 
-                System.out.printf("    \u2705 Loaded: %d files, %dms, detected=%s, validateAs=%s\n",
+                log.info("    ✅ Loaded: {} files, {}ms, detected={}, validateAs={}",
                         result.validation.totalFiles, result.loadTimeMs, result.detectedEncoding, result.encodingValidate);
-                System.out.printf("       BadNames: U+FFFD=%d, C1=%d\n",
+                log.info("       BadNames: U+FFFD={}, C1={}",
                         result.validation.badUfffd, result.validation.badC1Control);
-                System.out.printf("       RoundTrip: rawFail=%d, repairable=%d, finalFail=%d\n",
+                log.info("       RoundTrip: rawFail={}, repairable={}, finalFail={}",
                         result.validation.roundTripFailRaw, result.validation.roundTripRepairable, result.validation.roundTripFailFinal);
-                System.out.printf("       Read tests: %d passed, %d failed\n",
+                log.info("       Read tests: {} passed, {} failed",
                         result.validation.readTestsPassed, result.validation.readTestsFailed);
             } else {
                 report.summary.failedLoads++;
-                System.out.println("    \u274C Failed: " + result.error);
+                log.error("    ❌ Failed: {}", result.error);
             }
-            System.out.println("");
         }
 
         report.meta.finishedAt = new Date().toString();
         
-        System.out.println("SUMMARY");
-        System.out.printf("GRFs loaded:              %d/%d\n", report.summary.successfulLoads, report.summary.totalGrfs = report.meta.grfCount);
-        System.out.printf("Total files:              %,d\n", report.summary.totalFiles);
-        System.out.printf("Bad U+FFFD:               %,d\n", report.summary.totalBadUfffd);
-        System.out.printf("Bad C1 Control:           %,d\n", report.summary.totalBadC1Control);
-        System.out.printf("Round-trip fails (RAW):    %,d\n", report.summary.totalRoundTripFailRaw);
-        System.out.printf("Round-trip repairable:     %,d\n", report.summary.totalRoundTripRepairable);
-        System.out.printf("Round-trip fails (FINAL):  %,d\n", report.summary.totalRoundTripFailFinal);
-        System.out.printf("Read tests passed:         %,d\n", report.summary.totalReadTestsPassed);
-        System.out.printf("Read tests failed:         %,d\n", report.summary.totalReadTestsFailed);
-        System.out.println("");
+        log.info("SUMMARY");
+        log.info("GRFs loaded:              {}/{}", report.summary.successfulLoads, report.summary.totalGrfs = report.meta.grfCount);
+        log.info("Total files:              {}", String.format("%,d", report.summary.totalFiles));
+        log.info("Bad U+FFFD:               {}", String.format("%,d", report.summary.totalBadUfffd));
+        log.info("Bad C1 Control:           {}", String.format("%,d", report.summary.totalBadC1Control));
+        log.info("Round-trip fails (RAW):    {}", String.format("%,d", report.summary.totalRoundTripFailRaw));
+        log.info("Round-trip repairable:     {}", String.format("%,d", report.summary.totalRoundTripRepairable));
+        log.info("Round-trip fails (FINAL):  {}", String.format("%,d", report.summary.totalRoundTripFailFinal));
+        log.info("Read tests passed:         {}", String.format("%,d", report.summary.totalReadTestsPassed));
+        log.info("Read tests failed:         {}", String.format("%,d", report.summary.totalReadTestsFailed));
 
         double healthPct = report.summary.totalFiles > 0
                 ? ((double) (report.summary.totalFiles - (report.summary.totalBadUfffd + report.summary.totalBadC1Control)) / report.summary.totalFiles * 100)
                 : 0;
-        System.out.printf("Encoding Health (no U+FFFD/C1): %.4f%%\n", healthPct);
+        log.info("Encoding Health (no U+FFFD/C1): {:.4f}%", healthPct);
 
         String stamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
         String outName = "grf-validation-" + stamp + ".json";
         
         // Output as simple text representation since Jackson is not available
-        System.out.println("\n(JSON report generation skipped as Jackson is not in classpath)");
-        System.out.println("Report details would be saved to: " + outName);
+        log.info("(JSON report generation skipped as Jackson is not in classpath)");
+        log.info("Report details would be saved to: {}", outName);
         
         // Print some examples if they exist
         for (GrfResult res : report.grfs) {
             if (res.success && !res.examples.badUfffd.isEmpty()) {
-                System.out.println("Examples of bad U+FFFD in " + res.filename + ": " + res.examples.badUfffd.get(0));
+                log.info("Examples of bad U+FFFD in {}: {}", res.filename, res.examples.badUfffd.getFirst());
             }
         }
 
@@ -184,9 +182,7 @@ public class ValidateAllGRFS {
             result.validation.totalFiles = allFiles.size();
             List<String> suspicious = new ArrayList<>();
 
-            for (int i = 0; i < allFiles.size(); i++) {
-                String name = allFiles.get(i);
-
+            for (String name : allFiles) {
                 boolean hasUfffd = name.contains("\uFFFD");
                 boolean hasC1 = Decoder.countC1ControlChars(name) > 0;
 

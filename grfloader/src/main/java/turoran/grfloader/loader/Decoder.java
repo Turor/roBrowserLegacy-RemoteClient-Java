@@ -70,29 +70,15 @@ public class Decoder {
         Charset charset;
 
         try {
-            switch (enc) {
-                case "utf-8":
-                case "utf8":
-                    charset = StandardCharsets.UTF_8;
-                    break;
-                case "cp949":
-                case "ms949":
-                case "x-windows-949":
-                    charset = CP949;
-                    break;
-                case "euc-kr":
-                case "euckr":
+            charset = switch (enc) {
+                case "utf-8", "utf8" -> StandardCharsets.UTF_8;
+                case "cp949", "ms949", "x-windows-949" -> CP949;
+                case "euc-kr", "euckr" ->
                     // Use CP949 as it's a superset of EUC-KR and handles more Korean chars
-                    charset = CP949;
-                    break;
-                case "latin1":
-                case "iso-8859-1":
-                    charset = StandardCharsets.ISO_8859_1;
-                    break;
-                default:
-                    charset = Charset.forName(encoding);
-                    break;
-            }
+                        CP949;
+                case "latin1", "iso-8859-1" -> StandardCharsets.ISO_8859_1;
+                default -> Charset.forName(encoding);
+            };
             return new String(bytes, charset);
         } catch (Exception e) {
             // Ultimate fallback: decode as ISO-8859-1 (preserves all byte values)
@@ -150,7 +136,7 @@ public class Decoder {
             Pattern.compile("¸ÁÅä")
     };
 
-    private static final Pattern KOREAN_PATTERN = Pattern.compile("[\uAC00-\uD7AF]");
+    private static final Pattern KOREAN_PATTERN = Pattern.compile("[가-\uD7AF]");
 
     /**
      * Check if a string looks like mojibake (CP949 bytes misread as Windows-1252).

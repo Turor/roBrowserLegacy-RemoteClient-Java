@@ -1,5 +1,8 @@
 package turoran.grfloader.tools;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import turoran.grfloader.loader.*;
 
 import java.io.RandomAccessFile;
@@ -10,11 +13,12 @@ import java.util.List;
 /**
  * <a href="https://github.com/FranciscoWallison/grf-loader/blob/main/tools/test-grf-read.mjs">JS Verify GRF</a>
  */
+@Slf4j
 public class VerifyGRF {
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("Uso: java turoran.grfloader.tools.VerifyGRF <grfPath> [encoding=auto] [count=100]");
+            log.error("Uso: java turoran.grfloader.tools.VerifyGRF <grfPath> [encoding=auto] [count=100]");
             System.exit(1);
         }
 
@@ -22,16 +26,15 @@ public class VerifyGRF {
         String encodingStr = args.length > 1 ? args[1] : "auto";
         int testCount = args.length > 2 ? Integer.parseInt(args[2]) : 100;
 
-        System.out.println("GRF Read Test (Java)");
-        System.out.println("File: " + Paths.get(grfPath).toAbsolutePath());
-        System.out.println("Encoding: " + encodingStr);
-        System.out.println("Test count: " + testCount);
-        System.out.println();
+        log.info("GRF Read Test (Java)");
+        log.info("File: {}", Paths.get(grfPath).toAbsolutePath());
+        log.info("Encoding: {}", encodingStr);
+        log.info("Test count: {}", testCount);
 
         FilenameEncoding encoding = FilenameEncoding.fromString(encodingStr);
 
         try (RandomAccessFile fd = new RandomAccessFile(grfPath, "r")) {
-            System.out.println("[1] Loading GRF...");
+            log.info("[1] Loading GRF...");
             
             GRFNodeOptions options = new GRFNodeOptions();
             options.filenameEncoding = encoding;
@@ -43,12 +46,11 @@ public class VerifyGRF {
             long loadTime = System.currentTimeMillis() - loadStart;
 
             GrfStats stats = grf.getStats();
-            System.out.println("    Loaded in " + loadTime + "ms");
-            System.out.println("    Files: " + stats.fileCount);
-            System.out.println("    Detected encoding: " + stats.detectedEncoding);
-            System.out.println("    Bad names (U+FFFD/C1): " + stats.badNameCount);
-            System.out.println("    Collisions: " + stats.collisionCount);
-            System.out.println();
+            log.info("    Loaded in {}ms", loadTime);
+            log.info("    Files: {}", stats.fileCount);
+            log.info("    Detected encoding: {}", stats.detectedEncoding);
+            log.info("    Bad names (U+FFFD/C1): {}", stats.badNameCount);
+            log.info("    Collisions: {}", stats.collisionCount);
 
             // Get files to test
             List<String> allFiles = grf.listFiles();
@@ -56,9 +58,8 @@ public class VerifyGRF {
 
             // Get a variety of files
             List<String> extensions = grf.listExtensions();
-            System.out.println("    Extensions found: " + extensions.stream().limit(20).reduce((a, b) -> a + ", " + b).orElse(""));
-            if (extensions.size() > 20) System.out.println("...");
-            System.out.println();
+            log.info("    Extensions found: {}", extensions.stream().limit(20).reduce((a, b) -> a + ", " + b).orElse(""));
+            if (extensions.size() > 20) log.info("...");
 
             // Sample files from different extensions
             int extLimit = Math.min(10, extensions.size());
@@ -83,8 +84,7 @@ public class VerifyGRF {
                 }
             }
 
-            System.out.println("[2] Testing " + filesToTest.size() + " file reads...");
-            System.out.println();
+            log.info("[2] Testing {} file reads...", filesToTest.size());
 
             int passed = 0;
             int failed = 0;
@@ -95,7 +95,7 @@ public class VerifyGRF {
 
                 if (i % 20 == 0 || i == filesToTest.size() - 1) {
                     double pct = ((double) (i + 1) / filesToTest.size() * 100);
-                    System.out.print(String.format("\r    Progress: %d/%d (%.1f%%)", i + 1, filesToTest.size(), pct));
+                    log.info("    Progress: {}/{} ({:.1f}%)", i + 1, filesToTest.size(), pct);
                 }
 
                 try {
@@ -120,25 +120,21 @@ public class VerifyGRF {
                 }
             }
 
-            System.out.println("\n");
-            System.out.println("RESULTS");
-            System.out.println("Passed: " + passed);
-            System.out.println("Failed: " + failed);
-            System.out.println(String.format("Success rate: %.2f%%", (double) passed / (passed + failed) * 100));
+            log.info("RESULTS");
+            log.info("Passed: {}", passed);
+            log.info("Failed: {}", failed);
+            log.info("Success rate: {:.2f}%", (double) passed / (passed + failed) * 100);
 
             if (!failures.isEmpty()) {
-                System.out.println();
-                System.out.println("Failures:");
+                log.info("Failures:");
                 for (String[] f : failures) {
-                    System.out.println("  - " + f[0]);
-                    System.out.println("    Error: " + f[1]);
+                    log.info("  - {}", f[0]);
+                    log.info("    Error: {}", f[1]);
                 }
             }
 
-            System.out.println();
-
             // Test specific file lookup
-            System.out.println("[3] Testing path resolution...");
+            log.info("[3] Testing path resolution...");
 
             // Test case-insensitive lookup
             if (!allFiles.isEmpty()) {
@@ -149,34 +145,29 @@ public class VerifyGRF {
                 ResolveResult resolved1 = grf.resolvePath(upperCase);
                 ResolveResult resolved2 = grf.resolvePath(lowerCase);
 
-                System.out.println("    Original: " + testFile);
-                System.out.println("    Upper lookup: " + (resolved1 != null ? resolved1.status : "N/A"));
-                System.out.println("    Lower lookup: " + (resolved2 != null ? resolved2.status : "N/A"));
+                log.info("    Original: {}", testFile);
+                log.info("    Upper lookup: {}", (resolved1 != null ? resolved1.status : "N/A"));
+                log.info("    Lower lookup: {}", (resolved2 != null ? resolved2.status : "N/A"));
             }
-
-            System.out.println();
 
             // Test hasFile
             if (!allFiles.isEmpty()) {
                 boolean exists1 = grf.hasFile(allFiles.get(0));
                 boolean exists2 = grf.hasFile("nonexistent/file/path.txt");
-                System.out.println("    hasFile (exists): " + exists1);
-                System.out.println("    hasFile (not exists): " + exists2);
+                log.info("    hasFile (exists): {}", exists1);
+                log.info("    hasFile (not exists): {}", exists2);
             }
 
-            System.out.println();
-
             if (failed == 0) {
-                System.out.println("✅ All read tests passed!");
+                log.info("✅ All read tests passed!");
                 System.exit(0);
             } else {
-                System.out.println("⚠️  " + failed + " read tests failed");
+                log.warn("⚠️  {} read tests failed", failed);
                 System.exit(1);
             }
 
         } catch (Exception e) {
-            System.err.println("Fatal error: " + e.getMessage());
-            e.printStackTrace();
+            log.error("Fatal error: {}", e.getMessage(), e);
             System.exit(1);
         }
     }

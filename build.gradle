@@ -11,6 +11,11 @@ allprojects {
             languageVersion = JavaLanguageVersion.of(21)
         }
     }
+
+    clean {
+        delete rootProject.file("logs")
+        delete project.file("logs")
+    }
 }
 
 subprojects {
@@ -29,10 +34,12 @@ subprojects {
 
     tasks.withType(JavaExec).configureEach {
         systemProperty "micronaut.config.files", rootProject.file("application.properties").absolutePath
+        systemProperty "micronaut.application.name", project.name
     }
 
     tasks.withType(Test).configureEach {
         systemProperty "micronaut.config.files", rootProject.file("application.properties").absolutePath
+        systemProperty "micronaut.application.name", project.name
     }
 }
 

@@ -4,15 +4,16 @@ import org.junit.jupiter.api.Test;
 import turoran.grfloader.loader.GRFNode;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.URL;
 
 public class GRFBenchmarkTest {
 
-    private static File getResourceFile(String name) throws Exception {
-        URL url = GRFBenchmarkTest.class.getClassLoader().getResource(name);
+    private static File getResourceFile() throws Exception {
+        URL url = GRFBenchmarkTest.class.getClassLoader().getResource("with-files.grf");
         if (url == null) {
-            throw new RuntimeException("Resource not found: " + name);
+            throw new RuntimeException("Resource not found: " + "with-files.grf");
         }
         return new File(url.toURI());
     }
@@ -20,7 +21,7 @@ public class GRFBenchmarkTest {
     @Test
     public void runBenchmarks() throws Exception {
         PerformanceBenchmark bench = new PerformanceBenchmark();
-        File grfFile = getResourceFile("with-files.grf");
+        File grfFile = getResourceFile();
         String grfPath = grfFile.getAbsolutePath();
 
         System.out.println("🚀 Starting GRF Loader benchmarks...\n");
@@ -100,11 +101,18 @@ public class GRFBenchmarkTest {
 
         // Save results to JSON
         String outputDir = System.getProperty("test.output.dir", "build/test-results/benchmark");
-        java.io.File dir = new java.io.File(outputDir);
+        File resultsFile = writeFile(outputDir, bench);
+        System.out.println("💾 Results saved to " + resultsFile.getPath() + "\n");
+    }
+
+    private static File writeFile(String outputDir, PerformanceBenchmark bench) throws IOException {
+        File dir = new File(outputDir);
         if (!dir.exists()) {
-            dir.mkdirs();
+            if(!dir.mkdirs()){
+                throw new RuntimeException("Failed to create output directory: " + outputDir);
+            }
         }
-        java.io.File resultsFile = new java.io.File(dir, "benchmark-results.json");
+        File resultsFile = new File(dir, "benchmark-results.json");
         try (java.io.FileWriter writer = new java.io.FileWriter(resultsFile)) {
             writer.write("[\n");
             java.util.List<BenchmarkResult> results = bench.getResults();
@@ -118,6 +126,6 @@ public class GRFBenchmarkTest {
             }
             writer.write("]\n");
         }
-        System.out.println("💾 Results saved to " + resultsFile.getPath() + "\n");
+        return resultsFile;
     }
 }

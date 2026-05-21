@@ -1,5 +1,6 @@
 package turoran.grfloader.tools;
 
+import lombok.extern.slf4j.Slf4j;
 import turoran.grfloader.loader.Decoder;
 import turoran.grfloader.loader.GRFNode;
 
@@ -15,13 +16,12 @@ import java.util.regex.Pattern;
 
 /**
  * PathMappingTool
- *
  * Generates a path mapping file that maps mojibake/C1 paths to their corrected versions.
  * This mapping can be used by the server to resolve file lookups.
- *
  * Usage:
  *  java -cp ... turoran.grfloader.tools.PathMappingTool [--output=path-mapping.json]
  */
+@Slf4j
 public class PathMappingTool {
 
     public static void main(String[] args) {
@@ -32,16 +32,13 @@ public class PathMappingTool {
             }
         }
 
-        System.out.println("GRF Encoding Converter (Java)");
-        System.out.println("");
-        System.out.println("Output: " + outputPath);
-        System.out.println("");
+        log.info("GRF Encoding Converter (Java)");
+        log.info("Output: {}", outputPath);
 
         try {
             generateMapping(outputPath);
         } catch (Exception e) {
-            System.err.println("Fatal error: " + e.getMessage());
-            e.printStackTrace();
+            log.error("Fatal error: {}", e.getMessage(), e);
             System.exit(1);
         }
     }
@@ -56,7 +53,7 @@ public class PathMappingTool {
             resourcesPath = Paths.get(".");
             dataIniPath = resourcesPath.resolve("DATA.INI");
             if (!Files.exists(dataIniPath)) {
-                System.err.println("ERROR: DATA.INI not found in " + resPath + " or current directory!");
+                log.error("ERROR: DATA.INI not found in {} or current directory!", resPath);
                 return;
             }
         }
@@ -65,11 +62,11 @@ public class PathMappingTool {
         List<String> grfFiles = parseDataINI(dataIniContent);
 
         if (grfFiles.isEmpty()) {
-            System.err.println("ERROR: No GRF files found in DATA.INI!");
+            log.error("ERROR: No GRF files found in DATA.INI!");
             return;
         }
 
-        System.out.println("Found " + grfFiles.size() + " GRF file(s)\n");
+        log.info("Found {} GRF file(s)", grfFiles.size());
 
         StringBuilder json = new StringBuilder();
         json.append("{\n");
@@ -91,11 +88,11 @@ public class PathMappingTool {
             Path grfPath = resourcesPath.resolve(grfFile);
 
             if (!Files.exists(grfPath)) {
-                System.out.println("SKIP: " + grfFile + " (not found)");
+                log.info("SKIP: {} (not found)", grfFile);
                 continue;
             }
 
-            System.out.println("Processing: " + grfFile);
+            log.info("Processing: {}", grfFile);
 
             try (RandomAccessFile raf = new RandomAccessFile(grfPath.toFile(), "r")) {
                 GRFNode grf = new GRFNode(raf);
@@ -162,7 +159,7 @@ public class PathMappingTool {
                     allFiles.size(), grfMapped, grfMojibake, grfC1);
 
             } catch (Exception e) {
-                System.out.println("  ERROR: " + e.getMessage());
+                log.error("  ERROR: {}", e.getMessage());
             }
         }
 
@@ -187,14 +184,14 @@ public class PathMappingTool {
 
         Files.writeString(Paths.get(outputPath), json.toString());
 
-        System.out.println("SUMMARY");
-        System.out.println("Total files:      " + String.format("%,d", summary.get("totalFiles")));
-        System.out.println("Total mapped:     " + String.format("%,d", summary.get("totalMapped")));
-        System.out.println("Mojibake fixed:   " + String.format("%,d", summary.get("mojibakeFixed")));
-        System.out.println("C1 fixed:         " + String.format("%,d", summary.get("c1Fixed")));
-        System.out.println("");
-        System.out.println("Mapping saved to: " + new File(outputPath).getAbsolutePath());
-        System.out.println("");
+        log.info("SUMMARY");
+        log.info("Total files:      {}", String.format("%,d", summary.get("totalFiles")));
+        log.info("Total mapped:     {}", String.format("%,d", summary.get("totalMapped")));
+        log.info("Mojibake fixed:   {}", String.format("%,d", summary.get("mojibakeFixed")));
+        log.info("C1 fixed:         {}", String.format("%,d", summary.get("c1Fixed")));
+        log.info("");
+        log.info("Mapping saved to: {}", new File(outputPath).getAbsolutePath());
+        log.info("");
     }
 
     private static String escapeJson(String s) {

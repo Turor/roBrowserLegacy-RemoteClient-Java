@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
-@Controller("/")
+@Controller()
 public class ClientController {
 
     private static final Set<String> STATIC_EXTENSIONS = Set.of(
@@ -35,7 +35,7 @@ public class ClientController {
     }
 
     @Get("/{+path}")
-    public HttpResponse<?> getFile(HttpRequest<?> request, @PathVariable(value = "path", defaultValue = "") String path) {
+    public HttpResponse<?> getFile(HttpRequest<?> request, @PathVariable(value = "path") String path) {
         // Serve index.html for root or empty path
         if (path == null || path.isEmpty() || path.equals("/")) {
             File indexFile = new File("index.html");

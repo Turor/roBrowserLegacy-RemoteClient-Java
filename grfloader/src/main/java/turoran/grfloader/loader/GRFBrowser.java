@@ -16,10 +16,6 @@ public class GRFBrowser extends GRFBase<File> {
         super(file);
     }
 
-    public GRFBrowser(File file, GrfOptions options) {
-        super(file, options);
-    }
-
     @Override
     public byte[] getStreamBuffer(File file, long offset, int length) throws IOException {
         try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {

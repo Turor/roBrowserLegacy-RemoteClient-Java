@@ -14,17 +14,16 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import jakarta.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+@Slf4j
 @ServerWebSocket("/ws/{target}")
 public class WebSocketProxyServer {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketProxyServer.class);
     private static final int MAX_PENDING = 64;
 
     private final ProxyConfig proxyConfig;
@@ -39,20 +38,20 @@ public class WebSocketProxyServer {
     @OnOpen
     public void onOpen(String target, WebSocketSession session) {
         if (!proxyConfig.isEnabled()) {
-            logger.warn("WS proxy is disabled, closing connection for target: {}", target);
+            log.warn("WS proxy is disabled, closing connection for target: {}", target);
             session.close();
             return;
         }
 
         if (!proxyConfig.isTargetAllowed(target)) {
-            logger.warn("WS proxy blocked: {} (allowed: {})", target, proxyConfig.getAllowedTargets());
+            log.warn("WS proxy blocked: {} (allowed: {})", target, proxyConfig.getAllowedTargets());
             session.close();
             return;
         }
 
         int colonIdx = target.lastIndexOf(':');
         if (colonIdx == -1) {
-            logger.warn("WS proxy rejected malformed target: {}", target);
+            log.warn("WS proxy rejected malformed target: {}", target);
             session.close();
             return;
         }
@@ -62,12 +61,12 @@ public class WebSocketProxyServer {
         try {
             port = Integer.parseInt(target.substring(colonIdx + 1));
         } catch (NumberFormatException e) {
-            logger.warn("WS proxy rejected malformed target port: {}", target);
+            log.warn("WS proxy rejected malformed target port: {}", target);
             session.close();
             return;
         }
 
-        logger.info("WS attempt: {}", target);
+        log.info("WS attempt: {}", target);
 
         ProxyContext context = new ProxyContext(session, target);
         contexts.put(session.getId(), context);
@@ -85,10 +84,10 @@ public class WebSocketProxyServer {
 
         b.connect(host, port).addListener((ChannelFutureListener) future -> {
             if (future.isSuccess()) {
-                logger.info("WS proxy: connected to {}", target);
+                log.info("WS proxy: connected to {}", target);
                 context.onTcpConnected(future.channel());
             } else {
-                logger.error("WS proxy: failed to connect to {}: {}", target, future.cause().getMessage());
+                log.error("WS proxy: failed to connect to {}: {}", target, future.cause().getMessage());
                 cleanup(session.getId(), "TCP connect failed");
             }
         });
@@ -115,7 +114,7 @@ public class WebSocketProxyServer {
     private void cleanup(String sessionId, String reason) {
         ProxyContext context = contexts.remove(sessionId);
         if (context != null) {
-            logger.info("WS proxy: closed {} ({})", context.target, reason);
+            log.info("WS proxy: closed {} ({})", context.target, reason);
             context.close();
         }
     }
@@ -148,7 +147,7 @@ public class WebSocketProxyServer {
             } else if (pending.size() < MAX_PENDING) {
                 pending.add(data);
             } else {
-                logger.warn("WS proxy: pending queue full for {}, dropping message", target);
+                log.warn("WS proxy: pending queue full for {}, dropping message", target);
             }
         }
 

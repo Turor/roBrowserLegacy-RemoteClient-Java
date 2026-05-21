@@ -10,17 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GRFServiceTest {
 
-    private File getResourceFile(String name) {
-        URL url = getClass().getClassLoader().getResource(name);
+    private File getResourceFile() {
+        URL url = getClass().getClassLoader().getResource("with-files.grf");
         if (url == null) {
-            throw new RuntimeException("Resource not found: " + name);
+            throw new RuntimeException("Resource not found: " + "with-files.grf");
         }
         return new File(url.getFile());
     }
 
     @Test
     public void testGRFController() {
-        File file = getResourceFile("with-files.grf");
+        File file = getResourceFile();
         GRFService controller = new GRFService(file.getAbsolutePath());
         
         assertFalse(controller.isLoaded());

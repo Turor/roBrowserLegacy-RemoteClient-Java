@@ -1,10 +1,7 @@
 package turoran.grfloader.loader;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +22,6 @@ public class BufferPool {
     }
 
     private final Map<Integer, List<PoolEntry>> pools = new HashMap<>();
-    private final int maxPoolSize = 10;
 
     // Common buffer sizes to pool (in bytes)
     private final int[] poolSizes = {
@@ -82,6 +78,7 @@ public class BufferPool {
             }
 
             // Pool is full or all in use, create new if pool not maxed
+            int maxPoolSize = 10;
             if (pool.size() < maxPoolSize) {
                 ByteBuffer buffer = ByteBuffer.allocate(poolSize);
                 PoolEntry entry = new PoolEntry(buffer);
@@ -148,7 +145,7 @@ public class BufferPool {
                     int inUse = (int) pool.stream().filter(e -> e.inUse).count();
                     return new PoolStats(size, total, inUse);
                 })
-                .sorted((a, b) -> Integer.compare(a.size, b.size))
+                .sorted(Comparator.comparingInt(a -> a.size))
                 .collect(Collectors.toList());
     }
 

@@ -1,5 +1,6 @@
 package turoran.grfloader.loader;
 
+import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -9,6 +10,7 @@ import java.nio.ByteBuffer;
  * <a href="https://github.com/FranciscoWallison/grf-loader/blob/main/src/grf-node.ts">GRFNode</a>
  */
 
+@Slf4j
 public class GRFNode extends GRFBase<RandomAccessFile> {
     private final boolean useBufferPool;
 
@@ -18,7 +20,7 @@ public class GRFNode extends GRFBase<RandomAccessFile> {
 
     public GRFNode(RandomAccessFile fd, GRFNodeOptions options) {
         super(fd, options);
-        this.useBufferPool = options != null ? options.useBufferPool : true;
+        this.useBufferPool = options == null || options.useBufferPool;
 
         try {
             // In Java, if we have a RandomAccessFile, we check if it's valid by getting its length
@@ -43,6 +45,7 @@ public class GRFNode extends GRFBase<RandomAccessFile> {
             int bytesRead = fd.read(array, 0, length);
 
             if (bytesRead != length) {
+                log.error("Read failed: expected {} bytes, got {} bytes", length, bytesRead);
                 // Release buffer back to pool if read failed
                 if (this.useBufferPool) {
                     BufferPool.INSTANCE.release(buffer);

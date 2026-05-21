@@ -37,7 +37,7 @@ It is recommended to use `/opt/remoteclient` as the deployment directory.
 sudo mkdir -p /opt/remoteclient/bin
 sudo mkdir -p /opt/remoteclient/config
 sudo mkdir -p /opt/remoteclient/logs
-sudo mkdir -p /opt/remoteclient/data
+sudo mkdir -p /opt/remoteclient/Data
 ```
 
 Copy the JARs and the configuration file:
@@ -48,7 +48,7 @@ sudo cp wsproxy/build/libs/wsproxy-0.1-all.jar /opt/remoteclient/bin/wsproxy.jar
 sudo cp application.properties /opt/remoteclient/config/application.properties
 ```
 
-Ensure you have your `index.html`, `DATA.INI`, and GRF files in `/opt/remoteclient/data` (or wherever you point `client.rootpath` to).
+Ensure you have your `index.html` in `/opt/remoteclient` and your `DATA.INI` and GRF files in `/opt/remoteclient/Data` (or wherever you point `client.rootpath` to).
 
 ## 3. Create a System User
 
@@ -73,8 +73,9 @@ After=network.target
 Type=simple
 User=remoteclient
 Group=remoteclient
-WorkingDirectory=/opt/remoteclient/data
+WorkingDirectory=/opt/remoteclient
 Environment="MICRONAUT_CONFIG_FILES=/opt/remoteclient/config/application.properties"
+Environment="MICRONAUT_APPLICATION_NAME=client"
 ExecStart=/usr/bin/java -jar /opt/remoteclient/bin/client.jar
 Restart=always
 RestartSec=10
@@ -97,6 +98,7 @@ User=remoteclient
 Group=remoteclient
 WorkingDirectory=/opt/remoteclient
 Environment="MICRONAUT_CONFIG_FILES=/opt/remoteclient/config/application.properties"
+Environment="MICRONAUT_APPLICATION_NAME=wsproxy"
 ExecStart=/usr/bin/java -jar /opt/remoteclient/bin/wsproxy.jar
 Restart=always
 RestartSec=10
@@ -127,6 +129,6 @@ sudo systemctl start remote-proxy.service
 ## Configuration Notes
 
 - **Logging**: By default, logs are sent to journald. You can view them with `journalctl`. If you prefer file-based logging via systemd, uncomment the `StandardOutput` and `StandardError` lines in the unit files. Note that the application also performs its own logging to `${client.logpath}` as configured in `application.properties`.
-- **Working Directory**: The `remote-client.service` uses `/opt/remoteclient/data` as the working directory because it expects `index.html` and other data files to be in the current directory by default.
+- **Working Directory**: The `remote-client.service` uses `/opt/remoteclient` as the working directory to align with `client.rootpath` and ensure that `index.html` (in the working directory) and RO data (in the `Data/` sub-directory) are correctly located.
 - **Environment Variables**: You can override any property using environment variables, e.g., `Environment="WSPROXY_ENABLED=true"`.
 - **Memory**: You can add JVM options to `ExecStart`, e.g., `ExecStart=/usr/bin/java -Xmx1024m -jar ...`.

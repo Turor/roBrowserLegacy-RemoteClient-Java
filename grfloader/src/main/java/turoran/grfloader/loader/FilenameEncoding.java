@@ -1,5 +1,8 @@
 package turoran.grfloader.loader;
 
+import lombok.Getter;
+
+@Getter
 public enum FilenameEncoding {
     UTF8("utf-8"),
     EUC_KR("euc-kr"),
@@ -11,10 +14,6 @@ public enum FilenameEncoding {
 
     FilenameEncoding(String value) {
         this.value = value;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     public static FilenameEncoding fromString(String text) {

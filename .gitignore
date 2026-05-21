@@ -23,3 +23,6 @@ grfloader/build/
 /.output.txt
 /logs/
 /grfloader/src/test/java/turoran/grfloader/benchmark/benchmark-results.json
+/client/logs/client.log
+/client/logs/missing-files.log
+/wsproxy/logs/wsproxy.log

@@ -12,6 +12,8 @@ import turoran.grfloader.loader.Decoder;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
@@ -19,7 +21,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
@@ -162,6 +170,7 @@ public class StartupValidator {
                     }
                     errorMsg.append("  ❌ ").append(validation.get("reason")).append("\n");
 
+                    @SuppressWarnings("unchecked")
                     Map<String, Object> fileTable = (Map<String, Object>) validation.get("fileTable");
                     if (fileTable != null && Boolean.FALSE.equals(fileTable.get("ok"))) {
                         errorMsg.append("  ❌ FileTable(zlib) failed: ").append(fileTable.get("reason")).append("\n");
@@ -179,8 +188,10 @@ public class StartupValidator {
                 } else {
                     addInfo("Valid GRF: " + grfFile + " (version " + validation.get("version") + ")");
 
+                    @SuppressWarnings("unchecked")
                     Map<String, Object> pathEncoding = (Map<String, Object>) validation.get("pathEncoding");
                     if (pathEncoding != null && "iso-8859-1".equals(pathEncoding.get("encoding"))) {
+                        @SuppressWarnings("unchecked")
                         List<String> samples = (List<String>) pathEncoding.get("invalidUtf8Samples");
                         String samplesStr = (samples != null && !samples.isEmpty())
                                 ? " Examples: " + String.join(" | ", samples)
@@ -270,7 +281,11 @@ public class StartupValidator {
             if (fileTableOk) {
                 fileTable.put("ok", true);
                 fileTable.put("layout", pathEncoding.get("layout"));
-                fileTable.putAll((Map<String, Object>) pathEncoding.get("table"));
+                @SuppressWarnings("unchecked")
+                Map<String, Object> table = (Map<String, Object>) pathEncoding.get("table");
+                if (table != null) {
+                    fileTable.putAll(table);
+                }
             } else {
                 fileTable.put("ok", false);
                 fileTable.put("reason", pathEncoding.get("reason"));
@@ -642,6 +657,7 @@ public class StartupValidator {
 
                 for (Object ex : examples.get("mojibake")) {
                     if (filesToConvert.size() < 50) {
+                        @SuppressWarnings("unchecked")
                         Map<String, Object> conv = new HashMap<>((Map<String, String>) ex);
                         conv.put("grf", grfFile);
                         filesToConvert.add(conv);
@@ -756,10 +772,10 @@ public class StartupValidator {
             results.put("CLIENT_PUBLIC_URL", Map.of("defined", false, "error", "Variable not set"));
         } else {
             try {
-                new java.net.URL(envVars.get("CLIENT_PUBLIC_URL"));
+                new URI(envVars.get("CLIENT_PUBLIC_URL")).toURL();
                 addInfo("CLIENT_PUBLIC_URL: " + envVars.get("CLIENT_PUBLIC_URL"));
                 results.put("CLIENT_PUBLIC_URL", Map.of("defined", true, "value", envVars.get("CLIENT_PUBLIC_URL")));
-            } catch (Exception e) {
+            } catch (URISyntaxException | IllegalArgumentException | java.net.MalformedURLException e) {
                 addError("Invalid CLIENT_PUBLIC_URL: " + envVars.get("CLIENT_PUBLIC_URL"));
                 hasErrors = true;
                 results.put("CLIENT_PUBLIC_URL", Map.of("defined", true, "invalid", true, "value", envVars.get("CLIENT_PUBLIC_URL")));
@@ -840,7 +856,9 @@ public class StartupValidator {
         validationResults.put("pathMapping", Map.of("exists", pathMappingExists));
 
         if (deepEncoding && validationResults.get("grfs") != null) {
+            @SuppressWarnings("unchecked")
             Map<String, Object> grfData = (Map<String, Object>) validationResults.get("grfs");
+            @SuppressWarnings("unchecked")
             List<Map<String, Object>> files = (List<Map<String, Object>>) grfData.get("files");
             if (files != null) {
                 List<String> validGrfFiles = new ArrayList<>();
@@ -853,6 +871,7 @@ public class StartupValidator {
                 if (!validGrfFiles.isEmpty()) {
                     logger.info("🔍 Running deep encoding validation...");
                     Map<String, Object> encodingResults = validateEncodingDeep(validGrfFiles);
+                    @SuppressWarnings("unchecked")
                     Map<String, Object> summary = (Map<String, Object>) encodingResults.get("summary");
 
                     if ((int) summary.get("mojibakeDetected") > 0) {
@@ -900,18 +919,21 @@ public class StartupValidator {
 
         sb.append("📋 VALIDATION REPORT");
 
+        @SuppressWarnings("unchecked")
         List<String> infoList = (List<String>) results.get("info");
-        if (!infoList.isEmpty()) {
+        if (infoList != null && !infoList.isEmpty()) {
             sb.append("\n✓ INFO:\n").append(formatMultiline(infoList));
         }
 
+        @SuppressWarnings("unchecked")
         List<String> warningList = (List<String>) results.get("warnings");
-        if (!warningList.isEmpty()) {
+        if (warningList != null && !warningList.isEmpty()) {
             sb.append("\n⚠️  WARNINGS:\n").append(formatMultiline(warningList));
         }
 
+        @SuppressWarnings("unchecked")
         List<String> errorList = (List<String>) results.get("errors");
-        if (!errorList.isEmpty()) {
+        if (errorList != null && !errorList.isEmpty()) {
             sb.append("\n❌ ERRORS:\n").append(formatMultiline(errorList));
         }
 

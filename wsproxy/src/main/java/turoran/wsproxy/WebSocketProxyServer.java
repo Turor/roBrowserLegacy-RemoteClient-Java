@@ -9,8 +9,16 @@ import io.micronaut.websocket.annotation.ServerWebSocket;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.MultithreadEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import jakarta.inject.Inject;
@@ -27,7 +35,8 @@ public class WebSocketProxyServer {
     private static final int MAX_PENDING = 64;
 
     private final ProxyConfig proxyConfig;
-    private final EventLoopGroup group = new NioEventLoopGroup();
+    @SuppressWarnings("deprecation")
+    private final EventLoopGroup group = new NioEventLoopGroup(0, new DefaultThreadFactory("ws-proxy"));
     private final Map<String, ProxyContext> contexts = new ConcurrentHashMap<>();
 
     @Inject

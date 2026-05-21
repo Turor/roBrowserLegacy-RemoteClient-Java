@@ -73,7 +73,7 @@ public class BufferPool {
                 if (!entry.inUse) {
                     entry.inUse = true;
                     entry.buffer.clear();
-                    return (ByteBuffer) entry.buffer.limit(length);
+                    return entry.buffer.limit(length);
                 }
             }
 
@@ -84,7 +84,7 @@ public class BufferPool {
                 PoolEntry entry = new PoolEntry(buffer);
                 entry.inUse = true;
                 pool.add(entry);
-                return (ByteBuffer) buffer.limit(length);
+                return buffer.limit(length);
             }
         }
 

@@ -2,6 +2,7 @@ package turoran.robrowserclient.service;
 
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.context.annotation.Prototype;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import turoran.grfloader.loader.FileResult;
 import turoran.grfloader.loader.GRFNode;
@@ -16,9 +17,12 @@ import java.util.List;
 @Prototype
 public class GRFService {
 
+    @Getter
     private final String filePath;
+    @Getter
     private final String fileName;
     private GRFNode grf;
+    @Getter
     private boolean loaded = false;
     private RandomAccessFile fd;
 
@@ -75,18 +79,6 @@ public class GRFService {
         }
 
         return this.grf.listFiles();
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public boolean isLoaded() {
-        return loaded;
     }
 
     public void close() {

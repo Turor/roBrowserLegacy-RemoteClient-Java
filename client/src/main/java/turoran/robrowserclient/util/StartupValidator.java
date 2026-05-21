@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -419,7 +420,7 @@ public class StartupValidator {
             return a.offsetOutOfRange - b.offsetOutOfRange;
         });
 
-        ScanResult best = scans.get(0);
+        ScanResult best = scans.getFirst();
 
         if (best == null || best.inspected == 0) {
             return Map.of(
@@ -567,7 +568,7 @@ public class StartupValidator {
             if (!isValidUtf8(nameBytes)) {
                 result.invalidUtf8Count++;
                 if (result.invalidUtf8Samples.size() < 5) {
-                    result.invalidUtf8Samples.add(new String(nameBytes, Charset.forName("ISO-8859-1")));
+                    result.invalidUtf8Samples.add(new String(nameBytes, StandardCharsets.ISO_8859_1));
                 }
             }
         }
@@ -577,7 +578,7 @@ public class StartupValidator {
 
     private boolean isValidUtf8(byte[] bytes) {
         try {
-            Charset.forName("UTF-8").newDecoder()
+            StandardCharsets.UTF_8.newDecoder()
                     .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
                     .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
                     .decode(ByteBuffer.wrap(bytes));

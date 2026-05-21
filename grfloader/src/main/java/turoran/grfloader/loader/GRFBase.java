@@ -53,7 +53,7 @@ public abstract class GRFBase<T> {
     private final Map<String, List<String>> extensionIndex = new HashMap<>();
 
     private long fileTableOffset = 0;
-    private final Map<String, byte[]> cache = new LinkedHashMap<String, byte[]>(50, 0.75f, true) {
+    private final Map<String, byte[]> cache = new LinkedHashMap<>(50, 0.75f, true) {
         @Override
         protected boolean removeEldestEntry(Map.Entry<String, byte[]> eldest) {
             return size() > 50;

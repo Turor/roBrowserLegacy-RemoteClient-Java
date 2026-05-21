@@ -1,6 +1,7 @@
 package turoran.robrowserclient.service;
 
 import io.micronaut.context.annotation.Property;
+import io.micronaut.context.annotation.Value;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @MicronautTest(environments = "test")
 @Property(name = "micronaut.server.port", value = "-1")
 @Property(name = "client.rootpath", value = "build/resources/test")
+@Property(name = "client.datapath", value = "Data")
 @Property(name = "client.dataini", value = "DATA.INI")
 @Property(name = "client.public-url", value = "http://localhost:0")
 @Property(name = "client.usepathmappings", value = "true")
@@ -32,10 +34,13 @@ public class ClientServiceTest {
     @Inject
     ClientService clientService;
 
+    @Value("${client.datapath:Data}")
+    private String dataPathName;
+
     @BeforeEach
     void setup() throws IOException {
         Path rootPath = Path.of("build/resources/test");
-        Path dataPath = rootPath.resolve("Data");
+        Path dataPath = rootPath.resolve(dataPathName);
         Files.createDirectories(dataPath);
         
         Path testGrf = dataPath.resolve("test.grf");

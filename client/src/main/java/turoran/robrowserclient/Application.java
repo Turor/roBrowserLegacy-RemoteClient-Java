@@ -18,25 +18,10 @@ package turoran.robrowserclient;
 
 import io.micronaut.runtime.Micronaut;
 import lombok.extern.slf4j.Slf4j;
-import turoran.grfloader.tools.PathMappingTool;
-
-import java.util.Arrays;
 
 @Slf4j
 public class Application {
-
     public static void main(String[] args) {
-        if (Arrays.asList(args).contains("--generate-mapping")) {
-            try {
-                PathMappingTool.main(args);
-                log.info("Path mapping generation completed.");
-            } catch (Exception e) {
-                log.error("Failed to generate path mapping: {}", e.getMessage(), e);
-            }
-            if (!Arrays.asList(args).contains("--run-server")) {
-                return;
-            }
-        }
         Micronaut.run(Application.class, args);
     }
 }

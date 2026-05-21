@@ -51,6 +51,9 @@ public class StartupValidator {
     @Value("${client.rootpath:.}")
     private String rootPath;
 
+    @Value("${client.datapath:Data}")
+    private String dataPathName;
+
     @Value("${client.dataini:DATA.INI}")
     private String dataIniName;
 
@@ -122,7 +125,7 @@ public class StartupValidator {
     }
 
     public boolean validateGrfs() {
-        Path dataPath = Paths.get(rootPath, "Data");
+        Path dataPath = Paths.get(rootPath, dataPathName);
         Path dataIniPath = dataPath.resolve(dataIniName);
 
         if (!Files.exists(dataIniPath)) {
@@ -600,7 +603,7 @@ public class StartupValidator {
         List<Map<String, Object>> grfResults = new ArrayList<>();
         List<Map<String, Object>> filesToConvert = new ArrayList<>();
 
-        Path dataPath = Paths.get(rootPath, "Data");
+        Path dataPath = Paths.get(rootPath, dataPathName);
         for (String grfFile : grfFiles) {
             Path grfPath = dataPath.resolve(grfFile);
             if (!Files.exists(grfPath)) continue;
@@ -692,9 +695,9 @@ public class StartupValidator {
     public boolean validateRequiredFiles() {
         List<Map<String, Object>> checks = List.of(
                 Map.of("path", rootPath, "type", "dir", "required", true, "name", "Root folder"),
-                Map.of("path", Paths.get(rootPath, "Data", dataIniName).toString(), "type", "file", "required", true, "name", dataIniName + " file"),
+                Map.of("path", Paths.get(rootPath, dataPathName, dataIniName).toString(), "type", "file", "required", true, "name", dataIniName + " file"),
                 Map.of("path", Paths.get(rootPath, "BGM").toString(), "type", "dir", "required", false, "name", "BGM folder"),
-                Map.of("path", Paths.get(rootPath, "Data").toString(), "type", "dir", "required", true, "name", "Data folder"),
+                Map.of("path", Paths.get(rootPath, dataPathName).toString(), "type", "dir", "required", true, "name", dataPathName + " folder"),
                 Map.of("path", Paths.get(rootPath, "System").toString(), "type", "dir", "required", false, "name", "System folder"),
                 Map.of("path", Paths.get(rootPath, "AI").toString(), "type", "dir", "required", false, "name", "AI folder"),
                 Map.of("path", Paths.get(rootPath, "resources").toString(), "type", "dir", "required", false, "name", "Resources folder")

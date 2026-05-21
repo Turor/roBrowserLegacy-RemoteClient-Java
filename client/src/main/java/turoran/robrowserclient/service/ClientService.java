@@ -31,11 +31,16 @@ public class ClientService {
     private final LRUCacheService fileCache;
     private final StartupValidator startupValidator;
     private final BeanContext beanContext;
+    private static final String RESOURCES_PATH = "resources";
+    private static final String BGM_PATH = "BGM";
+    private static final String DATA_PATH = "data";
+    private static final String AI_PATH = "AI";
+    private static final String SYSTEM_PATH = "System";
 
     @Value("${client.rootpath:.}")
     private String rootPath;
 
-    @Value("${client.dataini:DATA.INI}")
+    @Value("${client.dataininame:DATA.INI}")
     private String dataIniName;
 
     @Value("${client.autoextract:false}")
@@ -85,7 +90,7 @@ public class ClientService {
         loadPathMapping();
 
         long startTime = System.currentTimeMillis();
-        Path dataPath = Paths.get(rootPath, "Data");
+        Path dataPath = Paths.get(rootPath, RESOURCES_PATH);
         Path dataIniPath = dataPath.resolve(dataIniName);
 
         if (!Files.exists(dataIniPath)) {
@@ -222,7 +227,7 @@ public class ClientService {
             String bgmFile = filePath.substring(4);
             localPath = Paths.get(rootPath, "BGM", bgmFile);
         } else if (lowerPath.startsWith("data/")) {
-            localPath = Paths.get(rootPath, "Data", filePath.substring(5));
+            localPath = Paths.get(rootPath, "data", filePath.substring(5));
         } else if (lowerPath.startsWith("ai/")) {
             localPath = Paths.get(rootPath, "AI", filePath.substring(3));
         } else if (lowerPath.startsWith("system/")) {
@@ -290,15 +295,16 @@ public class ClientService {
     }
 
     private void loadPathMapping() {
-        Path mappingPath = Paths.get(rootPath, "resources", "path-mapping.json");
+        Path resourcesPath = Paths.get(rootPath, "resources");
+        Path mappingPath = resourcesPath.resolve("path-mapping.json");
 
         if (!Files.exists(mappingPath) && usePathMappings) {
             logger.info("Path mapping file missing, attempting to generate it...");
             try {
-                Path dataPath = Paths.get(rootPath, "Data");
+                Path dataPath = Paths.get(rootPath, RESOURCES_PATH);
                 Path dataIniPath = dataPath.resolve(dataIniName);
                 if (Files.exists(dataIniPath)) {
-                    Files.createDirectories(mappingPath.getParent());
+                    Files.createDirectories(resourcesPath);
                     String dataIniContent = Files.readString(dataIniPath, Charset.forName("CP949"));
                     PathMappingTool.generateMapping(dataIniContent, dataPath, mappingPath);
                 } else {
@@ -393,7 +399,7 @@ public class ClientService {
         if (entries.isEmpty()) return;
 
         try {
-            Path logDir = Paths.get(logPath);
+            Path logDir = Paths.get(rootPath, logPath);
             Files.createDirectories(logDir);
             Files.write(logDir.resolve("missing-files.log"), entries, StandardCharsets.UTF_8, 
                 java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);

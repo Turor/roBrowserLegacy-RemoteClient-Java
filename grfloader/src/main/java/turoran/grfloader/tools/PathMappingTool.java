@@ -1,8 +1,10 @@
 package turoran.grfloader.tools;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
-import turoran.grfloader.loader.Decoder;
-import turoran.grfloader.loader.GRFNode;
+import turoran.grfloader.loader.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,11 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 public class PathMappingTool {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .enable(SerializationFeature.INDENT_OUTPUT);
 
     public static void main(String[] args) {
         String outputPath = "path-mapping.json";
@@ -72,23 +79,11 @@ public class PathMappingTool {
 
         log.info("Found {} GRF file(s)", grfFiles.size());
 
-        StringBuilder json = new StringBuilder();
-        json.append("{\n");
-        json.append("  \"generatedAt\": \"").append(Instant.now().toString()).append("\",\n");
-        json.append("  \"grfs\": [\n");
-
-        List<String> grfStatsJsons = new ArrayList<>();
-        
-        Map<String, Integer> summary = new LinkedHashMap<>();
-        summary.put("totalFiles", 0);
-        summary.put("totalMapped", 0);
-        summary.put("mojibakeFixed", 0);
-        summary.put("c1Fixed", 0);
-
+        List<GRFStat> grfsStats = new ArrayList<>();
         Map<String, String> pathsMap = new LinkedHashMap<>();
+        GRFSummary summary = new GRFSummary();
 
-        for (int i = 0; i < grfFiles.size(); i++) {
-            String grfFile = grfFiles.get(i);
+        for (String grfFile : grfFiles) {
             Path grfPath = resourcesPath.resolve(grfFile);
 
             if (!Files.exists(grfPath)) {
@@ -108,7 +103,7 @@ public class PathMappingTool {
                 int grfC1 = 0;
 
                 for (String filename : allFiles) {
-                    summary.put("totalFiles", summary.get("totalFiles") + 1);
+                    summary.addFiles(1);
 
                     boolean hasMojibake = Decoder.isMojibake(filename);
                     boolean hasC1 = Decoder.countC1ControlChars(filename) > 0;
@@ -132,16 +127,16 @@ public class PathMappingTool {
                             String koreanPath = fixed;
                             String grfPathStr = filename;
 
-                            pathsMap.put(escapeJson(koreanPath), escapeJson(grfPathStr));
+                            pathsMap.put(koreanPath, grfPathStr);
 
                             String normalizedKorean = koreanPath.replace('\\', '/').toLowerCase();
                             String normalizedGrf = grfPathStr.replace('\\', '/').toLowerCase();
-                            pathsMap.put(escapeJson(normalizedKorean), escapeJson(normalizedGrf));
+                            pathsMap.put(normalizedKorean, normalizedGrf);
                             
                             String normalizedKoreanBS = koreanPath.replace('/', '\\').toLowerCase();
                             String normalizedGrfBS = grfPathStr.replace('/', '\\').toLowerCase();
                             if (!normalizedKoreanBS.equals(koreanPath)) {
-                                pathsMap.put(escapeJson(normalizedKoreanBS), escapeJson(normalizedGrfBS));
+                                pathsMap.put(normalizedKoreanBS, normalizedGrfBS);
                             }
 
                             grfMapped++;
@@ -149,15 +144,19 @@ public class PathMappingTool {
                     }
                 }
 
-                String grfStat = String.format(
-                    "    {\n      \"file\": \"%s\",\n      \"totalFiles\": %d,\n      \"mapped\": %d,\n      \"mojibake\": %d,\n      \"c1\": %d,\n      \"detectedEncoding\": \"%s\"\n    }",
-                    escapeJson(grfFile), allFiles.size(), grfMapped, grfMojibake, grfC1, grf.getDetectedEncoding().toString()
-                );
-                grfStatsJsons.add(grfStat);
+                GRFStat grfStat = GRFStat.builder()
+                        .file(grfFile)
+                        .totalFiles(allFiles.size())
+                        .mapped(grfMapped)
+                        .mojibake(grfMojibake)
+                        .c1(grfC1)
+                        .detectedEncoding(grf.getDetectedEncoding().toString())
+                        .build();
+                grfsStats.add(grfStat);
 
-                summary.put("totalMapped", summary.get("totalMapped") + grfMapped);
-                summary.put("mojibakeFixed", summary.get("mojibakeFixed") + grfMojibake);
-                summary.put("c1Fixed", summary.get("c1Fixed") + grfC1);
+                summary.addMapped(grfMapped);
+                summary.addMojibake(grfMojibake);
+                summary.addC1(grfC1);
 
                 System.out.printf("  Files: %,d | Mapped: %d | Mojibake: %d | C1: %d%n", 
                     allFiles.size(), grfMapped, grfMojibake, grfC1);
@@ -167,47 +166,25 @@ public class PathMappingTool {
             }
         }
 
-        json.append(String.join(",\n", grfStatsJsons));
-        json.append("\n  ],\n");
-        json.append("  \"paths\": {\n");
+        PathMapping root = PathMapping.builder()
+                .generatedAt(Instant.now())
+                .grfs(grfsStats)
+                .paths(pathsMap)
+                .summary(summary)
+                .build();
 
-        List<String> pathEntries = new ArrayList<>();
-        for (Map.Entry<String, String> entry : pathsMap.entrySet()) {
-            pathEntries.add("    \"" + entry.getKey() + "\": \"" + entry.getValue() + "\"");
-        }
-        json.append(String.join(",\n", pathEntries));
-        json.append("\n  },\n");
-
-        json.append("  \"summary\": {\n");
-        json.append("    \"totalFiles\": ").append(summary.get("totalFiles")).append(",\n");
-        json.append("    \"totalMapped\": ").append(summary.get("totalMapped")).append(",\n");
-        json.append("    \"mojibakeFixed\": ").append(summary.get("mojibakeFixed")).append(",\n");
-        json.append("    \"c1Fixed\": ").append(summary.get("c1Fixed")).append("\n");
-        json.append("  }\n");
-        json.append("}\n");
-
-        Files.writeString(outputPath, json.toString());
+        objectMapper.writeValue(outputPath.toFile(), root);
 
         log.info("SUMMARY");
-        log.info("Total files:      {}", String.format("%,d", summary.get("totalFiles")));
-        log.info("Total mapped:     {}", String.format("%,d", summary.get("totalMapped")));
-        log.info("Mojibake fixed:   {}", String.format("%,d", summary.get("mojibakeFixed")));
-        log.info("C1 fixed:         {}", String.format("%,d", summary.get("c1Fixed")));
+        log.info("Total files:      {}", String.format("%,d", summary.getTotalFiles()));
+        log.info("Total mapped:     {}", String.format("%,d", summary.getTotalMapped()));
+        log.info("Mojibake fixed:   {}", String.format("%,d", summary.getMojibakeFixed()));
+        log.info("C1 fixed:         {}", String.format("%,d", summary.getC1Fixed()));
         log.info("");
         log.info("Mapping saved to: {}", outputPath.toAbsolutePath());
         log.info("");
     }
 
-    private static String escapeJson(String s) {
-        if (s == null) return "";
-        return s.replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\b", "\\b")
-                .replace("\f", "\\f")
-                .replace("\n", "\\n")
-                .replace("\r", "\\r")
-                .replace("\t", "\\t");
-    }
 
     private static List<String> parseDataINI(String content) {
         List<String> grfFiles = new ArrayList<>();

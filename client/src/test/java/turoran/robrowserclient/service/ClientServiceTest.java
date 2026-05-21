@@ -40,15 +40,15 @@ public class ClientServiceTest {
     @BeforeEach
     void setup() throws IOException {
         Path rootPath = Path.of("build/resources/test");
-        Path dataPath = rootPath.resolve(dataPathName);
-        Files.createDirectories(dataPath);
+        Path resourcesPath = rootPath.resolve("resources");
+        Files.createDirectories(resourcesPath);
         
-        Path testGrf = dataPath.resolve("test.grf");
+        Path testGrf = resourcesPath.resolve("test.grf");
         if (!Files.exists(testGrf)) {
             Files.copy(Path.of("../grfloader/src/test/resources/with-files.grf"), testGrf);
         }
 
-        Path dataIni = dataPath.resolve("DATA.INI");
+        Path dataIni = resourcesPath.resolve("DATA.INI");
         String iniContent = "[Data]\n0=test.grf\n";
         Files.writeString(dataIni, iniContent, Charset.forName("CP949"));
 
@@ -148,17 +148,11 @@ public class ClientServiceTest {
         // Ensure it doesn't exist
         Files.deleteIfExists(mappingFile);
         
-        // Set property to enable auto-generation (it's already set in @Property if I added it, but let's be sure)
-        // Since we can't easily change @Property at runtime for Micronaut tests without more ceremony,
-        // we hope the default or the one we added works.
-        // Actually, the current test uses @MicronautTest and we can't easily change properties.
-        // But we can check if it WAS generated.
-        
         clientService.init();
         
         assertTrue(Files.exists(mappingFile), "path-mapping.json should have been auto-generated");
         String content = Files.readString(mappingFile);
-        assertTrue(content.contains("\"paths\":"), "Generated file should contain 'paths'");
+        assertTrue(content.contains("\"paths\""), "Generated file should contain 'paths'");
     }
 
     @Test

@@ -1,5 +1,8 @@
 package turoran.robrowserclient.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.context.BeanContext;
 import io.micronaut.context.annotation.Value;
 import jakarta.annotation.PostConstruct;
@@ -71,6 +74,7 @@ public class ClientService {
     private static final long NOTIFICATION_COOLDOWN = 60000;
 
     private Map<String, String> externalPathMapping = new HashMap<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final BlockingQueue<String> logQueue = new LinkedBlockingQueue<>();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -317,29 +321,13 @@ public class ClientService {
 
         if (Files.exists(mappingPath)) {
             try {
-                String content = Files.readString(mappingPath);
-                // Very simple manual parsing for "paths": { ... }
-                int pathsIndex = content.indexOf("\"paths\":");
-                if (pathsIndex != -1) {
-                    int startBrace = content.indexOf('{', pathsIndex);
-                    int endBrace = findMatchingBrace(content, startBrace);
-                    if (startBrace != -1 && endBrace != -1) {
-                        String pathsJson = content.substring(startBrace + 1, endBrace);
-                        String[] entries = pathsJson.split(",\\s*\\r?\\n");
-                        for (String entry : entries) {
-                            int colonIndex = entry.indexOf("\": \"");
-                            if (colonIndex != -1) {
-                                String keyPart = entry.substring(0, colonIndex).trim();
-                                String valPart = entry.substring(colonIndex + 4).trim();
-                                
-                                String key = keyPart.replace("\"", "").replace("\\\\", "\\");
-                                String value = valPart.replace("\"", "").replace(",", "").replace("\\\\", "\\").trim();
-                                if (value.endsWith("\"")) value = value.substring(0, value.length() - 1);
-                                
-                                externalPathMapping.put(key, value);
-                            }
-                        }
-                        logger.info("Loaded {} path mappings from {}", externalPathMapping.size(), mappingPath);
+                JsonNode root = objectMapper.readTree(mappingPath.toFile());
+                if (root != null && root.has("paths")) {
+                    JsonNode pathsNode = root.get("paths");
+                    Map<String, String> mappings = objectMapper.convertValue(pathsNode, new TypeReference<Map<String, String>>() {});
+                    if (mappings != null) {
+                        externalPathMapping.putAll(mappings);
+                        logger.info("Loaded {} path mappings from {}", mappings.size(), mappingPath);
                     }
                 }
             } catch (IOException e) {
@@ -348,17 +336,6 @@ public class ClientService {
         }
     }
 
-    private int findMatchingBrace(String s, int start) {
-        int depth = 0;
-        for (int i = start; i < s.length(); i++) {
-            if (s.charAt(i) == '{') depth++;
-            else if (s.charAt(i) == '}') {
-                depth--;
-                if (depth == 0) return i;
-            }
-        }
-        return -1;
-    }
 
     private String decodeMojibake(String str) {
         try {

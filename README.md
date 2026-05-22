@@ -32,7 +32,6 @@ The application is configured in `application.properties`:
 - `client.usepathmappings`: Enable path mappings (default: `true`).
 - `client.autoextract`: Automatically extract missing files from GRFs (default: `true`).
 - `client.enablesearch`: Enable file search functionality (default: `true`).
-- `client.public-url`: The public URL of the client (default: `http://localhost:3338`).
 
 ### Cache Settings
 - `client.cache.max-files`: Maximum number of files to keep in cache (default: `5000`).

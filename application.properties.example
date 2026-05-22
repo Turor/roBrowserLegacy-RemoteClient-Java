@@ -25,7 +25,7 @@ wsproxy.server.port=5999
 
 # Startup tasks
 client.tasks.validate-grfs=true
-client.tasks.mapping-output=${MAPPING_OUTPUT:path-mapping.json}
+client.tasks.mapping-output=path-mapping.json
 
 # Debugging settings
 # Sets Logback root level via ${LOG_LEVEL}

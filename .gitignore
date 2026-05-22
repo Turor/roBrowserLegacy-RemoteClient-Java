@@ -37,3 +37,4 @@ client/AI/**
 client/logs/**
 client/BGM/**
 client/System/**
+application.properties

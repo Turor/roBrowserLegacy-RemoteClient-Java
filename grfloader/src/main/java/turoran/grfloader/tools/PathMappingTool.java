@@ -32,6 +32,15 @@ public class PathMappingTool {
             .enable(SerializationFeature.INDENT_OUTPUT);
 
     public static void main(String[] args) {
+        try {
+            execute(args);
+        } catch (Exception e) {
+            log.error("Fatal error: {}", e.getMessage(), e);
+            System.exit(1);
+        }
+    }
+
+    public static void execute(String[] args) throws IOException {
         String outputPath = "path-mapping.json";
         for (String arg : args) {
             if (arg.startsWith("--output=")) {
@@ -42,12 +51,7 @@ public class PathMappingTool {
         log.info("GRF Encoding Converter (Java)");
         log.info("Output: {}", outputPath);
 
-        try {
-            generateMapping(outputPath);
-        } catch (Exception e) {
-            log.error("Fatal error: {}", e.getMessage(), e);
-            System.exit(1);
-        }
+        generateMapping(outputPath);
     }
 
     public static void generateMapping(String outputPath) throws IOException {

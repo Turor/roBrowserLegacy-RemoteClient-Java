@@ -55,10 +55,14 @@ public class PostStartupTaskRunner {
     }
 
     private void runGrfValidation() {
-        log.info("Starting post-startup GRF validation...");
+        log.info("Starting post-startup GRF validation in: {}/{}", rootPath, resourcesPath);
         try {
             Path folderPath = Paths.get(rootPath, resourcesPath);
-            ValidateAllGRFS.main(new String[]{folderPath.toString()});
+            if (!Files.exists(folderPath)) {
+                log.warn("GRF validation skipped: folder does not exist: {}", folderPath.toAbsolutePath());
+                return;
+            }
+            ValidateAllGRFS.execute(new String[]{folderPath.toString()});
             log.info("GRF validation completed.");
         } catch (Exception e) {
             log.error("Failed to validate GRFs: {}", e.getMessage(), e);

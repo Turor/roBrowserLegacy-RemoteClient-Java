@@ -73,14 +73,19 @@ public class StartupValidator {
         try {
             String javaVersion = System.getProperty("java.version");
             String javaVendor = System.getProperty("java.vendor");
+            String osName = System.getProperty("os.name");
+            String osVersion = System.getProperty("os.version");
+            String osArch = System.getProperty("os.arch");
 
-            Map<String, Object> javaVersionInfo = new HashMap<>();
+            Map<String, Object> javaVersionInfo = new LinkedHashMap<>();
             javaVersionInfo.put("java", javaVersion);
             javaVersionInfo.put("vendor", javaVendor);
+            javaVersionInfo.put("os", osName + " " + osVersion + " (" + osArch + ")");
             javaVersionInfo.put("valid", true);
             validationResults.put("javaVersion", javaVersionInfo);
 
             addInfo("Java: " + javaVersion + " (" + javaVendor + ")");
+            addInfo("OS: " + osName + " " + osVersion + " (" + osArch + ")");
 
             int majorVersion = Runtime.version().feature();
             if (majorVersion < 17) {

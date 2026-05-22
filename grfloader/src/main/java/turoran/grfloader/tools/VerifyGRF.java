@@ -17,9 +17,18 @@ import java.util.List;
 public class VerifyGRF {
 
     public static void main(String[] args) {
+        try {
+            execute(args);
+        } catch (Exception e) {
+            log.error("Fatal error: {}", e.getMessage(), e);
+            System.exit(1);
+        }
+    }
+
+    public static boolean execute(String[] args) throws Exception {
         if (args.length < 1) {
             log.error("Uso: java turoran.grfloader.tools.VerifyGRF <grfPath> [encoding=auto] [count=100]");
-            System.exit(1);
+            return false;
         }
 
         String grfPath = args[0];
@@ -35,10 +44,10 @@ public class VerifyGRF {
 
         try (RandomAccessFile fd = new RandomAccessFile(grfPath, "r")) {
             log.info("[1] Loading GRF...");
-            
+
             GRFNodeOptions options = new GRFNodeOptions();
             options.filenameEncoding = encoding;
-            
+
             GRFNode grf = new GRFNode(fd, options);
 
             long loadStart = System.currentTimeMillis();
@@ -160,15 +169,11 @@ public class VerifyGRF {
 
             if (failed == 0) {
                 log.info("✅ All read tests passed!");
-                System.exit(0);
+                return true;
             } else {
                 log.warn("⚠️  {} read tests failed", failed);
-                System.exit(1);
+                return false;
             }
-
-        } catch (Exception e) {
-            log.error("Fatal error: {}", e.getMessage(), e);
-            System.exit(1);
         }
     }
 }

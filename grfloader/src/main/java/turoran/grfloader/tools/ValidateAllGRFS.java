@@ -22,12 +22,26 @@ import java.util.*;
 public class ValidateAllGRFS {
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            log.error("Usage: java turoran.grfloader.tools.ValidateAllGRFS <folder> [encoding=auto] [--read=100] [--examples=20]");
-            log.error("Ex:");
-            log.error("  java turoran.grfloader.tools.ValidateAllGRFS D:\\GRFs auto");
-            log.error("  java turoran.grfloader.tools.ValidateAllGRFS ./resources cp949 --read=300");
+        try {
+            execute(args);
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage());
             System.exit(1);
+        } catch (Exception e) {
+            log.error("Validation failed: {}", e.getMessage(), e);
+            System.exit(1);
+        }
+    }
+
+    /**
+     * Entry point that doesn't call System.exit, suitable for programmatic use.
+     */
+    public static void execute(String[] args) {
+        if (args.length < 1) {
+            throw new IllegalArgumentException("Usage: java turoran.grfloader.tools.ValidateAllGRFS <folder> [encoding=auto] [--read=100] [--examples=20]\n" +
+                    "Ex:\n" +
+                    "  java turoran.grfloader.tools.ValidateAllGRFS D:\\GRFs auto\n" +
+                    "  java turoran.grfloader.tools.ValidateAllGRFS ./resources cp949 --read=300");
         }
 
         String folderPath = args[0];
@@ -45,8 +59,7 @@ public class ValidateAllGRFS {
 
         File folder = new File(folderPath);
         if (!folder.exists() || !folder.isDirectory()) {
-            log.error("Invalid folder: {}", folderPath);
-            System.exit(1);
+            throw new IllegalArgumentException("Invalid folder: " + folderPath);
         }
 
         log.info("GRF Validation Tool (Java)");
@@ -58,7 +71,7 @@ public class ValidateAllGRFS {
         List<File> grfFiles = findGrfFiles(folder);
         if (grfFiles.isEmpty()) {
             log.error("No GRF files found!");
-            System.exit(1);
+            return;
         }
         log.info("[1] Scanning for GRF files...");
         log.info("    Found {} GRF file(s)", grfFiles.size());
@@ -124,20 +137,12 @@ public class ValidateAllGRFS {
         String stamp = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
         String outName = "grf-validation-" + stamp + ".json";
         
-        // Output as simple text representation since Jackson is not available
-        log.info("(JSON report generation skipped as Jackson is not in classpath)");
-        log.info("Report details would be saved to: {}", outName);
-        
         // Print some examples if they exist
         for (GrfResult res : report.grfs) {
             if (res.success && !res.examples.badUfffd.isEmpty()) {
                 log.info("Examples of bad U+FFFD in {}: {}", res.filename, res.examples.badUfffd.getFirst());
             }
         }
-
-        if (report.summary.failedLoads > 0) System.exit(2);
-        if (report.summary.totalRoundTripFailFinal > 0 || report.summary.totalReadTestsFailed > 0) System.exit(1);
-        System.exit(0);
     }
 
     private static List<File> findGrfFiles(File folder) {

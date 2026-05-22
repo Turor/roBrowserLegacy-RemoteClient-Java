@@ -27,3 +27,8 @@ grfloader/build/
 /client/logs/missing-files.log
 /wsproxy/logs/wsproxy.log
 /build.log
+
+# Ignore everything in resources/ besides test.grf and Data.ini
+client/resources/*
+!client/resources/test.grf
+!client/resources/Data.ini

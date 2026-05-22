@@ -6,6 +6,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import turoran.robrowserclient.model.CacheEntry;
 import turoran.robrowserclient.service.ClientService;
+import turoran.robrowserclient.service.HealthCheckService;
 import turoran.robrowserclient.service.LRUCacheService;
 import turoran.robrowserclient.util.StartupValidator;
 
@@ -27,11 +28,13 @@ public class ClientController {
     private final ClientService clientService;
     private final LRUCacheService lruCacheService;
     private final StartupValidator startupValidator;
+    private final HealthCheckService healthCheckService;
 
-    public ClientController(ClientService clientService, LRUCacheService lruCacheService, StartupValidator startupValidator) {
+    public ClientController(ClientService clientService, LRUCacheService lruCacheService, StartupValidator startupValidator, HealthCheckService healthCheckService) {
         this.clientService = clientService;
         this.lruCacheService = lruCacheService;
         this.startupValidator = startupValidator;
+        this.healthCheckService = healthCheckService;
     }
 
     @Get("/{+path}")
@@ -148,15 +151,32 @@ public class ClientController {
     }
 
     @Get("/doctor")
+    @Produces(MediaType.TEXT_PLAIN)
     public String doctor(@QueryValue(defaultValue = "false") boolean deep) {
-        Map<String, Object> results = startupValidator.validateAll(deep);
-        // We can't easily capture System.out.println from StartupValidator here unless we change it to return a String
-        // But let's just return the status for now or a formatted summary
-        return "Check server console for detailed report. Success: " + results.get("success");
+        return healthCheckService.getDoctorReport(deep);
     }
 
     @Get("/status")
-    public Map<String, Object> status() {
-        return startupValidator.getStatusJSON();
+    @Produces(MediaType.APPLICATION_JSON)
+    public String status() {
+        return health();
+    }
+
+    @Get("/health-check")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String health() {
+        try {
+            return new com.fasterxml.jackson.databind.ObjectMapper()
+                .findAndRegisterModules()
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(healthCheckService.getFullStatus());
+        } catch (Exception e) {
+            return "{\"error\": \"" + e.getMessage() + "\"}";
+        }
+    }
+
+    @Get("/health/simple")
+    public Map<String, Object> healthSimple() {
+        return healthCheckService.getSimpleStatus();
     }
 }

@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class ClientService {
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
+    private static final Logger missingFileLogger = LoggerFactory.getLogger("missing-files");
 
     private final LRUCacheService fileCache;
     private final StartupValidator startupValidator;
@@ -55,9 +56,6 @@ public class ClientService {
     @Value("${client.usepathmappings:false}")
     private boolean usePathMappings;
 
-    @Value("${client.logpath:logs}")
-    private String logPath;
-
     @Value("${client.cache.warmup.enabled:true}")
     private boolean warmUpEnabled;
 
@@ -66,18 +64,17 @@ public class ClientService {
 
     private final List<GRFService> grfs = new ArrayList<>();
     private final Map<String, FileIndexEntry> fileIndex = new ConcurrentHashMap<>();
+    private final List<FileIndexEntry> uniqueEntries = new ArrayList<>();
     private boolean indexBuilt = false;
     
     private final Set<String> missingFilesSet = ConcurrentHashMap.newKeySet();
-    private final List<MissingFileLogEntry> missingFiles = new CopyOnWriteArrayList<>();
+    private final Deque<MissingFileLogEntry> missingFiles = new ArrayDeque<>();
+    private final Object missingFilesLock = new Object();
     private long lastNotificationTime = 0;
     private static final long NOTIFICATION_COOLDOWN = 60000;
 
-    private Map<String, String> externalPathMapping = new HashMap<>();
+    private final Map<String, String> externalPathMapping = new HashMap<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    private final BlockingQueue<String> logQueue = new LinkedBlockingQueue<>();
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     private record FileIndexEntry(int grfIndex, String originalPath, String mappedFrom) {}
 
@@ -151,11 +148,6 @@ public class ClientService {
 
             long elapsed = System.currentTimeMillis() - startTime;
             logger.info("Client initialized in {}ms ({} files indexed)", elapsed, fileIndex.size());
-
-            if (!scheduler.isShutdown()) {
-                scheduler.scheduleWithFixedDelay(this::flushLogQueue, 1, 1, TimeUnit.SECONDS);
-            }
-
         } catch (IOException e) {
             logger.error("Failed to read DATA.INI", e);
         }
@@ -166,13 +158,12 @@ public class ClientService {
         for (GRFService grf : grfs) {
             grf.close();
         }
-        scheduler.shutdown();
-        flushLogQueue();
     }
 
     private void buildFileIndex() {
         long startTime = System.currentTimeMillis();
         fileIndex.clear();
+        uniqueEntries.clear();
         int mojibakeCount = 0;
 
         Charset cp949 = Charset.forName("CP949");
@@ -182,22 +173,25 @@ public class ClientService {
             GRFService grf = grfs.get(i);
             List<String> files = grf.listFiles();
             for (String file : files) {
+                FileIndexEntry mainEntry = new FileIndexEntry(i, file, null);
+                uniqueEntries.add(mainEntry);
+                
                 String normalized = file.toLowerCase().replace('\\', '/');
-                fileIndex.putIfAbsent(normalized, new FileIndexEntry(i, file, null));
+                fileIndex.putIfAbsent(normalized, mainEntry);
 
                 String normalizedBackslash = file.toLowerCase().replace('/', '\\');
-                fileIndex.putIfAbsent(normalizedBackslash, new FileIndexEntry(i, file, null));
+                fileIndex.putIfAbsent(normalizedBackslash, mainEntry);
 
                 try {
                     byte[] cp949Bytes = file.getBytes(cp949);
                     String mojibakePath = new String(cp949Bytes, latin1);
                     if (!mojibakePath.equals(file)) {
                         String normalizedMojibake = mojibakePath.toLowerCase().replace('\\', '/');
-                        if (fileIndex.putIfAbsent(normalizedMojibake, new FileIndexEntry(i, file, null)) == null) {
+                        if (fileIndex.putIfAbsent(normalizedMojibake, mainEntry) == null) {
                             mojibakeCount++;
                         }
                         String mojibakeBackslash = mojibakePath.toLowerCase().replace('/', '\\');
-                        fileIndex.putIfAbsent(mojibakeBackslash, new FileIndexEntry(i, file, null));
+                        fileIndex.putIfAbsent(mojibakeBackslash, mainEntry);
                     }
                 } catch (Exception ignored) {}
             }
@@ -376,37 +370,29 @@ public class ClientService {
         if (!missingFilesSet.add(requestedPath)) return;
 
         MissingFileLogEntry entry = new MissingFileLogEntry(Instant.now(), requestedPath, grfPath, mappedPath);
-        missingFiles.add(entry);
-        if (missingFiles.size() > 1000) {
-            missingFiles.remove(0);
+        synchronized (missingFilesLock) {
+            missingFiles.add(entry);
+            if (missingFiles.size() > 1000) {
+                missingFiles.pollFirst();
+            }
         }
 
-        logQueue.offer(entry.timestamp().toString() + " - " + requestedPath + "\n");
+        missingFileLogger.info(requestedPath);
         checkNotification();
-    }
-
-    private void flushLogQueue() {
-        List<String> entries = new ArrayList<>();
-        logQueue.drainTo(entries);
-        if (entries.isEmpty()) return;
-
-        try {
-            Path logDir = Paths.get(rootPath, logPath);
-            Files.createDirectories(logDir);
-            Files.write(logDir.resolve("missing-files.log"), entries, StandardCharsets.UTF_8, 
-                java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            logger.error("Failed to write missing file log: {}", e.getMessage());
-        }
     }
 
     private void checkNotification() {
         long now = System.currentTimeMillis();
         if (now - lastNotificationTime < NOTIFICATION_COOLDOWN) return;
-        if (missingFiles.size() < 10) return;
+        
+        int count;
+        synchronized (missingFilesLock) {
+            count = missingFiles.size();
+        }
+        if (count < 10) return;
 
         lastNotificationTime = now;
-        logger.warn("MISSING FILES ALERT: {} files not found.", missingFiles.size());
+        logger.warn("MISSING FILES ALERT: {} files not found.", count);
     }
 
     private Map<String, List<String>> parseIni(String data) {
@@ -448,9 +434,8 @@ public class ClientService {
 
     public List<String> listFiles() {
         if (indexBuilt) {
-            return fileIndex.values().stream()
+            return uniqueEntries.stream()
                     .map(e -> e.originalPath)
-                    .distinct()
                     .collect(Collectors.toList());
         }
         return grfs.stream()
@@ -496,7 +481,9 @@ public class ClientService {
         int warmed = 0;
         long startTime = System.currentTimeMillis();
 
-        for (FileIndexEntry entry : fileIndex.values()) {
+        List<FileIndexEntry> entriesToProcess = indexBuilt ? uniqueEntries : new ArrayList<>(fileIndex.values());
+
+        for (FileIndexEntry entry : entriesToProcess) {
             if (warmed >= limit) break;
 
             for (Pattern pattern : patternsToUse) {

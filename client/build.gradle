@@ -21,6 +21,7 @@ dependencies {
     annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
     implementation("jakarta.inject:jakarta.inject-api:2.0.1")
     implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("io.micronaut.cache:micronaut-cache-caffeine")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("com.fasterxml.jackson.core:jackson-databind")

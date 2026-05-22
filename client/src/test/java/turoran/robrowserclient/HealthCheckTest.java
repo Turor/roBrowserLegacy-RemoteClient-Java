@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @MicronautTest(environments = "test")
 @Property(name = "micronaut.server.port", value = "-1")
 @Property(name = "client.rootpath", value = ".")
+@Property(name = "micronaut.server.cors.configurations.web.allowedOrigins", value = "test.com,example.com")
 public class HealthCheckTest {
 
     @Inject
@@ -28,6 +29,9 @@ public class HealthCheckTest {
         assertTrue(response.containsKey("status"));
         assertTrue(response.containsKey("timestamp"));
         assertTrue(response.containsKey("jvm"));
+        assertTrue(response.containsKey("origins"));
+        Map<String, Object> origins = (Map<String, Object>) response.get("origins");
+        assertTrue(origins.get("accepted").toString().contains("test.com"));
     }
 
     @Test
@@ -106,5 +110,18 @@ public class HealthCheckTest {
         Map<String, Object> response = client.toBlocking().retrieve(HttpRequest.GET("/api/path-mapping"), Map.class);
         assertNotNull(response);
         assertTrue(response.containsKey("usePathMappings"));
+    }
+
+    @Test
+    void testStandardHealthWithOrigins() {
+        Map<String, Object> response = client.toBlocking().retrieve(HttpRequest.GET("/health"), Map.class);
+        assertNotNull(response);
+        Map<String, Object> details = (Map<String, Object>) response.get("details");
+        assertNotNull(details);
+        Map<String, Object> origins = (Map<String, Object>) details.get("origins");
+        assertNotNull(origins);
+        Map<String, Object> originsDetails = (Map<String, Object>) origins.get("details");
+        assertNotNull(originsDetails);
+        assertTrue(originsDetails.get("accepted").toString().contains("test.com"));
     }
 }

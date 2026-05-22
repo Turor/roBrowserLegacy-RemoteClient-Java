@@ -44,9 +44,9 @@ sudo mkdir -p /opt/remoteclient/resources
 Copy the JARs, the configuration file, and the web client:
 
 ```bash
-sudo cp client/build/libs/client-0.1-all.jar /opt/remoteclient/bin/client.jar
-sudo cp wsproxy/build/libs/wsproxy-0.1-all.jar /opt/remoteclient/bin/wsproxy.jar
-sudo cp application.properties /opt/remoteclient/config/application.properties
+sudo cp client/build/libs/client-0.1-all.jar /opt/remoteclient/client.jar
+sudo cp wsproxy/build/libs/wsproxy-0.1-all.jar /opt/remoteclient/wsproxy.jar
+sudo cp application.properties.example /opt/remoteclient/config/application.properties
 # Copy your web client (index.html and any other static files)
 sudo cp index.html /opt/remoteclient/
 ```

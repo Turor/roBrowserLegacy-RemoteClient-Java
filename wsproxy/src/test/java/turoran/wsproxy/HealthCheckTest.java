@@ -31,5 +31,8 @@ public class HealthCheckTest {
         // In MicronautTest, it might not pick up example.properties unless specified.
         // But the basic check passed.
         assertTrue(response.contains("status"));
+        assertTrue(response.contains("origins"));
+        assertTrue(response.contains("accepted"));
+        assertTrue(response.contains("rodata.turoran.com"));
     }
 }

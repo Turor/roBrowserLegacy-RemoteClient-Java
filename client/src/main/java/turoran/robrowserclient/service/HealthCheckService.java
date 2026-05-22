@@ -1,6 +1,8 @@
 package turoran.robrowserclient.service;
 
 import jakarta.inject.Singleton;
+import io.micronaut.context.annotation.Value;
+import io.micronaut.core.annotation.Nullable;
 import turoran.robrowserclient.model.CacheStats;
 import turoran.robrowserclient.util.StartupValidator;
 
@@ -13,6 +15,10 @@ public class HealthCheckService {
     private final StartupValidator startupValidator;
     private final ClientService clientService;
     private final LRUCacheService lruCacheService;
+
+    @Value("${micronaut.server.cors.configurations.web.allowedOrigins:}")
+    @Nullable
+    protected List<String> allowedOrigins;
 
     public HealthCheckService(StartupValidator startupValidator, ClientService clientService, LRUCacheService lruCacheService) {
         this.startupValidator = startupValidator;
@@ -30,6 +36,7 @@ public class HealthCheckService {
         status.put("jvm", getJvmInfo());
         status.put("grfs", startupResults.get("details"));
         status.put("cache", lruCacheService.getStats());
+        status.put("origins", Map.of("accepted", allowedOrigins != null ? allowedOrigins : Collections.emptyList()));
         Map<String, Object> indexStats = clientService.getIndexStats();
         status.put("index", indexStats);
         

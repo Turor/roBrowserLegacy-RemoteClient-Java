@@ -16,8 +16,8 @@ client.cache.warmup.enabled=true
 client.cache.warmup.limit=500
 
 # Proxy settings (used by both client and wsproxy)
-wsproxy.enabled=${ENABLE_WSPROXY:true}
-wsproxy.allowed-targets=${WS_ALLOWED_TARGETS:127.0.0.1:6900,127.0.0.1:6121,127.0.0.1:5121}
+wsproxy.enabled=true
+wsproxy.allowed-targets=127.0.0.1:6900,127.0.0.1:6121,127.0.0.1:5121
 micronaut.server.port=3338
 
 # Startup tasks

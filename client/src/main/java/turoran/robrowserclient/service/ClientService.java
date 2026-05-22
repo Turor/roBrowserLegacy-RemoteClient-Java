@@ -500,6 +500,27 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
+    public List<MissingFileLogEntry> getMissingFiles() {
+        synchronized (missingFilesLock) {
+            return new ArrayList<>(missingFiles);
+        }
+    }
+
+    public void clearMissingFiles() {
+        synchronized (missingFilesLock) {
+            missingFiles.clear();
+            missingFilesSet.clear();
+        }
+    }
+
+    public Map<String, Object> getWarmUpStats() {
+        Map<String, Object> stats = new LinkedHashMap<>();
+        stats.put("enabled", warmUpEnabled);
+        stats.put("limit", warmUpLimit);
+        // We could track how many were actually warmed if we kept a counter
+        return stats;
+    }
+
     public Map<String, Object> getIndexStats() {
         Map<String, Object> stats = new LinkedHashMap<>();
         stats.put("totalFiles", fileIndex.size());

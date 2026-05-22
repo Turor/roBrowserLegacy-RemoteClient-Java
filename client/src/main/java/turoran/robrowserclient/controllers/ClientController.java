@@ -144,10 +144,68 @@ public class ClientController {
         return HttpResponse.ok(files).header("Cache-Control", "public, max-age=300");
     }
 
-    @Get("/warm-cache")
-    public Map<String, Object> warmCache(@QueryValue(defaultValue = "500") int limit) {
+
+    @Get("/api/health")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String health() {
+        try {
+            return new com.fasterxml.jackson.databind.ObjectMapper()
+                .findAndRegisterModules()
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(healthCheckService.getFullStatus());
+        } catch (Exception e) {
+            return "{\"error\": \"" + e.getMessage() + "\"}";
+        }
+    }
+
+    @Get("/api/health/simple")
+    public Map<String, Object> healthSimple() {
+        return healthCheckService.getSimpleStatus();
+    }
+
+    @Get("/api/validate")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String validate(@QueryValue(defaultValue = "false") boolean deep) {
+        return healthCheckService.getDoctorReport(deep);
+    }
+
+    @Get("/api/cache-stats")
+    public Map<String, Object> getCacheStats() {
+        return Map.of("cache", lruCacheService.getStats());
+    }
+
+    @Get("/api/missing-files")
+    public List<turoran.robrowserclient.model.MissingFileLogEntry> getMissingFiles() {
+        return clientService.getMissingFiles();
+    }
+
+    @Post("/api/missing-files/clear")
+    public HttpResponse<?> clearMissingFiles() {
+        clientService.clearMissingFiles();
+        return HttpResponse.ok(Map.of("message", "Missing files log cleared"));
+    }
+
+    @Get("/api/warm-cache")
+    public Map<String, Object> getWarmCacheStatus() {
+        return clientService.getWarmUpStats();
+    }
+
+    @Post("/api/warm-cache/run")
+    public Map<String, Object> runWarmCache(@QueryValue(defaultValue = "500") int limit) {
         int warmed = clientService.warmCache(null, limit);
         return Map.of("warmed", warmed);
+    }
+
+    @Get("/api/path-mapping")
+    public Map<String, Object> getPathMappingStats() {
+        Map<String, Object> stats = clientService.getIndexStats();
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("pathMappings", stats.get("pathMappings"));
+        result.put("usePathMappings", stats.get("usePathMappings"));
+        result.put("mappingFile", stats.get("mappingFile"));
+        result.put("mappingSize", stats.get("mappingSize"));
+        result.put("mappingLastModified", stats.get("mappingLastModified"));
+        return result;
     }
 
     @Get("/doctor")
@@ -164,19 +222,17 @@ public class ClientController {
 
     @Get("/health-check")
     @Produces(MediaType.APPLICATION_JSON)
-    public String health() {
-        try {
-            return new com.fasterxml.jackson.databind.ObjectMapper()
-                .findAndRegisterModules()
-                .writerWithDefaultPrettyPrinter()
-                .writeValueAsString(healthCheckService.getFullStatus());
-        } catch (Exception e) {
-            return "{\"error\": \"" + e.getMessage() + "\"}";
-        }
+    public String healthCheck() {
+        return health();
     }
 
     @Get("/health/simple")
-    public Map<String, Object> healthSimple() {
-        return healthCheckService.getSimpleStatus();
+    public Map<String, Object> healthSimpleOld() {
+        return healthSimple();
+    }
+
+    @Get("/warm-cache")
+    public Map<String, Object> warmCacheOld(@QueryValue(defaultValue = "500") int limit) {
+        return runWarmCache(limit);
     }
 }

@@ -32,3 +32,8 @@ grfloader/build/
 client/resources/*
 !client/resources/test.grf
 !client/resources/Data.ini
+client/Data/**
+client/AI/**
+client/logs/**
+client/BGM/**
+client/System/**

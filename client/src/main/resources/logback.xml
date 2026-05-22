@@ -35,7 +35,7 @@
         <appender-ref ref="MISSING_FILES_FILE"/>
     </logger>
 
-    <root level="info">
+    <root level="${LOG_LEVEL:-info}">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>

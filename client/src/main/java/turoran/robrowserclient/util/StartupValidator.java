@@ -101,8 +101,8 @@ public class StartupValidator {
             addInfo("OS: " + osName + " " + osVersion + " (" + osArch + ")");
 
             int majorVersion = Runtime.version().feature();
-            if (majorVersion < 17) {
-                addWarning("Java version " + javaVersion + " may be too old. Recommended: v17 or newer");
+            if (majorVersion < 21) {
+                addWarning("Java version " + javaVersion + " may be too old. Recommended: v21 or newer");
             }
         } catch (Exception error) {
             addError("Failed to check Java version: " + error.getMessage());
@@ -772,37 +772,9 @@ public class StartupValidator {
     private String clientPublicUrl;
 
     public boolean validateEnvironment() {
-        // In Micronaut, we check Environment and system variables
-        Map<String, String> envVars = new HashMap<>();
-        envVars.put("PORT", System.getenv("PORT"));
-        envVars.put("CLIENT_PUBLIC_URL", clientPublicUrl);
 
         boolean hasErrors = false;
         Map<String, Object> results = new HashMap<>();
-
-        if (envVars.get("PORT") == null) {
-            addWarning("PORT not set, using default: 3338");
-            results.put("PORT", Map.of("defined", false, "usingDefault", true, "value", "3338"));
-        } else {
-            addInfo("PORT: " + envVars.get("PORT"));
-            results.put("PORT", Map.of("defined", true, "value", envVars.get("PORT")));
-        }
-
-        if (envVars.get("CLIENT_PUBLIC_URL") == null || envVars.get("CLIENT_PUBLIC_URL").isEmpty()) {
-            addError("CLIENT_PUBLIC_URL not set! Configure it in the environment or application.yml");
-            hasErrors = true;
-            results.put("CLIENT_PUBLIC_URL", Map.of("defined", false, "error", "Variable not set"));
-        } else {
-            try {
-                new URI(envVars.get("CLIENT_PUBLIC_URL")).toURL();
-                addInfo("CLIENT_PUBLIC_URL: " + envVars.get("CLIENT_PUBLIC_URL"));
-                results.put("CLIENT_PUBLIC_URL", Map.of("defined", true, "value", envVars.get("CLIENT_PUBLIC_URL")));
-            } catch (URISyntaxException | IllegalArgumentException | java.net.MalformedURLException e) {
-                addError("Invalid CLIENT_PUBLIC_URL: " + envVars.get("CLIENT_PUBLIC_URL"));
-                hasErrors = true;
-                results.put("CLIENT_PUBLIC_URL", Map.of("defined", true, "invalid", true, "value", envVars.get("CLIENT_PUBLIC_URL")));
-            }
-        }
 
         if (applicationContext != null) {
             Set<String> activeEnvs = applicationContext.getEnvironment().getActiveNames();

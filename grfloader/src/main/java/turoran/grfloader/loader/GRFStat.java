@@ -19,4 +19,6 @@ public class GRFStat {
     private int mojibake;
     private int c1;
     private String detectedEncoding;
+    private long lastModified;
+    private long fileSize;
 }

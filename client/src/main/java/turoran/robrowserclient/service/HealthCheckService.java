@@ -30,7 +30,14 @@ public class HealthCheckService {
         status.put("jvm", getJvmInfo());
         status.put("grfs", startupResults.get("details"));
         status.put("cache", lruCacheService.getStats());
-        status.put("index", clientService.getIndexStats());
+        Map<String, Object> indexStats = clientService.getIndexStats();
+        status.put("index", indexStats);
+        
+        if (indexStats.containsKey("mappingLastModified")) {
+            status.put("pathMappingStatus", "valid");
+        } else if ((boolean) indexStats.getOrDefault("usePathMappings", false)) {
+            status.put("pathMappingStatus", "missing");
+        }
         
         @SuppressWarnings("unchecked")
         List<String> warnings = (List<String>) startupResults.get("warnings");
@@ -137,6 +144,12 @@ public class HealthCheckService {
         Map<String, Object> indexStats = clientService.getIndexStats();
         sb.append("   - GRFs Loaded:       ").append(indexStats.get("grfCount")).append("\n");
         sb.append("   - Files Indexed:     ").append(String.format("%,d", indexStats.get("totalFiles"))).append("\n");
+        if (indexStats.containsKey("pathMappings")) {
+            sb.append("   - Path Mappings:     ").append(String.format("%,d", indexStats.get("pathMappings"))).append("\n");
+        }
+        if (indexStats.containsKey("mappingLastModified")) {
+            sb.append("   - Mapping Updated:   ").append(indexStats.get("mappingLastModified")).append("\n");
+        }
         
         CacheStats cacheStats = lruCacheService.getStats();
         sb.append("   - Cache Items:       ").append(String.format("%,d", cacheStats.size())).append("\n");

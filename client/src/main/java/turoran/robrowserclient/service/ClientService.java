@@ -10,6 +10,8 @@ import jakarta.annotation.PreDestroy;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import turoran.grfloader.loader.GRFStat;
+import turoran.grfloader.loader.PathMapping;
 import turoran.grfloader.tools.PathMappingTool;
 import turoran.robrowserclient.model.CacheEntry;
 import turoran.robrowserclient.model.MissingFileLogEntry;
@@ -310,12 +312,56 @@ public class ClientService {
     private void loadPathMapping() {
         Path resourcesPath = Paths.get(rootPath, "resources");
         Path mappingPath = resourcesPath.resolve("path-mapping.json");
+        Path dataPath = Paths.get(rootPath, RESOURCES_PATH);
+        Path dataIniPath = dataPath.resolve(dataIniName);
 
-        if (!Files.exists(mappingPath) && usePathMappings) {
-            logger.info("Path mapping file missing, attempting to generate it...");
+        boolean needsRegeneration = !Files.exists(mappingPath) && usePathMappings;
+
+        if (Files.exists(mappingPath) && usePathMappings) {
             try {
-                Path dataPath = Paths.get(rootPath, RESOURCES_PATH);
-                Path dataIniPath = dataPath.resolve(dataIniName);
+                PathMapping mapping = objectMapper.readValue(mappingPath.toFile(), PathMapping.class);
+                if (Files.exists(dataIniPath)) {
+                    String dataIniContent = Files.readString(dataIniPath, Charset.forName("CP949"));
+                    Map<String, List<String>> iniData = parseIni(dataIniContent);
+                    List<String> currentGrfs = iniData.getOrDefault("data", Collections.emptyList());
+
+                    if (mapping.getGrfs() == null || mapping.getGrfs().size() != currentGrfs.size()) {
+                        logger.info("Path mapping out of date: GRF count mismatch");
+                        needsRegeneration = true;
+                    } else {
+                        for (int i = 0; i < currentGrfs.size(); i++) {
+                            String grfName = currentGrfs.get(i);
+                            GRFStat stat = mapping.getGrfs().get(i);
+                            Path grfFilePath = dataPath.resolve(grfName);
+
+                            if (!stat.getFile().equals(grfName)) {
+                                logger.info("Path mapping out of date: GRF name mismatch at index {}", i);
+                                needsRegeneration = true;
+                                break;
+                            }
+
+                            if (Files.exists(grfFilePath)) {
+                                long currentSize = Files.size(grfFilePath);
+                                long currentModified = Files.getLastModifiedTime(grfFilePath).toMillis();
+
+                                if (stat.getFileSize() != currentSize || stat.getLastModified() != currentModified) {
+                                    logger.info("Path mapping out of date: GRF {} changed", grfName);
+                                    needsRegeneration = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                logger.warn("Failed to validate path mapping, will regenerate: {}", e.getMessage());
+                needsRegeneration = true;
+            }
+        }
+
+        if (needsRegeneration) {
+            logger.info("Path mapping needs regeneration, attempting to generate it...");
+            try {
                 if (Files.exists(dataIniPath)) {
                     Files.createDirectories(resourcesPath);
                     String dataIniContent = Files.readString(dataIniPath, Charset.forName("CP949"));
@@ -330,14 +376,10 @@ public class ClientService {
 
         if (Files.exists(mappingPath)) {
             try {
-                JsonNode root = objectMapper.readTree(mappingPath.toFile());
-                if (root != null && root.has("paths")) {
-                    JsonNode pathsNode = root.get("paths");
-                    Map<String, String> mappings = objectMapper.convertValue(pathsNode, new TypeReference<Map<String, String>>() {});
-                    if (mappings != null) {
-                        externalPathMapping.putAll(mappings);
-                        logger.info("Loaded {} path mappings from {}", mappings.size(), mappingPath);
-                    }
+                PathMapping mapping = objectMapper.readValue(mappingPath.toFile(), PathMapping.class);
+                if (mapping != null && mapping.getPaths() != null) {
+                    externalPathMapping.putAll(mapping.getPaths());
+                    logger.info("Loaded {} path mappings from {}", mapping.getPaths().size(), mappingPath);
                 }
             } catch (IOException e) {
                 logger.error("Failed to load path-mapping.json: {}", e.getMessage());
@@ -453,10 +495,21 @@ public class ClientService {
     }
 
     public Map<String, Object> getIndexStats() {
-        Map<String, Object> stats = new HashMap<>();
+        Map<String, Object> stats = new LinkedHashMap<>();
         stats.put("totalFiles", fileIndex.size());
         stats.put("grfCount", grfs.size());
         stats.put("indexBuilt", indexBuilt);
+        stats.put("pathMappings", externalPathMapping.size());
+        stats.put("usePathMappings", usePathMappings);
+
+        Path mappingPath = Paths.get(rootPath, "resources", "path-mapping.json");
+        if (Files.exists(mappingPath)) {
+            try {
+                stats.put("mappingFile", mappingPath.getFileName().toString());
+                stats.put("mappingSize", Files.size(mappingPath));
+                stats.put("mappingLastModified", Files.getLastModifiedTime(mappingPath).toString());
+            } catch (IOException ignored) {}
+        }
         return stats;
     }
 

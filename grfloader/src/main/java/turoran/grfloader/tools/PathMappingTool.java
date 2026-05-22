@@ -98,7 +98,9 @@ public class PathMappingTool {
             log.info("Processing: {}", grfFile);
 
             try (RandomAccessFile raf = new RandomAccessFile(grfPath.toFile(), "r")) {
-                GRFNode grf = new GRFNode(raf);
+                GRFNodeOptions options = new GRFNodeOptions();
+                options.filenameEncoding = FilenameEncoding.LATIN1;
+                GRFNode grf = new GRFNode(raf, options);
                 grf.load();
 
                 List<String> allFiles = grf.listFiles();
@@ -109,24 +111,17 @@ public class PathMappingTool {
                 for (String filename : allFiles) {
                     summary.addFiles(1);
 
-                    boolean hasMojibake = Decoder.isMojibake(filename);
-                    boolean hasC1 = Decoder.countC1ControlChars(filename) > 0;
-
-                    if (hasMojibake || hasC1) {
-                        String fixed = filename;
-
-                        if (hasMojibake) {
-                            fixed = Decoder.fixMojibake(filename);
-                            grfMojibake++;
+                    boolean hasHighChar = false;
+                    for (int i = 0; i < filename.length(); i++) {
+                        if (filename.charAt(i) > 0x7F) {
+                            hasHighChar = true;
+                            break;
                         }
+                    }
 
-                        if (hasC1 && fixed.equals(filename)) {
-                             fixed = Decoder.maybeFixLatin1Mojibake(filename, Decoder.CP949);
-                             if (!fixed.equals(filename)) {
-                                 grfC1++;
-                             }
-                        }
-
+                    if (hasHighChar) {
+                        String fixed = Decoder.fixMojibake(filename);
+                        
                         if (!fixed.equals(filename)) {
                             String koreanPath = fixed;
                             String grfPathStr = filename;
@@ -144,6 +139,13 @@ public class PathMappingTool {
                             }
 
                             grfMapped++;
+                            
+                            // Update stats based on what was found
+                            if (Decoder.isMojibake(filename)) {
+                                grfMojibake++;
+                            } else if (Decoder.countC1ControlChars(filename) > 0) {
+                                grfC1++;
+                            }
                         }
                     }
                 }
@@ -155,6 +157,8 @@ public class PathMappingTool {
                         .mojibake(grfMojibake)
                         .c1(grfC1)
                         .detectedEncoding(grf.getDetectedEncoding().toString())
+                        .lastModified(Files.getLastModifiedTime(grfPath).toMillis())
+                        .fileSize(Files.size(grfPath))
                         .build();
                 grfsStats.add(grfStat);
 

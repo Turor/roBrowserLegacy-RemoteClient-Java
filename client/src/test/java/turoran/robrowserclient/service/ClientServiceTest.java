@@ -122,7 +122,7 @@ public class ClientServiceTest {
         Path rootPath = Path.of("build/resources/test");
         Path mappingFile = rootPath.resolve("resources").resolve("path-mapping.json");
         Files.createDirectories(mappingFile.getParent());
-        String mappingJson = "{\"paths\": {\"mapped/path.txt\": \"raw\"}}";
+        String mappingJson = "{\"generatedAt\": \"2024-03-20T10:00:00Z\", \"paths\": {\"mapped/path.txt\": \"raw\"}}";
         Files.writeString(mappingFile, mappingJson);
         
         // Re-init to load mapping

@@ -24,6 +24,7 @@ dependencies {
     implementation("io.micronaut.cache:micronaut-cache-caffeine")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("io.micronaut:micronaut-inject")
     implementation("jakarta.validation:jakarta.validation-api")
     compileOnly("org.projectlombok:lombok:1.18.32")

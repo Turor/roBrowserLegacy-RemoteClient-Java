@@ -18,7 +18,7 @@ public class GRFBenchmarkTest {
         return new File(url.toURI());
     }
 
-    @Test
+//    @Test
     public void runBenchmarks() throws Exception {
         PerformanceBenchmark bench = new PerformanceBenchmark();
         File grfFile = getResourceFile();

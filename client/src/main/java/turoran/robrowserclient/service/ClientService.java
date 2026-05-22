@@ -1,9 +1,10 @@
 package turoran.robrowserclient.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.micronaut.context.BeanContext;
+import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.Value;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -23,12 +24,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@Context
 @Singleton
 public class ClientService {
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
@@ -37,11 +40,11 @@ public class ClientService {
     private final LRUCacheService fileCache;
     private final StartupValidator startupValidator;
     private final BeanContext beanContext;
-    private static final String RESOURCES_PATH = "resources";
-    private static final String BGM_PATH = "BGM";
-    private static final String DATA_PATH = "Data";
-    private static final String AI_PATH = "AI";
-    private static final String SYSTEM_PATH = "System";
+    public static final String RESOURCES_PATH = "resources";
+    public static final String BGM_PATH = "BGM";
+    public static final String DATA_PATH = "Data";
+    public static final String AI_PATH = "AI";
+    public static final String SYSTEM_PATH = "System";
 
     @Value("${client.rootpath:.}")
     private String rootPath;
@@ -76,7 +79,9 @@ public class ClientService {
     private static final long NOTIFICATION_COOLDOWN = 60000;
 
     private final Map<String, String> externalPathMapping = new HashMap<>();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     private record FileIndexEntry(int grfIndex, String originalPath, String mappedFrom) {}
 
@@ -310,6 +315,7 @@ public class ClientService {
     }
 
     private void loadPathMapping() {
+        Instant start = Instant.now();
         Path resourcesPath = Paths.get(rootPath, "resources");
         Path mappingPath = resourcesPath.resolve("path-mapping.json");
         Path dataPath = Paths.get(rootPath, RESOURCES_PATH);
@@ -326,7 +332,7 @@ public class ClientService {
                     List<String> currentGrfs = iniData.getOrDefault("data", Collections.emptyList());
 
                     if (mapping.getGrfs() == null || mapping.getGrfs().size() != currentGrfs.size()) {
-                        logger.info("Path mapping out of date: GRF count mismatch");
+                        logger.info("Path mapping out of date: GRF count mismatch elapsed time for loadingPathMapping={}", Duration.between(start, Instant.now()).toMillis());
                         needsRegeneration = true;
                     } else {
                         for (int i = 0; i < currentGrfs.size(); i++) {
@@ -360,7 +366,7 @@ public class ClientService {
         }
 
         if (needsRegeneration) {
-            logger.info("Path mapping needs regeneration, attempting to generate it...");
+            logger.info("Path mapping needs regeneration, attempting to generate it elapsed time for loadingPathMapping={}", Duration.between(start, Instant.now()).toMillis());
             try {
                 if (Files.exists(dataIniPath)) {
                     Files.createDirectories(resourcesPath);

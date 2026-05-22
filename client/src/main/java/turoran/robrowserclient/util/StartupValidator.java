@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import turoran.grfloader.loader.GRFNode;
 import turoran.grfloader.loader.GrfStats;
 import turoran.grfloader.loader.Decoder;
+import turoran.robrowserclient.service.ClientService;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -51,11 +52,23 @@ public class StartupValidator {
     @Value("${client.rootpath:.}")
     private String rootPath;
 
-    @Value("${client.datapath:Data}")
-    private String dataPathName;
-
-    @Value("${client.dataini:DATA.INI}")
+    @Value("${client.dataininame:DATA.INI}")
     private String dataIniName;
+
+    @Value("${client.autoextract:false}")
+    private boolean autoExtract;
+
+    @Value("${client.enablesearch:true}")
+    private boolean enableSearch;
+
+    @Value("${client.usepathmappings:false}")
+    private boolean usePathMappings;
+
+    @Value("${client.cache.warmup.enabled:true}")
+    private boolean warmUpEnabled;
+
+    @Value("${client.cache.warmup.limit:500}")
+    private int warmUpLimit;
 
     public void addError(String message) {
         errors.add(message);
@@ -130,11 +143,11 @@ public class StartupValidator {
     }
 
     public boolean validateGrfs() {
-        Path dataPath = Paths.get(rootPath, dataPathName);
-        Path dataIniPath = dataPath.resolve(dataIniName);
+        Path resourcePath = Paths.get(rootPath, ClientService.RESOURCES_PATH);
+        Path dataIniPath = resourcePath.resolve(dataIniName);
 
         if (!Files.exists(dataIniPath)) {
-            addError("Data directory " + dataIniName + " not found at " + dataIniPath.toAbsolutePath());
+            addError("resources directory " + ClientService.RESOURCES_PATH + " not found at " + resourcePath.toAbsolutePath());
             validationResults.put("grfs", Map.of("valid", false, "reason", "DATA.INI missing"));
             return false;
         }
@@ -154,7 +167,7 @@ public class StartupValidator {
             boolean hasInvalidGrf = false;
 
             for (String grfFile : grfFiles) {
-                Path grfPath = dataPath.resolve(grfFile);
+                Path grfPath = resourcePath.resolve(grfFile);
 
                 if (!Files.exists(grfPath)) {
                     addError("GRF not found: " + grfFile);
@@ -608,7 +621,7 @@ public class StartupValidator {
         List<Map<String, Object>> grfResults = new ArrayList<>();
         List<Map<String, Object>> filesToConvert = new ArrayList<>();
 
-        Path dataPath = Paths.get(rootPath, dataPathName);
+        Path dataPath = Paths.get(rootPath, ClientService.DATA_PATH);
         for (String grfFile : grfFiles) {
             Path grfPath = dataPath.resolve(grfFile);
             if (!Files.exists(grfPath)) continue;
@@ -700,9 +713,9 @@ public class StartupValidator {
     public boolean validateRequiredFiles() {
         List<Map<String, Object>> checks = List.of(
                 Map.of("path", rootPath, "type", "dir", "required", true, "name", "Root folder"),
-                Map.of("path", Paths.get(rootPath, dataPathName, dataIniName).toString(), "type", "file", "required", true, "name", dataIniName + " file"),
+                Map.of("path", Paths.get(rootPath, ClientService.DATA_PATH, dataIniName).toString(), "type", "file", "required", true, "name", dataIniName + " file"),
                 Map.of("path", Paths.get(rootPath, "BGM").toString(), "type", "dir", "required", false, "name", "BGM folder"),
-                Map.of("path", Paths.get(rootPath, dataPathName).toString(), "type", "dir", "required", true, "name", dataPathName + " folder"),
+                Map.of("path", Paths.get(rootPath, ClientService.DATA_PATH).toString(), "type", "dir", "required", true, "name", ClientService.DATA_PATH + " folder"),
                 Map.of("path", Paths.get(rootPath, "System").toString(), "type", "dir", "required", false, "name", "System folder"),
                 Map.of("path", Paths.get(rootPath, "AI").toString(), "type", "dir", "required", false, "name", "AI folder"),
                 Map.of("path", Paths.get(rootPath, "resources").toString(), "type", "dir", "required", false, "name", "Resources folder")
@@ -755,7 +768,7 @@ public class StartupValidator {
         return !hasErrors;
     }
 
-    @Value("${client.public-url:${CLIENT_PUBLIC_URL:}}")
+    @Value("${micronaut.server.port:3338}")
     private String clientPublicUrl;
 
     public boolean validateEnvironment() {

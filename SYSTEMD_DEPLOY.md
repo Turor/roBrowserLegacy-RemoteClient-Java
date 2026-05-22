@@ -22,6 +22,7 @@ java -version
 First, build the fat JARs for both subprojects:
 
 ```bash
+chmod +x gradlew
 ./gradlew shadowJar
 ```
 
@@ -37,18 +38,30 @@ It is recommended to use `/opt/remoteclient` as the deployment directory.
 sudo mkdir -p /opt/remoteclient/bin
 sudo mkdir -p /opt/remoteclient/config
 sudo mkdir -p /opt/remoteclient/logs
-sudo mkdir -p /opt/remoteclient/Data
+sudo mkdir -p /opt/remoteclient/resources
 ```
 
-Copy the JARs and the configuration file:
+Copy the JARs, the configuration file, and the web client:
 
 ```bash
 sudo cp client/build/libs/client-0.1-all.jar /opt/remoteclient/bin/client.jar
 sudo cp wsproxy/build/libs/wsproxy-0.1-all.jar /opt/remoteclient/bin/wsproxy.jar
 sudo cp application.properties /opt/remoteclient/config/application.properties
+# Copy your web client (index.html and any other static files)
+sudo cp index.html /opt/remoteclient/
 ```
 
-Ensure you have your `index.html` in `/opt/remoteclient` and your `DATA.INI` and GRF files in `/opt/remoteclient/Data` (or wherever you point `client.rootpath` to).
+### Ragnarok Online Data
+
+Ensure you have your `DATA.INI` and GRF files in `/opt/remoteclient/resources`.
+
+The application will automatically create the following directories in `/opt/remoteclient` if they don't exist:
+- `BGM/`
+- `Data/`
+- `AI/`
+- `System/`
+
+You should populate these with your client files (e.g., Lua files in `System/`, textures in `Data/`) as needed.
 
 ## 3. Create a System User
 
@@ -76,11 +89,9 @@ Group=remoteclient
 WorkingDirectory=/opt/remoteclient
 Environment="MICRONAUT_CONFIG_FILES=/opt/remoteclient/config/application.properties"
 Environment="MICRONAUT_APPLICATION_NAME=client"
-ExecStart=/usr/bin/java -jar /opt/remoteclient/bin/client.jar
+ExecStart=/usr/bin/java -Dclient.rootpath=/opt/remoteclient -jar /opt/remoteclient/bin/client.jar
 Restart=always
 RestartSec=10
-# StandardOutput=append:/opt/remoteclient/logs/client.log
-# StandardError=append:/opt/remoteclient/logs/client-error.log
 
 [Install]
 WantedBy=multi-user.target
@@ -102,8 +113,6 @@ Environment="MICRONAUT_APPLICATION_NAME=wsproxy"
 ExecStart=/usr/bin/java -jar /opt/remoteclient/bin/wsproxy.jar
 Restart=always
 RestartSec=10
-# StandardOutput=append:/opt/remoteclient/logs/proxy.log
-# StandardError=append:/opt/remoteclient/logs/proxy-error.log
 
 [Install]
 WantedBy=multi-user.target
@@ -129,6 +138,6 @@ sudo systemctl start remote-proxy.service
 ## Configuration Notes
 
 - **Logging**: By default, logs are sent to journald. You can view them with `journalctl`. If you prefer file-based logging via systemd, uncomment the `StandardOutput` and `StandardError` lines in the unit files. Note that the application also performs its own logging to `${client.logpath}` as configured in `application.properties`.
-- **Working Directory**: The `remote-client.service` uses `/opt/remoteclient` as the working directory to align with `client.rootpath` and ensure that `index.html` (in the working directory) and RO data (in the `Data/` sub-directory) are correctly located.
+- **Working Directory**: The `remote-client.service` uses `/opt/remoteclient` as the working directory to ensure that `index.html` (in the working directory) and RO data (in the `resources/` sub-directory) are correctly located. We also set `-Dclient.rootpath=/opt/remoteclient` to ensure the application knows its base directory.
 - **Environment Variables**: You can override any property using environment variables, e.g., `Environment="WSPROXY_ENABLED=true"`.
 - **Memory**: You can add JVM options to `ExecStart`, e.g., `ExecStart=/usr/bin/java -Xmx1024m -jar ...`.

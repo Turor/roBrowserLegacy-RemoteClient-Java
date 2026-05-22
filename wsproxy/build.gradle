@@ -16,8 +16,11 @@ dependencies {
     
     implementation("io.micronaut:micronaut-inject")
     implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut:micronaut-management")
     implementation("io.micronaut:micronaut-websocket")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
+    
+    testImplementation("io.micronaut:micronaut-http-client")
     
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")

@@ -23,6 +23,10 @@ wsproxy.allowed-targets=127.0.0.1:6900,127.0.0.1:6121,127.0.0.1:5121
 client.server.port=3338
 wsproxy.server.port=5999
 
+# Healthcheck settings (requires micronaut-management)
+endpoints.health.enabled=true
+endpoints.health.details-visible=anonymous
+
 # Startup tasks
 client.tasks.validate-grfs=true
 client.tasks.mapping-output=path-mapping.json

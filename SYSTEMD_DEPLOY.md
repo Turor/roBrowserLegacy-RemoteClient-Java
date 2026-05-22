@@ -87,9 +87,14 @@ Type=simple
 User=remoteclient
 Group=remoteclient
 WorkingDirectory=/opt/remoteclient
-Environment="MICRONAUT_CONFIG_FILES=/opt/remoteclient/config/application.properties"
 Environment="MICRONAUT_APPLICATION_NAME=client"
-ExecStart=/usr/bin/java -Dclient.rootpath=/opt/remoteclient -jar /opt/remoteclient/bin/client.jar
+ExecStart=/usr/bin/java \
+  -Xms256m \
+  -Xmx1024m \
+  -Dmicronaut.server.host=0.0.0.0 \
+  -Dmicronaut.config.files=/opt/remoteclient/config/application.properties \
+  -Dmicronaut.server.port=3338 \
+  -jar /opt/remoteclient/bin/client.jar
 Restart=always
 RestartSec=10
 
@@ -108,9 +113,14 @@ Type=simple
 User=remoteclient
 Group=remoteclient
 WorkingDirectory=/opt/remoteclient
-Environment="MICRONAUT_CONFIG_FILES=/opt/remoteclient/config/application.properties"
 Environment="MICRONAUT_APPLICATION_NAME=wsproxy"
-ExecStart=/usr/bin/java -jar /opt/remoteclient/bin/wsproxy.jar
+ExecStart=/usr/bin/java \
+  -Xms256m \
+  -Xmx1024m \
+  -Dmicronaut.server.host=0.0.0.0 \
+  -Dmicronaut.config.files=/opt/remoteclient/config/application.properties \
+  -Dmicronaut.server.port=5999 \
+  -jar /opt/remoteclient/bin/wsproxy.jar
 Restart=always
 RestartSec=10
 

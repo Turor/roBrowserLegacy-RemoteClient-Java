@@ -3,14 +3,14 @@
 # micronaut.application.name is set via system properties in build.gradle
 
 # Shared logging settings
-client.rootpath=D:\\GameDevelopment\\remoteclient\\client
+client.rootpath=\path\to\remoteclient\client
 client.resourcespath=resources
 client.logpath=logs
 client.dataininame=Data.ini
 client.usepathmappings=true
 client.autoextract=true
 client.enablesearch=true
-client.cache.max-files=5000
+client.cache.max-files=1000
 client.cache.max-memory-mb=1024
 client.cache.warmup.enabled=true
 client.cache.warmup.limit=500

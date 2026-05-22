@@ -25,6 +25,9 @@ public class ClientController {
         ".txt", ".xml", ".lub", ".lua"
     );
 
+    private static final int CACHE_STATIC = 86400;
+    private static final int CACHE_INDEX = 60;
+
     private final ClientService clientService;
     private final LRUCacheService lruCacheService;
     private final StartupValidator startupValidator;
@@ -49,7 +52,7 @@ public class ClientController {
                 byte[] content = Files.readAllBytes(indexFile.toPath());
                 return HttpResponse.ok(content)
                     .contentType(MediaType.TEXT_HTML_TYPE)
-                    .header("Cache-Control", "public, max-age=60");
+                    .header("Cache-Control", "public, max-age=" + CACHE_INDEX);
             } catch (IOException e) {
                 return HttpResponse.serverError("Error reading index.html");
             }
@@ -79,8 +82,8 @@ public class ClientController {
 
         if (STATIC_EXTENSIONS.contains(extension)) {
             response.header("ETag", "\"" + etag + "\"")
-                    .header("Cache-Control", "public, max-age=86400, immutable")
-                    .header("Last-Modified", new Date().toString());
+                    .header("Cache-Control", "public, max-age=" + CACHE_STATIC + ", immutable")
+                    .header("Last-Modified", new java.text.SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US).format(new Date()));
         } else {
             response.header("Cache-Control", "no-cache, no-store, must-revalidate");
         }

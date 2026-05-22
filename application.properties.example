@@ -18,7 +18,10 @@ client.cache.warmup.limit=500
 # Proxy settings (used by both client and wsproxy)
 wsproxy.enabled=true
 wsproxy.allowed-targets=127.0.0.1:6900,127.0.0.1:6121,127.0.0.1:5121
-micronaut.server.port=3338
+
+# Server ports
+client.server.port=3338
+wsproxy.server.port=5999
 
 # Startup tasks
 client.tasks.validate-grfs=true

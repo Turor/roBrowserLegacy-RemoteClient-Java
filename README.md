@@ -22,17 +22,33 @@ client-root/
 
 ## Configuration
 
-The application can be configured in `src/main/resources/application.properties`:
+The application is configured in `application.properties`:
 
+### Client Settings
 - `client.rootpath`: Root directory for client files.
-- `client.logpath`: Directory where logs will be stored (default: `${client.rootpath}/logs`).
-- `client.dataini`: Name of the DATA.INI file (default: `DATA.INI`).
+- `client.resourcespath`: Relative path to custom resources directory (default: `resources`).
+- `client.logpath`: Relative path to logs directory (default: `logs`).
+- `client.dataininame`: Name of the `DATA.INI` file (default: `Data.ini`).
+- `client.usepathmappings`: Enable path mappings (default: `true`).
 - `client.autoextract`: Automatically extract missing files from GRFs (default: `true`).
 - `client.enablesearch`: Enable file search functionality (default: `true`).
+- `client.public-url`: The public URL of the client (default: `http://localhost:3338`).
+
+### Cache Settings
 - `client.cache.max-files`: Maximum number of files to keep in cache (default: `5000`).
 - `client.cache.max-memory-mb`: Maximum memory in MB to use for cache (default: `1024`).
 - `client.cache.warmup.enabled`: Enable cache warm-up on startup (default: `true`).
 - `client.cache.warmup.limit`: Maximum number of files to pre-load during warm-up (default: `500`).
+
+### WebSocket Proxy Settings
+- `wsproxy.enabled`: Enable the WebSocket proxy (default: `true`, env: `ENABLE_WSPROXY`).
+- `wsproxy.allowed-targets`: Comma-separated list of allowed target addresses (env: `WS_ALLOWED_TARGETS`).
+
+### Server & System Settings
+- `micronaut.server.port`: The port the application listens on (default: `3338`).
+- `client.tasks.validate-grfs`: Validate all GRFs on startup (default: `true`).
+- `client.tasks.mapping-output`: Filename for path mapping output (env: `MAPPING_OUTPUT`).
+- `LOG_LEVEL`: Root logging level (default: `DEBUG`).
 
 ## License
 

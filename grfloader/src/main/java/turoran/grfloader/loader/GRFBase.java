@@ -268,7 +268,7 @@ public abstract class GRFBase<T> {
             if ((entry.type & FILELIST_TYPE_FILE) != 0) {
                 this.files.put(filename, entry);
 
-                String normalizedKey = Decoder.normalizePath(filename);
+                String normalizedKey = Decoder.normalizePath(filename).toLowerCase();
                 List<String> existingNorm = this.normalizedIndex.computeIfAbsent(normalizedKey, k -> new ArrayList<>());
                 if (!existingNorm.isEmpty()) {
                     this.stats.collisionCount++;
@@ -360,7 +360,7 @@ public abstract class GRFBase<T> {
             return new ResolveResult(ResolveResult.Status.FOUND, query);
         }
 
-        String normalizedQuery = Decoder.normalizePath(query);
+        String normalizedQuery = Decoder.normalizePath(query).toLowerCase();
         List<String> candidates = this.normalizedIndex.get(normalizedQuery);
 
         if (candidates == null || candidates.isEmpty()) {
@@ -407,14 +407,14 @@ public abstract class GRFBase<T> {
                 }
 
                 if (options.contains != null) {
-                    String normalizedFilename = Decoder.normalizePath(filename);
-                    String normalizedContains = Decoder.normalizePath(options.contains);
+                    String normalizedFilename = Decoder.normalizePath(filename).toLowerCase();
+                    String normalizedContains = Decoder.normalizePath(options.contains).toLowerCase();
                     if (!normalizedFilename.contains(normalizedContains)) continue;
                 }
 
                 if (options.endsWith != null) {
-                    String normalizedFilename = Decoder.normalizePath(filename);
-                    String normalizedEndsWith = Decoder.normalizePath(options.endsWith);
+                    String normalizedFilename = Decoder.normalizePath(filename).toLowerCase();
+                    String normalizedEndsWith = Decoder.normalizePath(options.endsWith).toLowerCase();
                     if (!normalizedFilename.endsWith(normalizedEndsWith)) continue;
                 }
 

@@ -134,9 +134,7 @@ public class PathMappingTool {
                             
                             String normalizedKoreanBS = koreanPath.replace('/', '\\').toLowerCase();
                             String normalizedGrfBS = grfPathStr.replace('/', '\\').toLowerCase();
-                            if (!normalizedKoreanBS.equals(koreanPath)) {
-                                pathsMap.put(normalizedKoreanBS, normalizedGrfBS);
-                            }
+                            pathsMap.put(normalizedKoreanBS, normalizedGrfBS);
 
                             grfMapped++;
                             

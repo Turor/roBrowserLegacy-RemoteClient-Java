@@ -184,21 +184,21 @@ public class ClientService {
                 uniqueEntries.add(mainEntry);
                 
                 String normalized = file.toLowerCase().replace('\\', '/');
-                fileIndex.putIfAbsent(normalized, mainEntry);
+                fileIndex.put(normalized, mainEntry);
 
                 String normalizedBackslash = file.toLowerCase().replace('/', '\\');
-                fileIndex.putIfAbsent(normalizedBackslash, mainEntry);
+                fileIndex.put(normalizedBackslash, mainEntry);
 
                 try {
                     byte[] cp949Bytes = file.getBytes(cp949);
                     String mojibakePath = new String(cp949Bytes, latin1);
                     if (!mojibakePath.equals(file)) {
                         String normalizedMojibake = mojibakePath.toLowerCase().replace('\\', '/');
-                        if (fileIndex.putIfAbsent(normalizedMojibake, mainEntry) == null) {
+                        if (fileIndex.put(normalizedMojibake, mainEntry) == null) {
                             mojibakeCount++;
                         }
                         String mojibakeBackslash = mojibakePath.toLowerCase().replace('/', '\\');
-                        fileIndex.putIfAbsent(mojibakeBackslash, mainEntry);
+                        fileIndex.put(mojibakeBackslash, mainEntry);
                     }
                 } catch (Exception ignored) {}
             }

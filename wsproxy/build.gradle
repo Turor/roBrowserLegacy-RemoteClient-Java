@@ -27,7 +27,10 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
     
-    implementation("io.netty:netty-all")
+    implementation("io.netty:netty-common")
+    implementation("io.netty:netty-buffer")
+    implementation("io.netty:netty-transport")
+    implementation("io.netty:netty-handler")
 
     runtimeOnly("ch.qos.logback:logback-classic")
 
